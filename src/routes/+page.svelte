@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { currentUser } from '$lib/pocketbase';
+
+	console.log($currentUser);
 </script>
 
-Welcome to tourdeapp
+<h1>Code Time</h1>

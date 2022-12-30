@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
+<main class="bg-ctgray-500 font-fira-code text-white min-h-screen">
+	<slot />
+</main>
