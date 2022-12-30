@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"pocketbase": "./pocketbase serve",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -24,7 +25,6 @@
 		"postcss": "^8.4.20",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
-		"prisma": "^4.7.1",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
 		"svelte-preprocess": "^5.0.0",
@@ -36,6 +36,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^4.7.1"
+		"pocketbase": "^0.9.1"
 	}
 }
