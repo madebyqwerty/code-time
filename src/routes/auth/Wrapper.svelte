@@ -1,8 +1,6 @@
-<div class="grid h-screen w-screen place-items-center">
-	<div>
-		<a href="/domov" class="text-ctgreen-500">cd ../domov</a>
-		<div class="p-4 border-4 border-ctgreen-500">
-			<slot />
-		</div>
+<section class="section-default">
+    <div>
+        <a class="text-base green green-hover width-max" href="/">cd ~/domov</a>
+		<slot />
 	</div>
-</div>
+</section>
