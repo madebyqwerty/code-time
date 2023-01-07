@@ -2,7 +2,7 @@
 	import { createRecord } from '$lib/pocketbase';
 
 	function handleClick() {
-		createRecord(new Date(), 5, ['javascript', 'svelte'], 4, 'Programoval jsem na tourdeapp', [
+		createRecord(new Date(), 5, ['JavaScript', 'Svelte'], 4, 'Programoval jsem na tourdeapp', [
 			'98bw75lmks7agui'
 		]);
 	}

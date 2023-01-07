@@ -1,3 +1,4 @@
+import type { Language } from '$lib/utils/languages';
 import { pb } from '.';
 
 /**
@@ -5,7 +6,7 @@ import { pb } from '.';
  *
  * @param  {Date} date Datum kdy programoval
  * @param  {number} length Délka v minutách jak dlouho programoval
- * @param  {string[]} language Jazyky ve kterých programoval
+ * @param  {Language[]} language Jazyky ve kterých programoval
  * @param  {number} rating Počet hvězdiček
  * @param  {string} description Popis programování
  * @param  {string[]} tags Tagy
@@ -13,7 +14,7 @@ import { pb } from '.';
 export async function createRecord(
 	date: Date,
 	length: number,
-	language: string[],
+	language: Language[],
 	rating: number,
 	description: string,
 	tags: string[]
