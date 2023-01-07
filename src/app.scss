@@ -1,0 +1,30 @@
+/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
+
+h1 {
+	font-family: 'Silkscreen', monospace;
+	font-size: 16rem;
+}
+
+h2 {
+	font-family: 'Silkscreen', monospace;
+	font-size: 12rem;
+}
+
+h3 {
+	font-family: 'Silkscreen', monospace;
+	font-size: 8rem;
+}
+
+h4 {
+	font-family: 'Silkscreen', monospace;
+	font-size: 6rem;
+}
+
+a {
+	text-decoration: underline;
+}
+
+*:focus {
+	outline: 2px;
+	outline-color: $ctgreen-500;
+}
