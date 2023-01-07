@@ -6,6 +6,8 @@
 
 <h1>Code Time</h1>
 
+<button> test </button>
+
 <style lang="scss">
 	h1 {
 		color: $ctgreen-500;
