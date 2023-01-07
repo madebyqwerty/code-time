@@ -20,17 +20,20 @@ h1 {
 
 h2 {
 	font-family: 'Silkscreen', monospace;
-	font-size: 12rem;
+	font-size: 4.8rem;
+	line-height:6.144rem;
 }
 
 h3 {
 	font-family: 'Silkscreen', monospace;
-	font-size: 8rem;
+	font-size: 3rem;
+	line-height:3.8rem;
 }
 
-h4 {
+h4,th {
 	font-family: 'Silkscreen', monospace;
-	font-size: 6rem;
+	font-size: 2.4rem;
+	line-height:3.072rem;
 }
 
 a {
@@ -50,6 +53,12 @@ a {
 	font-family:"Fira Code",monospace;
 	font-size:1.6rem;
 	line-height:2.4rem;
+	text-decoration:none;
+}
+.text-sm{
+	font-family:"Fira Code",monospace;
+	font-size:1.4rem;
+	line-height:2rem;
 	text-decoration:none;
 }
 
@@ -101,7 +110,7 @@ a {
 		color:lighten($green-primary, 20)
 	}
 }
-.wrapper, .section-default{
+.wrapper, .section-default,.home-page{
 	display:flex;
 	flex-direction:column;
 	justify-content:center;
@@ -118,3 +127,76 @@ a {
 	text-align: left;
   align-items:start;
 }
+.table-default{
+	border-collapse: separate;
+	border-spacing:1.3rem;
+}
+tr>td{
+	padding:1.5rem;
+	
+    &:not(:first-child){
+		border-left:1px solid lighten($background,10);
+	}
+	&:not(:last-child){
+		border-right:1px solid lighten($background,10);
+	}
+}
+.border{
+	width:calc(100%);
+	border-bottom: 2px solid lighten($background, 20);
+}
+th{
+	padding:2rem;
+	border-top: 1px solid $green-primary;
+	border-bottom: 1px solid $green-primary;
+	border-left:1px solid $green-primary;
+	border-right:1px solid $green-primary;
+}
+.home-page{
+	padding-top:10rem;
+}
+.number{
+	font-size:2.5rem;
+	font-family:"Silkscreen";
+	text-align:center;
+	&-sm{
+		font-size:2rem;
+	font-family:"Silkscreen";
+	text-align:center;
+	}
+}
+td[colspan="6"]{
+	padding:0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.language{
+	padding:.5rem;
+	font-size:1.7rem;
+	font-family:"Silkscreen";
+}
+.language[value="HTML"]{background:#e34c26} .language[value="CSS"]{background:#264de4} .language[value="Java"]{background:#F9A825}   .language[value="C++"]{background:#00599C}   .language[value="Python"]{background:#17739f}   .language[value="JavaScript"]{background:#af9a0e}   .language[value="C#"]{background:#8E44AD}   .language[value="PHP"]{background:#7D3C98}   .language[value="Ruby"]{background:#E0115F}   .language[value="Perl"]{background:#0298C3}   .language[value="Swift"]{background:#FA7143}   .language[value="Go"]{background:#00ADD8}   .language[value="Kotlin"]{background:#F18E33}   .language[value="Scala"]{background:#e92926}   .language[value="R"]{background:#198CE7}   .language[value="Bash"]{background:#6bb33e}   .language[value="Rust"]{background:#DEA584}   .language[value="Objective-C"]{background:#438EFF}   .language[value="React"]{background:#22a2c5}   .language[value="Angular"]{background:#DD0031}   .language[value="Vue"]{background:#41B883}   .language[value="Ember"]{background:#b3a700}   .language[value="Svelte"]{background:#FF3E00}   .language[value="C"]{background:#555555}   .language[value="Cobol"]{background:#b18f00}   .language[value="Fortran"]{background:#4D41B1}   .language[value="Lisp"]{background:#3F5EAB}   .language[value="Pascal"]{background:#809a2a}   .language[value="SQL"]{background:#00758f}   .language[value="TypeScript"]{background:#007ACC}   .language[value="Elixir"]{background:#6E4A7E}   .language[value="Erlang"]{background:#B83998}   .language[value="Julia"]{background:#A270BA}   .language[value="Haskell"]{background:#186c28}   .language[value="Clojure"]{background:#DB5855}   .language[value="OCaml"]{background:#1a9015}   .language[value="F#"]{background:#B845FC}   .language[value="WebAssembly"]{background:#0467FB} 
