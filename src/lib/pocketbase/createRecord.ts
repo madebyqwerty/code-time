@@ -17,6 +17,16 @@ export async function createRecord(
 	description: string,
 	tags: string[]
 ) {
-	// TODO: Implementovat tuhle funkci
-	console.log('Test');
+	const pb = new PocketBase('http://127.0.0.1:8090');
+
+	const data = {
+    "date": date,
+    "length": length,
+    "language": language,
+    "rating": rating,
+    "description": description,
+    "tags": tags
+	};
+
+const record = await pb.collection('records').create(data);
 }
