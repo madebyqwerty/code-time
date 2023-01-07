@@ -5,3 +5,10 @@ $green-primary: #46bc46;
 $grey: #626262;
 $transition: 120ms;
 $red-primary: red;
+
+@mixin center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

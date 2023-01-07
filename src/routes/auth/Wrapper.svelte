@@ -4,3 +4,9 @@
 		<slot />
 	</div>
 </section>
+
+<style lang="scss">
+	.wrapper {
+		@include center;
+	}
+</style>
