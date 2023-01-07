@@ -8,23 +8,15 @@
 	let email: string, password: string;
 </script>
 
-<Wrapper>
-	<div class="mb-8">
-		<h1>Login</h1>
-		<a href="/auth/register" class="text-ctgray-200">Ještě nemáte účet? Zde si ho vytvořte</a>
-	</div>
-	<form
-		action=""
-		class="flex flex-col gap-4"
-		on:submit={() => {
-			() => {
-				login(email, password);
-				goto('/');
-			};
-		}}
-	>
-		<Input placeholder="E-mail" bind:value={email} />
-		<Input placeholder="Password" bind:value={password} />
-		<Button>Login</Button>
-	</form>
-</Wrapper>
+<section class="section-default">
+    <div>
+        <a class="text-base green green-hover width-max" href="/">cd ~/domov</a>
+        <form class="wrapper">
+            <h1 class="width-max white">LOGIN</h1>
+            <a class="text-base grey grey-hover" href="/auth/register">Ještě nemáte účet? Zde si ho vytvořte</a>
+            <Input type="text" bind:value={email} placeholder="E-mail" />
+			<Input type="password" bind:value={password} placeholder="Heslo" />
+            <button class="button-default text-base">Přihlásit se</button>
+        </form>
+    </div>
+</section>
