@@ -11,7 +11,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"typegen": "npx pocketbase-typegen --db ./pb_data/data.db --out ./src/lib/pocketbase/types.ts"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^1.0.0-next.104",
