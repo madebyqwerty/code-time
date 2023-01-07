@@ -9,7 +9,7 @@
 </script>
 
 <Wrapper>
-	<form class="wrapper" on:submit={() => login(email, password)}>
+	<form class="wrapper" on:submit|preventDefault={() => login(email, password)}>
 		<h1 class="width-max white">LOGIN</h1>
 		<a class="text-base grey grey-hover" href="/auth/register"
 			>Ještě nemáte účet? Zde si ho vytvořte</a
