@@ -1,4 +1,5 @@
-import PocketBase from 'pocketbase';
+import { pb } from '.';
+
 /**
  * Tahle funkce vytváří nový záznam o programování v databázi
  *
@@ -17,16 +18,15 @@ export async function createRecord(
 	description: string,
 	tags: string[]
 ) {
-	const pb = new PocketBase('http://127.0.0.1:8090');
-
 	const data = {
-    "date": date,
-    "length": length,
-    "language": language,
-    "rating": rating,
-    "description": description,
-    "tags": tags
+		date: date.toISOString(),
+		length: length,
+		language: language,
+		rating: rating,
+		description: description,
+		tags: tags,
+		user_id: pb.authStore.model?.id
 	};
 
-const record = await pb.collection('records').create(data);
+	const record = await pb.collection('records').create(data);
 }

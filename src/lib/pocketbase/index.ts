@@ -10,6 +10,7 @@ pb.authStore.onChange(() => {
 });
 
 export async function login(email: string, password: string) {
+	console.log('login');
 	await pb.collection('users').authWithPassword(email, password);
 }
 
