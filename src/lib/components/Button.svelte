@@ -1,3 +1,4 @@
-<button class="p-4 bg-ctgreen-500 text-ctgray-500" on:click>
+
+<button class="button-default text-base">
 	<slot />
 </button>

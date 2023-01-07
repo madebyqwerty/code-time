@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { login, pb } from '$lib/pocketbase';
+	import Input from '$lib/components/forms/Input.svelte';
+	import Wrapper from '../Wrapper.svelte';
 
 	let email: string, password: string, repeatPassword: string, name: string;
 
@@ -17,11 +19,13 @@
 	}
 </script>
 
-<form action="" on:submit={register}>
-	<input type="text" placeholder="Name" bind:value={name} />
-	<input type="email" placeholder="E-mail" bind:value={email} />
-	<input type="text" placeholder="Heslo" bind:value={password} />
-	<div class="text-slate-700">Password must be atleast 12 characters long</div>
-	<input type="text" placeholder="Zopakujte heslo" bind:value={repeatPassword} />
-	<button>Login</button>
-</form>
+<Wrapper>
+	<form class="wrapper">
+		<h1 class="width-max white">REGISTRACE</h1>
+		<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
+		<Input type="text" bind:value={email} placeholder="E-mail" />
+		<Input type="password" bind:value={password} placeholder="Heslo" />
+		<Input type="password" bind:value={repeatPassword} placeholder="Zopakovat Heslo" />
+		<Button>Vytvořit účet</Button>
+	</form>
+</Wrapper>

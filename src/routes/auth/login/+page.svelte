@@ -9,28 +9,13 @@
 </script>
 
 <Wrapper>
-	<div class="mb-8">
-		<h1>Login</h1>
-		<a href="/auth/register" class="text-ctgray-200">Ještě nemáte účet? Zde si ho vytvořte</a>
-	</div>
-	<form
-		action=""
-		class="flex flex-col gap-4"
-		on:submit={() => {
-			() => {
-				login(email, password);
-				goto('/');
-			};
-		}}
-	>
-		<Input placeholder="E-mail" bind:value={email} />
-		<Input placeholder="Password" bind:value={password} />
-		<Button
-			on:click={() => {
-				login(email, password);
-				console.log('Loggin in');
-				goto('/domov');
-			}}>Login</Button
+	<form class="wrapper">
+		<h1 class="width-max white">LOGIN</h1>
+		<a class="text-base grey grey-hover" href="/auth/register"
+			>Ještě nemáte účet? Zde si ho vytvořte</a
 		>
+		<Input type="text" bind:value={email} placeholder="E-mail" />
+		<Input type="password" bind:value={password} placeholder="Heslo" />
+		<Button>Přihlásit se</Button>
 	</form>
 </Wrapper>
