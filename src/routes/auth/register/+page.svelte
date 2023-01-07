@@ -3,6 +3,7 @@
 	import { login, pb } from '$lib/pocketbase';
 	import Input from '$lib/components/forms/Input.svelte';
 	import Wrapper from '../Wrapper.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	let email: string, password: string, repeatPassword: string, name: string;
 

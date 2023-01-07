@@ -4,18 +4,18 @@
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 
 html {
-	background:$background;
-	font-size:10px;
+	background: $background;
+	font-size: 10px;
 }
 
-*{
-	transition:$transition;
+* {
+	transition: $transition;
 }
 
 h1 {
-	font-family:"Silkscreen",monospace;
-    font-size:6.4rem;
-    line-height: 8.192rem;
+	font-family: 'Silkscreen', monospace;
+	font-size: 6.4rem;
+	line-height: 8.192rem;
 }
 
 h2 {
@@ -42,79 +42,65 @@ a {
 	outline-color: $ctgreen-500;
 }
 
-.white{
-	color:white
+.white {
+	color: white;
 }
 
-.text-base{
-	font-family:"Fira Code",monospace;
-	font-size:1.6rem;
-	line-height:2.4rem;
-	text-decoration:none;
+.text-base {
+	font-family: 'Fira Code', monospace;
+	font-size: 1.6rem;
+	line-height: 2.4rem;
+	text-decoration: none;
 }
 
-.input-default{
-	border:2px solid $green-primary;
-	padding:1.2rem;
-	background:none;
+.input-default {
+	border: 2px solid $green-primary;
+	padding: 1.2rem;
+	background: none;
 	width: 100%;
-	&::-moz-placeholder{
-		color:white;
+	&::-moz-placeholder {
+		color: white;
 	}
-	&::placeholder{
-		color:white;
+	&::placeholder {
+		color: white;
 	}
-	&:focus-visible{
-		border:2px solid #90d690;
+	&:focus-visible {
+		border: 2px solid #90d690;
 	}
 }
 
-.button-default {
-	background: #46bc46;
-	border:2px solid #46bc46;
-	transition:0ms;
-	padding:1.6rem;
-	cursor:pointer;
-	&:hover{
-		background:#55c155;
-		border-color:#55c155;
-	}
-	&:active{
-		background:none;
-		color:#46bc46
-	}
+.width-max {
+	width: 100%;
 }
-.width-max{
-	width:100%;
-}
-.grey{
-	color:$grey;
+.grey {
+	color: $grey;
 
-	&-hover:hover{
-		color:lighten($grey, 20)
+	&-hover:hover {
+		color: lighten($grey, 20);
 	}
 }
-.green{
-	color:$green-primary;
+.green {
+	color: $green-primary;
 
-	&-hover:hover{
-		color:lighten($green-primary, 20)
+	&-hover:hover {
+		color: lighten($green-primary, 20);
 	}
 }
-.wrapper, .section-default{
-	display:flex;
-	flex-direction:column;
-	justify-content:center;
-	align-items:center;
+.wrapper,
+.section-default {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 .section-default {
-	width:100vw;
-	height:100vh;
+	width: 100vw;
+	height: 100vh;
 }
-.wrapper{
+.wrapper {
 	padding: 3.2rem 1.6rem;
-	border:2px solid #46BC46;
-	gap:1.6rem;
+	border: 2px solid #46bc46;
+	gap: 1.6rem;
 	text-align: left;
-  align-items:start;
+	align-items: start;
 }
