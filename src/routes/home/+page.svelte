@@ -1,3 +1,8 @@
+<script lang="ts">
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+</script>
 
 <section class="home-page">
 	<table class="table-default">
@@ -9,94 +14,21 @@
 			<th class="white">Popis</th>
 			<th class="white">Tag</th>
 		</tr>
-		<tr>
-			<td class="text-sm white">7.1. 2023</td>
-			<td class="text-sm number-sm white">1 h</td>
-			<td class="text-sm white"><span class="language" value="HTML">HTML</span>, <span class="language" value="CSS">CSS</span></td>
-			<td class="text-sm number white">2</td>
-			<td class="text-sm white">Learn how to create a basic website layout using HTML and CSS</td>
-			<td class="text-sm white" >HTML, CSS, web development, beginner</td>
-		</tr>
-	  <tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">3.1. 2023</td>
-			<td class="text-sm number-sm white">2 h</td>
-			<td class="text-sm white"><span class="language" value="JavaScript">JavaScript</span></td>
-			<td class="text-sm number white">3</td>
-			<td class="text-sm white">Learn how to add interactvjikfrhujivhuujihijgjdfjiivity to a website using JavaScript</td>
-			<td class="text-sm white" >JavaScript, web development, intermediate</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">7.1. 2023</td>
-			<td class="text-sm number-sm white">1 h</td>
-			<td class="text-sm white"><span class="language" value="HTML">HTML</span>, <span class="language" value="CSS">CSS</span></td>
-			<td class="text-sm number white">2</td>
-			<td class="text-sm white">Learn how to create a basic website layout using HTML and CSS</td>
-			<td class="text-sm white" >HTML, CSS, web development, beginner</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">3.1. 2023</td>
-			<td class="text-sm number-sm white">2 h</td>
-			<td class="text-sm white"><span class="language" value="JavaScript">JavaScript</span></td>
-			<td class="text-sm number white">3</td>
-			<td class="text-sm white">Learn how to add interactivity to a website using JavaScript</td>
-			<td class="text-sm white" >JavaScript, web development, intermediate</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">7.1. 2023</td>
-			<td class="text-sm number-sm white">1 h</td>
-			<td class="text-sm white"><span class="language" value="HTML">HTML</span>, <span class="language" value="CSS">CSS</span></td>
-			<td class="text-sm number white">2</td>
-			<td class="text-sm white">Learn how to create a basic website layout using HTML and CSS</td>
-			<td class="text-sm white" >HTML, CSS, web development, beginner</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">3.1. 2023</td>
-			<td class="text-sm number-sm white">2 h</td>
-			<td class="text-sm white"><span class="language" value="JavaScript">JavaScript</span></td>
-			<td class="text-sm number white">3</td>
-			<td class="text-sm white">Learn how to add interactivity to a website using JavaScript</td>
-			<td class="text-sm white" >JavaScript, web development, intermediate</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">7.1. 2023</td>
-			<td class="text-sm number-sm white">1 h</td>
-			<td class="text-sm white"><span class="language" value="HTML">HTML</span>, <span class="language" value="CSS">CSS</span></td>
-			<td class="text-sm number white">2</td>
-			<td class="text-sm white">Learn how to create a basic website layout using HTML and CSS</td>
-			<td class="text-sm white" >HTML, CSS, web development, beginner</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">3.1. 2023</td>
-			<td class="text-sm number-sm white">2 h</td>
-			<td class="text-sm white"><span class="language" value="JavaScript">JavaScript</span></td>
-			<td class="text-sm number white">3</td>
-			<td class="text-sm white">Learn how to add interactivity to a website using JavaScript</td>
-			<td class="text-sm white" >JavaScript, web development, intermediate</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">7.1. 2023</td>
-			<td class="text-sm number-sm white">1 h</td>
-			<td class="text-sm white"><span class="language" value="HTML">HTML</span>, <span class="language" value="CSS">CSS</span></td>
-			<td class="text-sm number white">2</td>
-			<td class="text-sm white">Learn how to create a basic website layout using HTML and CSS</td>
-			<td class="text-sm white" >HTML, CSS, web development, beginner</td>
-		</tr>
-		<tr><td colspan="6"><div class="border" /></td></tr>
-		<tr>
-			<td class="text-sm white">3.1. 2023</td>
-			<td class="text-sm number-sm white">2 h</td>
-			<td class="text-sm white"><span class="language" value="JavaScript">JavaScript</span></td>
-			<td class="text-sm number white">3</td>
-			<td class="text-sm white">Learn how to add interactivity to a website using JavaScript</td>
-			<td class="text-sm white" >JavaScript, web development, intermediate</td>
-		</tr>
+		{#each data.records as record}
+			<tr>
+				<td class="text-sm white">{record.date}</td>
+				<td class="text-sm number-sm white">{record.length}</td>
+				<td class="text-sm white">
+					{#each record.language as language}
+						<span class="language" value={language}>{language}</span>,
+					{/each}
+				</td>
+				<td class="text-sm number white">{record.rating}</td>
+				<td class="text-sm white">{record.description}</td>
+				{#each record.expand.tags as tag}
+					<td class="text-sm white">{tag.name}</td>
+				{/each}
+			</tr>
+		{/each}
 	</table>
 </section>
