@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"iconify-icon": "^1.0.2",
 		"pocketbase": "^0.9.1",
 		"sass": "^1.57.1",
 		"ts-node": "^10.9.1"
