@@ -25,6 +25,12 @@
 	>
 		<Input placeholder="E-mail" bind:value={email} />
 		<Input placeholder="Password" bind:value={password} />
-		<Button>Login</Button>
+		<Button
+			on:click={() => {
+				login(email, password);
+				console.log('Loggin in');
+				goto('/domov');
+			}}>Login</Button
+		>
 	</form>
 </Wrapper>
