@@ -12,6 +12,10 @@ html {
 	transition: $transition;
 }
 
+*::selection {
+	background-color: $green-primary;
+}
+
 h1 {
 	font-family: 'Silkscreen', monospace;
 	font-size: 6.4rem;
@@ -46,27 +50,28 @@ a {
 	color: white;
 }
 
+body {
+	font-family: 'Fira Code', monospace;
+	font-size: 1.6rem;
+	line-height: 2.4rem;
+	text-decoration: none;
+	color: white;
+}
+
 .text-base {
 	font-family: 'Fira Code', monospace;
 	font-size: 1.6rem;
 	line-height: 2.4rem;
 	text-decoration: none;
+	color: white;
 }
 
-.input-default {
-	border: 2px solid $green-primary;
-	padding: 1.2rem;
-	background: none;
-	width: 100%;
-	&::-moz-placeholder {
-		color: white;
-	}
-	&::placeholder {
-		color: white;
-	}
-	&:focus-visible {
-		border: 2px solid #90d690;
-	}
+.text-sm {
+	font-family: 'Fira Code', monospace;
+	font-size: 1.4rem;
+	line-height: 2.4rem;
+	text-decoration: none;
+	color: white;
 }
 
 .width-max {
