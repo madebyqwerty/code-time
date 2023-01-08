@@ -25,3 +25,14 @@
 		<Button>Přihlásit se</Button>
 	</form>
 </Wrapper>
+
+<style lang="scss">
+	.wrapper {
+		@include center;
+		padding: 3.2rem 1.6rem;
+		border: 2px solid #46bc46;
+		gap: 1.6rem;
+		text-align: left;
+		align-items: start;
+	}
+</style>

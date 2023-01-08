@@ -6,7 +6,9 @@
 </section>
 
 <style lang="scss">
-	.wrapper {
+	.section-default {
 		@include center;
+		width: 100vw;
+		height: 100vh;
 	}
 </style>

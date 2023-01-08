@@ -1,0 +1,4 @@
+- Víc používat komponenty => nedávat věci do app.scss
+- Zlepšit design systém => Vytvořit systém barev
+- Aplikovat styly globálně => například text atd
+- Možná udělat navigaci
