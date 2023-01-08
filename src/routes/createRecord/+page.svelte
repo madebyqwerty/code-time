@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { dateRecords } from '$lib/pocketbase/dateRecords';
-
+	import { createRecord } from '$lib/pocketbase';
 	function handleClick() {
-		const date = new Date()
-		date.setDate(date.getDate() + 30);
-		dateRecords(new Date(), date);
+		createRecord(new Date(), 5, ['JavaScript', 'Svelte'], 4, 'Programoval jsem na tourdeapp', [
+			'98bw75lmks7agui'
+		]);
 	}
 </script>
 
