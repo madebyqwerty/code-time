@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { createRecord } from '$lib/pocketbase';
+	import { populateDatabase } from '$lib/pocketbase/dev/populate-database';
 
 	function handleClick() {
-		createRecord(new Date(), 5, ['JavaScript', 'Svelte'], 4, 'Programoval jsem na tourdeapp', [
-			'98bw75lmks7agui'
-		]);
+		populateDatabase();
 	}
 </script>
 
