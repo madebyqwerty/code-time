@@ -39,7 +39,7 @@
 		@include button-default(
 			$green-primary,
 			$green-primary,
-			$green-darkest,
+			$background,
 			$green-light,
 			$green-light,
 			$green-darkest,
