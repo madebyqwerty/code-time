@@ -10,12 +10,26 @@
 	export let helperText: string = '';
 	export let error = '';
 	export let required = false;
+	export let options = [];
+	export let selectedOptions: Array;
+	let checked = options.map((x)=>{return false});
 	let input: HTMLInputElement;
 	let mounted: boolean;
 	onMount(() => {
 		input.type = type;
 		mounted = true;
 	});
+	$:{
+		selectedOptions = checked.map((x, i)=>{
+			if (x){
+				return options[i]
+			} else{
+				return 0
+			}
+		}).filter((x)=>{
+			return x!=0
+		})
+	}
 	$: {
 		if (mounted) {
 			input.type = type;
@@ -31,14 +45,20 @@
 <span>
 	<label for={name} class="text-sm">{label}</label>
 	<div class="input-wrapper">
-		<input
+		{#if type=="select"}
+		{#each options as o,i}
+		<label for={o} class="option">{o}<input class="option-checkbox" type="checkbox" name={o} bind:checked={checked[i]}/><span class="checkmark"></span></label>
+			
+		{/each}
+		{:else}<input
 			bind:value
 			bind:this={input}
 			{required}
 			{name}
 			{placeholder}
 			class="text-base {error ? 'error' : ''}"
-		/>
+		/>{/if}
+		
 
 		{#if showPasswordSwitch}
 			<button type="button" on:click={switchType} class="icon">
@@ -55,7 +75,7 @@
 		color: white;
 		border: 2px solid $green-primary;
 		padding: 1.2rem;
-		background: transparent;
+		background: none;
 		width: 100%;
 		&::-moz-placeholder {
 			color: $grey;
@@ -94,4 +114,13 @@
 		color: $red-primary;
 		border-color: $red-primary !important;
 	}
+	.option{
+		position:relative;
+		&-checkbox{
+			position:absolute;
+			width:100%;
+			height:100%;
+		}
+	}
+
 </style>
