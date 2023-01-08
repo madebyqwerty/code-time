@@ -36,9 +36,9 @@
 </script>
 
 <Wrapper>
+	<h1 class="width-max white">REGISTRACE</h1>
+	<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
 	<form class="wrapper" on:submit|preventDefault={register}>
-		<h1 class="width-max white">REGISTRACE</h1>
-		<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
 		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" required />
 		<Input
 			type="text"
@@ -66,13 +66,7 @@
 </Wrapper>
 
 <style lang="scss">
-	.wrapper {
-		@include center;
-	}
-	.wrapper{
-		padding:3.2rem 1.6rem;
-		border:2px solid $green-primary;
-		align-items:start;
-		gap:8px;
+	form {
+		width: 100%;
 	}
 </style>

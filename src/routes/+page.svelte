@@ -31,7 +31,6 @@
 	}
 
 	h1 {
-		color: $ctgreen-500;
 		margin-bottom: 4rem;
 	}
 </style>

@@ -1,10 +1,35 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
 $background: #0e1015;
-$ctgreen-500: #64c764;
+
+// Zelená => Primary barva
 $green-primary: #46bc46;
+$green-dark: darken($green-primary, 10);
+$green-darker: darken($green-dark, 10);
+$green-darkest: darken($green-darker, 10);
+$green-light: lighten($green-primary, 10);
+$green-lighter: lighten($green-light, 10);
+$green-lightest: lighten($green-lighter, 10);
+
+// Modrá
+$blue-primary: #4141e5;
+$blue-dark: darken($blue-primary, 10);
+$blue-darker: darken($blue-dark, 10);
+$blue-darkest: darken($blue-darker, 10);
+$blue-light: lighten($blue-primary, 10);
+$blue-lighter: lighten($blue-light, 10);
+$blue-lightest: lighten($blue-lighter, 10);
+
+// Červená
+$red-primary: #ff1b1b;
+$red-dark: darken($red-primary, 10);
+$red-darker: darken($red-dark, 10);
+$red-darkest: darken($red-darker, 10);
+$red-light: lighten($red-primary, 10);
+$red-lighter: lighten($red-light, 10);
+$red-lightest: lighten($red-lighter, 10);
+
 $grey: #626262;
 $transition: 120ms;
-$red-primary: red;
 
 @mixin center {
 	display: flex;

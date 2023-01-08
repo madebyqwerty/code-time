@@ -9,11 +9,11 @@
 </script>
 
 <Wrapper>
-	<form class="wrapper" on:submit|preventDefault={() => login(email, password)}>
-		<h1 class="width-max white">LOGIN</h1>
-		<a class="text-base grey grey-hover" href="/auth/register"
-			>Ještě nemáte účet? Zde si ho vytvořte</a
-		>
+	<h1 class="width-max white">LOGIN</h1>
+	<a class="text-base grey grey-hover" href="/auth/register"
+		>Ještě nemáte účet? Zde si ho vytvořte</a
+	>
+	<form on:submit|preventDefault={() => login(email, password)}>
 		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" />
 		<Input
 			type="password"
@@ -27,13 +27,7 @@
 </Wrapper>
 
 <style lang="scss">
-	.wrapper {
-		@include center;
-	}
-	.wrapper{
-		padding:3.2rem 1.6rem;
-		border:2px solid $green-primary;
-		align-items:start;
-		gap:8px;
+	form {
+		width: 100%;
 	}
 </style>
