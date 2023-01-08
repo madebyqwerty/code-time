@@ -8,12 +8,14 @@ export const currentUser = writable(pb.authStore.model);
 
 pb.authStore.onChange(() => {
 	currentUser.set(pb.authStore.model);
+	if (pb.authStore.model) {
+		goto('/home');
+	}
 });
 
 export async function login(email: string, password: string) {
 	console.log('login');
 	await pb.collection('users').authWithPassword(email, password);
-	goto('/home');
 }
 
 export { createRecord } from './createRecord';

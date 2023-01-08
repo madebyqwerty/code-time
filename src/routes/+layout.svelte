@@ -3,6 +3,12 @@
 	import 'iconify-icon';
 </script>
 
-<main class="bg-ctgray-500 font-fira-code text-white min-h-screen">
+<main class="text-base">
 	<slot />
 </main>
+
+<style lang="scss">
+	main {
+		color: $green-lightest;
+	}
+</style>

@@ -14,8 +14,8 @@
 		padding: 1.6rem;
 		cursor: pointer;
 		&:hover {
-			background: $ctgreen-500;
-			border-color: $ctgreen-500;
+			background: $green-light;
+			border-color: $green-light;
 		}
 		&:active {
 			background: none;
@@ -31,8 +31,8 @@
 		cursor: pointer;
 		color: white;
 		&:hover {
-			border-color: $ctgreen-500;
-			color: $ctgreen-500;
+			border-color: $green-light;
+			color: $green-light;
 		}
 		&:active {
 			background: $green-primary;
