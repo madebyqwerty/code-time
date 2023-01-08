@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-
 	export let label: string;
 	export let value: string;
 	export let type: string;
@@ -10,32 +9,17 @@
 	export let helperText: string = '';
 	export let error = '';
 	export let required = false;
-	export let options = [];
-	export let selectedOptions: Array;
-	let checked = options.map((x)=>{return false});
 	let input: HTMLInputElement;
 	let mounted: boolean;
 	onMount(() => {
 		input.type = type;
 		mounted = true;
 	});
-	$:{
-		selectedOptions = checked.map((x, i)=>{
-			if (x){
-				return options[i]
-			} else{
-				return 0
-			}
-		}).filter((x)=>{
-			return x!=0
-		})
-	}
 	$: {
 		if (mounted) {
 			input.type = type;
 		}
 	}
-
 	const switchType = () => {
 		type = type === 'password' ? 'text' : 'password';
 		console.log(type);
@@ -45,20 +29,14 @@
 <span>
 	<label for={name} class="text-sm">{label}</label>
 	<div class="input-wrapper">
-		{#if type=="select"}
-		{#each options as o,i}
-		<label for={o} class="option">{o}<input class="option-checkbox" type="checkbox" name={o} bind:checked={checked[i]}/><span class="checkmark"></span></label>
-			
-		{/each}
-		{:else}<input
+		<input
 			bind:value
 			bind:this={input}
 			{required}
 			{name}
 			{placeholder}
 			class="text-base {error ? 'error' : ''}"
-		/>{/if}
-		
+		/>
 
 		{#if showPasswordSwitch}
 			<button type="button" on:click={switchType} class="icon">
@@ -75,7 +53,7 @@
 		color: white;
 		border: 2px solid $green-primary;
 		padding: 1.2rem;
-		background: none;
+		background: transparent;
 		width: 100%;
 		&::-moz-placeholder {
 			color: $grey;
@@ -87,40 +65,26 @@
 			border: 2px solid #90d690;
 		}
 	}
-
 	.icon {
 		color: white;
 		position: absolute;
 		left: 90%;
 		margin-top: 0.2rem;
 	}
-
 	.input-wrapper {
 		display: flex;
 		align-items: center;
 		width: 100%;
 		position: relative;
 	}
-
 	span {
 		width: 100%;
 	}
-
 	p {
 		margin-top: 0.5rem;
 	}
-
 	.error {
 		color: $red-primary;
 		border-color: $red-primary !important;
 	}
-	.option{
-		position:relative;
-		&-checkbox{
-			position:absolute;
-			width:100%;
-			height:100%;
-		}
-	}
-
 </style>
