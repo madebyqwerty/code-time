@@ -11,14 +11,14 @@
 <Sidebar bind:open title="Přidat záznam">
 	<div class="create-wrapper ">
 		<form class="wrapper">
-			<Input type="text" placeholder="Naučil jsem se používat print() v Pythonu" label="Popis" />
+			<!-- 			<Input type="text" placeholder="Naučil jsem se používat print() v Pythonu" label="Popis" />
 			<Input type="range" placeholder="*" label="Obtížnost" />
 			<Input
 				type="select"
 				label="Jazyky"
 				options={['HTML', 'CSS', 'JavaScript']}
 				bind:selectedOptions
-			/>
+			/> -->
 			<Button>Submit</Button>
 		</form>
 	</div>

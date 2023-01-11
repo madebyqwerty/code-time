@@ -7,8 +7,12 @@
 	const switchOpen = () => {
 		isOpen = !isOpen;
 	};
+
+	$: {
+		console.log(isOpen);
+	}
 </script>
 
 <Button on:click={switchOpen}>Open</Button>
 
-<Sidebar open={isOpen} on:close={switchOpen} title="Můj nový sidebar">Prosím funguj</Sidebar>
+<Sidebar bind:open={isOpen} title="Můj nový sidebar">Prosím funguj</Sidebar>

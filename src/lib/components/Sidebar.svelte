@@ -12,6 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	const close = () => {
+		console.log('closing');
 		open = false;
 	};
 </script>

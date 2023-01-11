@@ -48,7 +48,7 @@
 	{/each}
 </table>
 
-<CreateRecord {open} />
+<CreateRecord bind:open />
 
 <style lang="scss">
 	h4 {
