@@ -12,7 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	const close = () => {
-		open=false;
+		open = false;
 	};
 </script>
 
@@ -67,8 +67,5 @@
 
 	iconify-icon {
 		scale: 150%;
-	}
-	h1{
-		text-align:center;
 	}
 </style>

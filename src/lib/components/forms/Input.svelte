@@ -10,17 +10,21 @@
 	export let helperText: string = '';
 	export let error = '';
 	export let required = false;
+
 	let input: HTMLInputElement;
 	let mounted: boolean;
+
 	onMount(() => {
 		input.type = type;
 		mounted = true;
 	});
+
 	$: {
 		if (mounted) {
 			input.type = type;
 		}
 	}
+
 	const switchType = () => {
 		type = type === 'password' ? 'text' : 'password';
 		console.log(type);
@@ -106,12 +110,12 @@
 			left: 80%;
 		}
 	}
-	.range-label{
-		display:flex;
-		flex-direction:row;
-		gap:3rem;
-		align-items:flex-end;
-		padding-top:2rem;
+	.range-label {
+		display: flex;
+		flex-direction: row;
+		gap: 3rem;
+		align-items: flex-end;
+		padding-top: 2rem;
 	}
 	.smile {
 		position: relative;
