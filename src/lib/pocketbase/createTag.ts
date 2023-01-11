@@ -1,4 +1,5 @@
 import type { Language } from '$lib/utils/languages';
+import type { HasExpressionInitializer } from 'typescript';
 import { pb } from '.';
 
 /**
@@ -11,24 +12,19 @@ import { pb } from '.';
  * @param  {string} description Popis programování
  * @param  {string[]} tags Tagy
  */
-export async function createRecord(
-	date: Date,
-	length: number,
-	language: Language[],
-	rating: number,
-	description: string,
-	tags: string[]
+export async function createTag(
+	name: string,
+    color: string,
+    description: string,
+    userId: string
 ) {
 	const data = {
-		date: date.toISOString(),
-		length: length,
-		language: language,
-		rating: rating,
-		description: description,
-		tags: tags,
-		user_id: pb.authStore.model?.id
+		"name": name,
+        "color": color,
+        "description": description,
+        "user": userId
 	};
 
-	const record = await pb.collection('records').create(data, { "$autoCancel": false });
-	return record;
+	const tag = await pb.collection('tags').create(data, { "$autoCancel": false });
+    return tag;
 }
