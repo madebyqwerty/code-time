@@ -5,7 +5,7 @@
 	export let records: RecordsResponse[];
 </script>
 
-<h2>Záznamy</h2>
+
 
 <table class="table-default">
 	<th class="white"><h4>Datum</h4></th>

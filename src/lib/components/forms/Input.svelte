@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	export let label: string;
 	export let value: string;
+	export let rangeValue = 0.5;
 	export let type: string;
 	export let placeholder: string;
 	export let name: string = placeholder;
@@ -27,16 +28,42 @@
 </script>
 
 <span>
-	<label for={name} class="text-sm">{label}</label>
-	<div class="input-wrapper">
-		<input
-			bind:value
-			bind:this={input}
-			{required}
-			{name}
-			{placeholder}
-			class="text-base {error ? 'error' : ''}"
-		/>
+	{#if type != 'range'}
+		<label for={name} class="text-sm">{label}</label>
+	{/if}
+	<div class="input-wrapper{type == 'range' ? '2' : ''}">
+		{#if type == 'range'}
+			<div class="range-label">
+				<label for={name} class="text-sm">{label}</label>
+				<div class="smile">
+					<div class="eye" />
+					<div class="eye" />
+					<div class="mth" />
+					<div class="square" style="top:{80 - rangeValue * 24}%;left:0%;" />
+					<div class="square" style="top:{80 - rangeValue * 24}%;left:80%;" />
+				</div>
+			</div>
+			<input
+				bind:value={rangeValue}
+				type="range"
+				{required}
+				{name}
+				{placeholder}
+				min={0}
+				max={1}
+				step={0.002}
+				class="text-base {error ? 'error' : ''}"
+			/>
+		{:else}
+			<input
+				bind:value
+				bind:this={input}
+				{required}
+				{name}
+				{placeholder}
+				class="text-base {error ? 'error' : ''}"
+			/>
+		{/if}
 
 		{#if showPasswordSwitch}
 			<button type="button" on:click={switchType} class="icon">
@@ -49,6 +76,49 @@
 </span>
 
 <style lang="scss">
+	.eye,
+	.square {
+		height: 0.7rem;
+		width: 0.7rem;
+		background: $green-primary;
+		position: absolute;
+	}
+	.mth {
+		height: 0.7rem;
+		width: 2.1rem;
+		background: $green-primary;
+		position: absolute;
+		top: 68%;
+		left: 20%;
+	}
+	.eye {
+		top: 0%;
+		left: 80%;
+		&:first-child {
+			left: 0%;
+		}
+	}
+	.square {
+		&:first-child {
+			left: 0%;
+		}
+		&:last-child {
+			left: 80%;
+		}
+	}
+	.range-label{
+		display:flex;
+		flex-direction:row;
+		gap:3rem;
+		align-items:flex-end;
+		padding-top:2rem;
+	}
+	.smile {
+		position: relative;
+		height: 3.5rem;
+		width: 3.5rem;
+	}
+
 	input {
 		color: white;
 		border: 2px solid $green-primary;
@@ -76,6 +146,9 @@
 		align-items: center;
 		width: 100%;
 		position: relative;
+		&2 {
+			flex-direction: column;
+		}
 	}
 	span {
 		width: 100%;
