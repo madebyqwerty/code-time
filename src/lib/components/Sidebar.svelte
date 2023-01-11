@@ -12,7 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	const close = () => {
-		dispatch('close');
+		open=false;
 	};
 </script>
 
@@ -57,9 +57,9 @@
 	}
 
 	aside {
-		z-index: 10;
+		z-index: 20;
 		height: 100vh;
-		width: 50%;
+		width: 42%;
 		background: $background;
 		padding: 3.2rem;
 		overflow-y: scroll;
@@ -67,5 +67,8 @@
 
 	iconify-icon {
 		scale: 150%;
+	}
+	h1{
+		text-align:center;
 	}
 </style>
