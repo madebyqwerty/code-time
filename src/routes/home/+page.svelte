@@ -7,15 +7,35 @@
 </script>
 
 <section class="home-page">
-	<h1>Code Time</h1>
-
-	<Table records={data.records} />
+	<!-- TODO: Move to it's own file -->
+	<nav>
+		<h3>CodeTime</h3>
+	</nav>
+	<section class="content">
+		<Table records={data.records} />
+	</section>
 </section>
 
 <style lang="scss">
 	.home-page {
-		@include center;
+		display: grid;
+		grid-template-columns: 300px 1fr;
 		width: 100vw;
-		padding-top: 10rem;
+	}
+
+	nav {
+		height: 100vh;
+		width: 100%;
+		border-right: 2px solid $green-primary;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 1.6rem;
+	}
+
+	.content {
+		padding-top: 3.2rem;
+		margin-left: auto;
+		margin-right: auto;
 	}
 </style>
