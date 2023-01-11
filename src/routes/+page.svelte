@@ -12,13 +12,13 @@
 		<Button
 			on:click={() => {
 				goto('/auth/login');
-			}}>Přihlásit se</Button
+			}}>Sign in</Button
 		>
 		<Button
 			on:click={() => {
 				goto('/auth/register');
 			}}
-			type="secondary">Registrovat se</Button
+			type="secondary">Register</Button
 		>
 	</span>
 </main>
