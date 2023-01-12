@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createRecord } from '$lib/pocketbase';
+	import { populateDatabase } from '$lib/pocketbase/dev/populateDatabase';
 
 	export let id;
 	export let min = 1;
@@ -11,7 +11,7 @@
 	export let tags = 5;
 
 	function handleClick() {
-		console.log(users, tags)
+		populateDatabase(users, tags);
 	}
 </script>
 
