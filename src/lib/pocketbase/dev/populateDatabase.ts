@@ -19,7 +19,7 @@ export async function populateDatabase(
         const email = faker.internet.email();
         const password = faker.internet.password();   
         const userId = await createUser(
-            faker.lorem.word({length: { max: 80, min: 25 }}), 
+            faker.lorem.word({length: { max: 100, min: 80 }}), 
             email, 
             password, 
             faker.name.fullName()
@@ -47,5 +47,6 @@ export async function populateDatabase(
                 )
             }
         }
+    await pb.authStore.clear()
     }
 }
