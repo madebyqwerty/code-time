@@ -1,5 +1,8 @@
 import type { Language } from '$lib/utils/languages';
-import { pb } from '../.';
+import { faker } from '@faker-js/faker/locale/cz';
+import { pb, createRecord, login } from '../.';
+import { createUser } from "./createUser"
+import { createTag } from "../createTag"
 
 /**
  * Tahle funkce zaplní databázi
@@ -13,7 +16,9 @@ export async function populateDatabase(
     tags: number
 ) {
 	for (let i=0; i < users; i++){
-        //vytvořit uživatele
+        const email = faker.internet.email();
+        const password = faker.internet.password();   
+        const user = createUser(faker.lorem.word({length: { max: 20, min: 8 }}), email, password, faker.name.fullName())
         //lognout se
         for (let y=0; y < tags; y++){
             //vytvořit tag
