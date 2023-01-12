@@ -11,6 +11,8 @@ import { createTag } from "../createTag"
  * @param  {number} tags Počet tagů
  */
 
+const jazyky = ["Java", "C++", "Python", "JavaScript", "C#", "PHP", "Ruby", "Perl", "Swift", "Go", "Kotlin", "Scala", "R", "Bash", "Rust", "Objective-C", "React", "Angular", "Vue", "Ember", "Svelte", "C", "Cobol", "Fortran", "Lisp", "Pascal", "SQL", "TypeScript", "Elixir", "Erlang", "Julia", "Haskell", "Clojure", "OCaml", "F#", "WebAssembly"]
+
 export async function populateDatabase(
 	users: number,
     tags: number
@@ -18,7 +20,7 @@ export async function populateDatabase(
 	for (let i=0; i < users; i++){
         const email = faker.internet.email();
         const password = faker.internet.password();   
-        const userId = await createUser(
+        const user = await createUser(
             faker.lorem.word({length: { max: 100, min: 80 }}), 
             email, 
             password, 
@@ -31,16 +33,17 @@ export async function populateDatabase(
             faker.lorem.word({length: { max: 20, min: 8 }}), 
             faker.color.rgb({ format: 'hex', casing: 'lower' }),
             faker.lorem.words(5),
-            userId
+            user
             );
 
             let records = Math.floor(Math.random() * 5) + 1; //random číslo 1-5
             for (let z=0; z < records; z++){
                 const hodnoceni = Math.floor(Math.random() * 5) + 1
+                const random = Math.floor(Math.random() * jazyky.length);
                 await createRecord(
                     faker.date.past(), 
                     faker.random.numeric(2),
-                    ['JavaScript', 'Svelte'], 
+                    [jazyky[random]],
                     hodnoceni, 
                     faker.lorem.words(10), 
                     [tag]
