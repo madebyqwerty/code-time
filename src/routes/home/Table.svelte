@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { RecordsResponse } from '$lib/pocketbase/types';
 	import { languages } from '$lib/utils/languages';
+	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 
 	export let records: RecordsResponse[];
@@ -10,15 +11,12 @@
 
 <header>
 	<h2>Záznamy</h2>
-	<button
-		class="add-button"
+	<CreateButton
 		on:click={() => {
 			open = !open;
 		}}
-	>
-		<div class="vert {open ? 'activated' : ''}" />
-		<div class="hor" />
-	</button>
+		{open}
+	/>
 </header>
 
 <table class="table-default">
@@ -89,32 +87,6 @@
 		padding: 0.5rem;
 		font-size: 1.7rem;
 		margin-right: 1rem;
-	}
-
-	.vert,
-	.hor {
-		position: absolute;
-		background: $green-primary;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-	.vert {
-		height: 3rem;
-		width: 0.4rem;
-		transition: 300ms ease;
-	}
-	.hor {
-		height: 0.4rem;
-		width: 3rem;
-	}
-	.add-button {
-		position: relative;
-		height: 3rem;
-		width: 3rem;
-	}
-	.activated {
-		height: 0.3rem;
 	}
 
 	header {
