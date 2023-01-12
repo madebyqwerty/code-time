@@ -24,5 +24,5 @@ export async function createTag(
 	};
 
 	const tag = await pb.collection('tags').create(data, { "$autoCancel": false });
-    return tag;
+    return tag["id"];
 }

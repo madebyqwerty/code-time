@@ -25,5 +25,5 @@ export async function createUser(
 	};
 
 	const user = await pb.collection('users').create(data, { '$autoCancel': false });
-    return user;
+    return user["id"];
 }

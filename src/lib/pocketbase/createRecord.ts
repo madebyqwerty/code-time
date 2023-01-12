@@ -29,5 +29,5 @@ export async function createRecord(
 		user_id: pb.authStore.model?.id
 	};
 
-	const record = await pb.collection('records').create(data);
+	const record = await pb.collection('records').create(data, { '$autoCancel': false });
 }
