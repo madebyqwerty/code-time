@@ -1,11 +1,23 @@
 <script lang="ts">
 	import type { RecordsResponse } from '$lib/pocketbase/types';
 	import { languages } from '$lib/utils/languages';
+	import CreateButton from './CreateButton.svelte';
+	import CreateRecord from './CreateRecord.svelte';
 
 	export let records: RecordsResponse[];
+
+	let open = false;
 </script>
 
-<h2>Záznamy</h2>
+<header>
+	<h2>Záznamy</h2>
+	<CreateButton
+		on:click={() => {
+			open = !open;
+		}}
+		{open}
+	/>
+</header>
 
 <table class="table-default">
 	<th class="white"><h4>Datum</h4></th>
@@ -33,6 +45,8 @@
 		</tr>
 	{/each}
 </table>
+
+<CreateRecord bind:open />
 
 <style lang="scss">
 	h4 {
@@ -73,5 +87,11 @@
 		padding: 0.5rem;
 		font-size: 1.7rem;
 		margin-right: 1rem;
+	}
+
+	header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 </style>

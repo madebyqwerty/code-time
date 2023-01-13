@@ -1,20 +1,28 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import Sidenav from './Sidenav.svelte';
 	import Table from './Table.svelte';
 
 	export let data: PageData;
 </script>
 
 <section class="home-page">
-	<h1>Code Time</h1>
-
-	<Table records={data.records} />
+	<Sidenav />
+	<section class="content">
+		<Table records={data.records} />
+	</section>
 </section>
 
 <style lang="scss">
 	.home-page {
-		@include center;
+		display: grid;
+		grid-template-columns: 400px 1fr;
 		width: 100vw;
-		padding-top: 10rem;
+	}
+
+	.content {
+		padding-top: 3.2rem;
+		margin-left: auto;
+		margin-right: auto;
 	}
 </style>
