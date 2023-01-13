@@ -1,15 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import Sidenav from './Sidenav.svelte';
 	import Table from './Table.svelte';
 
 	export let data: PageData;
 </script>
 
 <section class="home-page">
-	<!-- TODO: Move to it's own file -->
-	<nav>
-		<h3>CodeTime</h3>
-	</nav>
+	<Sidenav />
 	<section class="content">
 		<Table records={data.records} />
 	</section>
@@ -18,18 +16,8 @@
 <style lang="scss">
 	.home-page {
 		display: grid;
-		grid-template-columns: 300px 1fr;
+		grid-template-columns: 400px 1fr;
 		width: 100vw;
-	}
-
-	nav {
-		height: 100vh;
-		width: 100%;
-		border-right: 2px solid $green-primary;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 1.6rem;
 	}
 
 	.content {
