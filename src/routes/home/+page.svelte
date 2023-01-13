@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { languages } from '$lib/utils/languages';
 	import type { PageData } from './$types';
 	import Table from './Table.svelte';
 

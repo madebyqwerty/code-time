@@ -8,7 +8,7 @@ export const load = (async () => {
 		expand: 'tags'
 	});
 
-	console.log(records);
+	console.log('records', records);
 
 	records = records.map((r) => {
 		return {

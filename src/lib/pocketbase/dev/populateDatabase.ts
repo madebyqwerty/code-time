@@ -1,49 +1,14 @@
-import type { Language } from '$lib/utils/languages';
+import { languages } from '$lib/utils/languages';
 import { faker } from '@faker-js/faker/locale/cz';
 import { pb, createRecord, login } from '../.';
 import { createUser } from './createUser';
 import { createTag } from '../createTag';
 
-const jazyky: Language[] = [
-	'Java',
-	'C++',
-	'Python',
-	'JavaScript',
-	'C#',
-	'PHP',
-	'Ruby',
-	'Perl',
-	'Swift',
-	'Go',
-	'Kotlin',
-	'Scala',
-	'R',
-	'Bash',
-	'Rust',
-	'Objective-C',
-	'React',
-	'Angular',
-	'Vue',
-	'Ember',
-	'Svelte',
-	'C',
-	'Cobol',
-	'Fortran',
-	'Lisp',
-	'Pascal',
-	'SQL',
-	'TypeScript',
-	'Elixir',
-	'Erlang',
-	'Julia',
-	'Haskell',
-	'Clojure',
-	'OCaml',
-	'F#',
-	'WebAssembly'
-];
+const jazyky = Object.keys(languages);
 
-function onlyUnique(value, index, self) {
+// Nefunguje to 100% tohle vezme jenom unikátní, a já bych chtěl aby to vymazalo duplikáty ale jsem moc línej to dodělat
+// Stejnak je to jenom DEV funkce
+function onlyUnique(value: string, index: number, self: string[]) {
 	return self.indexOf(value) === index;
 }
 
@@ -73,12 +38,14 @@ export async function populateDatabase(users: number, tags: number) {
 			);
 
 			const records = Math.floor(Math.random() * 5) + 1; //random číslo 1-5
-			const random = () => Math.floor(Math.random() * jazyky.length);
 			// Pro každý tag vygenerujeme náhodný počet záznámů
 			for (let z = 0; z < records; z++) {
 				const hodnoceni = Math.floor(Math.random() * 5) + 1;
-				let langs = Array(random());
-				langs = jazyky.map((el) => jazyky[Math.floor(Math.random() * jazyky.length)]);
+
+				const langs = [];
+				for (let x = 0; x < records; x++) {
+					langs.push(jazyky[Math.floor(Math.random() * jazyky.length)]);
+				}
 
 				await createRecord(
 					faker.date.past(),
