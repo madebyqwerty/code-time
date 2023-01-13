@@ -43,6 +43,10 @@ const jazyky: Language[] = [
 	'WebAssembly'
 ];
 
+function onlyUnique(value, index, self) {
+	return self.indexOf(value) === index;
+}
+
 /**
  *
  * Tahle funkce zaplní databázi
@@ -69,14 +73,17 @@ export async function populateDatabase(users: number, tags: number) {
 			);
 
 			const records = Math.floor(Math.random() * 5) + 1; //random číslo 1-5
+			const random = () => Math.floor(Math.random() * jazyky.length);
 			// Pro každý tag vygenerujeme náhodný počet záznámů
 			for (let z = 0; z < records; z++) {
 				const hodnoceni = Math.floor(Math.random() * 5) + 1;
-				const random = Math.floor(Math.random() * jazyky.length);
+				let langs = Array(random());
+				langs = jazyky.map((el) => jazyky[Math.floor(Math.random() * jazyky.length)]);
+
 				await createRecord(
 					faker.date.past(),
 					parseInt(faker.random.numeric(2)),
-					[jazyky[random]],
+					langs.filter(onlyUnique),
 					hodnoceni,
 					faker.lorem.words(10),
 					[tag]

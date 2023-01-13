@@ -19,6 +19,7 @@ export async function createRecord(
 	description: string,
 	tags: string[]
 ) {
+	console.log(language);
 	const data = {
 		date: date.toISOString(),
 		length: length,
@@ -29,5 +30,5 @@ export async function createRecord(
 		user_id: pb.authStore.model?.id
 	};
 
-	const record = await pb.collection('records').create(data, { '$autoCancel': false });
+	const record = await pb.collection('records').create(data, { $autoCancel: false });
 }
