@@ -1,6 +1,6 @@
 <script>
 	import { tagStore } from '$lib/pocketbase/tagStore';
-	import { DatePicker, DatePickerInput } from 'carbon-components-svelte';
+	import Datepickers from './Datepickers.svelte';
 
 	let isManager = false;
 
@@ -18,12 +18,7 @@
 
 	<section>
 		<h3>Od kdy do kdy</h3>
-		<div class="datepicker">
-			<DatePicker datePickerType="range" on:change>
-				<DatePickerInput labelText="Start date" placeholder="mm/dd/yyyy" />
-				<DatePickerInput labelText="End date" placeholder="mm/dd/yyyy" />
-			</DatePicker>
-		</div>
+		<Datepickers />
 	</section>
 
 	<section>
