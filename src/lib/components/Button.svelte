@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let type: 'primary' | 'secondary' = 'primary';
+	export let type: 'primary' | 'secondary' | 'close' = 'primary';
 </script>
 
 <button class="{type} text-base" on:click>
@@ -7,36 +7,73 @@
 </button>
 
 <style lang="scss">
-	.primary {
-		background: $green-primary;
-		border: 2px solid $green-primary;
+	@mixin button-default(
+		$background,
+		$border,
+		$color,
+		$hoverbackground,
+		$hoverborder,
+		$hovercolor,
+		$activebackground: none,
+		$activeborder: $background,
+		$activecolor: $color
+	) {
+		background: $background;
+		border: 2px solid $border;
 		transition: 0ms;
 		padding: 1.6rem;
 		cursor: pointer;
+		color: $color;
 		&:hover {
-			background: $green-light;
-			border-color: $green-light;
+			background: $hoverbackground;
+			border-color: $hoverborder;
+			color: $hovercolor;
 		}
 		&:active {
-			background: none;
-			color: $green-primary;
+			background: $activebackground;
+			color: $activecolor;
 		}
 	}
 
+	.primary {
+		@include button-default(
+			$green-primary,
+			$green-primary,
+			$background,
+			$green-light,
+			$green-light,
+			$green-darkest,
+			none,
+			$green-primary,
+			$green-primary
+		);
+	}
+
 	.secondary {
-		background: none;
-		border: 2px solid $green-primary;
-		transition: 0ms;
-		padding: 1.6rem;
-		cursor: pointer;
-		color: white;
-		&:hover {
-			border-color: $green-light;
-			color: $green-light;
-		}
-		&:active {
-			background: $green-primary;
-			color: $green-primary;
-		}
+		@include button-default(
+			none,
+			$green-primary,
+			$green-primary,
+			none,
+			$green-light,
+			$green-light,
+			$green-lightest,
+			$green-lightest,
+			$green-lightest
+		);
+	}
+
+	.close {
+		@include button-default(
+			none,
+			$red-primary,
+			$red-primary,
+			none,
+			$red-light,
+			$red-light,
+			none,
+			$red-lightest,
+			$red-lightest
+		);
 	}
 </style>

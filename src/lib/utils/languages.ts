@@ -1,4 +1,6 @@
-export const languages = {
+import type { RecordsLanguageOptions } from '../pocketbase/types';
+
+export const languages: { [key in RecordsLanguageOptions]: string } = {
 	Java: '#F9A825',
 	'C++': '#00599C',
 	Python: '#17739f',
@@ -36,41 +38,3 @@ export const languages = {
 	'F#': '#B845FC',
 	WebAssembly: '#0467FB'
 };
-
-export type Language =
-	| 'Java'
-	| 'C++'
-	| 'Python'
-	| 'JavaScript'
-	| 'C#'
-	| 'PHP'
-	| 'Ruby'
-	| 'Perl'
-	| 'Swift'
-	| 'Go'
-	| 'Kotlin'
-	| 'Scala'
-	| 'R'
-	| 'Bash'
-	| 'Rust'
-	| 'Objective-C'
-	| 'React'
-	| 'Angular'
-	| 'Vue'
-	| 'Ember'
-	| 'Svelte'
-	| 'C'
-	| 'Cobol'
-	| 'Fortran'
-	| 'Lisp'
-	| 'Pascal'
-	| 'SQL'
-	| 'TypeScript'
-	| 'Elixir'
-	| 'Erlang'
-	| 'Julia'
-	| 'Haskell'
-	| 'Clojure'
-	| 'OCaml'
-	| 'F#'
-	| 'WebAssembly';
