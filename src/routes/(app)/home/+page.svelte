@@ -22,7 +22,7 @@
 
 	.content {
 		padding-top: 3.2rem;
-		margin-left: auto;
-		margin-right: auto;
+		padding-left: 10%;
+		padding-right: 10%;
 	}
 </style>

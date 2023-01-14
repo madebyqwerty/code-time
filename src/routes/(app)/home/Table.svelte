@@ -48,7 +48,7 @@
 
 <style lang="scss">
 	table {
-		width: fit-content;
+		width: 100%;
 	}
 
 	h4 {

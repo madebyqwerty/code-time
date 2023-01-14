@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Checkbox from './Checkbox.svelte';
 	import { tagStore } from '$lib/pocketbase/tagStore';
-	import { filteredRecordsStore, recordsStore } from '$lib/pocketbase/recordsStore';
 	import { goto, invalidate } from '$app/navigation';
 
 	let selectedTags: string[] = [];
@@ -19,12 +18,6 @@
 
 		await goto(url);
 		invalidate('home');
-
-		/* if (selectedTags.length > 0) {
-			filteredRecordsStore.set(
-				$recordsStore.filter((record) => record.tags?.some((el) => selectedTags.includes(el)))
-			);
-		} */
 	}
 </script>
 
@@ -44,5 +37,9 @@
 		display: flex;
 		gap: 0.8rem;
 		align-items: center;
+	}
+
+	section {
+		@include nav-section;
 	}
 </style>

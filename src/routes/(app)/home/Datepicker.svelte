@@ -47,5 +47,6 @@
 		color: $green-lightest;
 		padding: 0.4rem;
 		border: solid 1px $green-primary;
+		padding: 0.8rem;
 	}
 </style>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Datepicker from './Datepicker.svelte';
+	import Languages from './Languages.svelte';
 	import Tags from './Tags.svelte';
 
 	let isManager = false;
@@ -16,6 +17,7 @@
 
 	<Datepicker />
 	<Tags />
+	<Languages />
 </nav>
 
 <style lang="scss">
@@ -29,10 +31,11 @@
 		gap: 0.8rem;
 		position: sticky;
 		top: 0px;
+		overflow-y: scroll;
 	}
 
 	h2 {
-		background: lighten($background, 10);
+		background: darken($background, 10);
 		padding: 0.8rem;
 		color: $green-primary;
 		width: 100%;
