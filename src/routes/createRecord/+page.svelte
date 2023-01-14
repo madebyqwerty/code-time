@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { createRecord } from '$lib/pocketbase';
+
 	import { login } from '$lib/pocketbase';
 	import Wrapper from '../auth/Wrapper.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
+
 
 
 	function handleClick() {
@@ -15,6 +17,9 @@
 
 	$:console.log(selectedOptions)
 </script>
+
+
+<button on:click={handleClick}>Vytvořit záznam</button>
 
 
 <Wrapper>
@@ -44,3 +49,4 @@
 </style>
 
 <button on:click={handleClick}>Vytvořit záznam</button>
+
