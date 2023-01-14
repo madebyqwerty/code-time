@@ -7,10 +7,10 @@ export const pb = new PocketBase('http://127.0.0.1:8090');
 
 export const currentUser = writable(pb.authStore.model);
 
-pb.authStore.onChange(() => {
+pb.authStore.onChange(async () => {
 	currentUser.set(pb.authStore.model);
 	if (pb.authStore.model) {
-		populateTagStore();
+		await populateTagStore();
 		goto('/home');
 	}
 });

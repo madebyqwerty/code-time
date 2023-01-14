@@ -1,12 +1,24 @@
-import type { RecordsResponse } from '$lib/pocketbase/types';
 import type { PageLoad } from './$types';
-import { pb } from '$lib/pocketbase';
+import { getRecordsByDate } from '$lib/pocketbase/getRecordsByDate';
 
-export const load = (async () => {
-	let records = await pb.collection('records').getFullList<RecordsResponse>(200, {
-		sort: '-created',
-		expand: 'tags'
-	});
+export const load = (async ({ depends, url }) => {
+	depends('home');
+
+	const subtractMonth = (date: Date, months: number) => {
+		date.setMonth(date.getMonth() - months);
+		return date;
+	};
+
+	const defaultPast = subtractMonth(new Date(), 1);
+	const defaultDate = new Date();
+
+	const from = url.searchParams.get('from');
+	const to = url.searchParams.get('to');
+
+	const datePast = from ? new Date(from) : defaultPast;
+	const dateEnd = to ? new Date(to) : defaultDate;
+
+	let records = await getRecordsByDate(datePast, dateEnd);
 
 	console.log('records', records);
 

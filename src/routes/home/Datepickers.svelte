@@ -1,20 +1,20 @@
 <script lang="ts">
 	import flatpickr from 'flatpickr';
 	import type { Instance } from 'flatpickr/dist/types/instance';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { Czech } from 'flatpickr/dist/l10n/cs';
 	import './datepicker.css';
 
+	const dispatch = createEventDispatcher<{ change: Date[] }>();
 	let datepicker: Instance;
 
 	onMount(() => {
 		datepicker = flatpickr('.flatpickr', {
 			mode: 'range',
-			locale: Czech
+			locale: Czech,
+			onClose: (e) => dispatch('change', e)
 		}) as Instance;
 	});
-
-	$: console.log(datepicker?.selectedDates);
 </script>
 
 <input

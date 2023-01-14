@@ -1,10 +1,22 @@
-<script>
+<script lang="ts">
+	import { goto, invalidate } from '$app/navigation';
 	import { tagStore } from '$lib/pocketbase/tagStore';
 	import Datepickers from './Datepickers.svelte';
 
 	let isManager = false;
 
 	console.log($tagStore);
+
+	async function handleDateChange(e: CustomEvent<Date[]>) {
+		const dates = e.detail;
+		const url = new URL(window.location.href);
+		url.searchParams.set('from', dates[0].toISOString());
+		url.searchParams.set('to', dates[1].toISOString());
+
+		console.log(url.toString());
+		await goto(url.toString());
+		await invalidate('home');
+	}
 </script>
 
 <nav>
@@ -18,7 +30,7 @@
 
 	<section>
 		<h3>Od kdy do kdy</h3>
-		<Datepickers />
+		<Datepickers on:change={handleDateChange} />
 	</section>
 
 	<section>
