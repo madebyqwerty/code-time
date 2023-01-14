@@ -1,6 +1,8 @@
 import type { PageLoad } from './$types';
 import { getRecordsByDate } from '$lib/pocketbase/getRecordsByDate';
 import { recordsStore } from '$lib/pocketbase/recordsStore';
+import type { RecordsResponse } from '$lib/pocketbase/types';
+import { pb } from '$lib/pocketbase';
 
 const subtractMonth = (date: Date, months: number) => {
 	date.setMonth(date.getMonth() - months);
@@ -10,6 +12,7 @@ const subtractMonth = (date: Date, months: number) => {
 export const load = (async ({ depends, url }) => {
 	depends('home');
 
+	// Get all the records in the given timeframe
 	const defaultPast = subtractMonth(new Date(), 1);
 	const defaultDate = new Date();
 
@@ -19,10 +22,29 @@ export const load = (async ({ depends, url }) => {
 	const datePast = from ? new Date(from) : defaultPast;
 	const dateEnd = to ? new Date(to) : defaultDate;
 
-	const records = await getRecordsByDate(datePast, dateEnd);
+	const start = datePast.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
+	const end = dateEnd.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
+
+	let filter = `(date >= "${start}" && date <= "${end}")`;
+
+	const tags: string[] | null = JSON.parse(url.searchParams.get('tags') as string);
+	if (tags && tags.length > 0) {
+		console.log(tags);
+		filter = filter.concat(' && (');
+		tags.forEach((tag, i) => {
+			filter = filter.concat(`tags ~ "${tag}" ${i + 1 !== tags.length ? '||' : ')'}`);
+		});
+	}
+	console.log(filter);
+
+	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
+		filter: filter,
+		expand: 'tags',
+		$autoCancel: false
+	});
 
 	recordsStore.set(
-		records.map((r) => {
+		records.items.map((r) => {
 			return {
 				...r,
 				date: new Date(r.date).toLocaleDateString('cs'),
@@ -32,6 +54,5 @@ export const load = (async ({ depends, url }) => {
 			};
 		})
 	);
-
 	return {};
 }) satisfies PageLoad;
