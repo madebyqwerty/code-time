@@ -17,7 +17,7 @@
 	.home-page {
 		display: grid;
 		grid-template-columns: 400px 1fr;
-		width: 100vw;
+		max-width: 100vw;
 	}
 
 	.content {

@@ -4,7 +4,7 @@ import type { TagsResponse } from './types';
 
 export const tagStore = writable<TagsResponse[]>([]);
 
-export async function populateTagStore(userId: string) {
+export async function populateTagStore() {
 	const tags = await pb.collection('tags').getFullList<TagsResponse>(1000);
 
 	tagStore.set(tags);

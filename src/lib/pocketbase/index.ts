@@ -10,14 +10,14 @@ export const currentUser = writable(pb.authStore.model);
 pb.authStore.onChange(() => {
 	currentUser.set(pb.authStore.model);
 	if (pb.authStore.model) {
-		populateTagStore(pb.authStore.model.id);
+		populateTagStore();
 		goto('/home');
 	}
 });
 
 export async function login(email: string, password: string) {
 	console.log('login');
-	await pb.collection('users').authWithPassword(email, password, { '$autoCancel': false });
+	await pb.collection('users').authWithPassword(email, password, { $autoCancel: false });
 }
 
 export { createRecord } from './createRecord';

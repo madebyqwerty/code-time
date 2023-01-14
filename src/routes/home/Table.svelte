@@ -36,7 +36,7 @@
 				{/each}
 			</td>
 			<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-			<td class="text-sm white">{record.description}</td>
+			<td class="text-sm white">{record.description?.substring(0, 20)}</td>
 			{#each record.expand?.tags as tag}
 				<td class="text-sm white">{tag.name}</td>
 			{:else}
@@ -49,6 +49,10 @@
 <CreateRecord bind:open />
 
 <style lang="scss">
+	table {
+		width: fit-content;
+	}
+
 	h4 {
 		color: white;
 	}

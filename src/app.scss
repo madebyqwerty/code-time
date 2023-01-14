@@ -1,5 +1,5 @@
 @import 'https://unpkg.com/tailwindcss@3.2.4/src/css/preflight.css';
-
+@import 'carbon-components-svelte/css/g100.css';
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Silkscreen&display=swap');
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 
@@ -10,6 +10,7 @@ html {
 
 * {
 	transition: $transition;
+	//outline: 1px solid red;
 }
 
 *::selection {
