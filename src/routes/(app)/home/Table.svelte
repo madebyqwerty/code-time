@@ -1,10 +1,8 @@
 <script lang="ts">
-	import type { RecordsResponse } from '$lib/pocketbase/types';
 	import { languages } from '$lib/utils/languages';
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
-
-	export let records: RecordsResponse[];
+	import { recordsStore } from '$lib/pocketbase/recordsStore';
 
 	let open = false;
 </script>
@@ -26,7 +24,7 @@
 	<th class="white"><h4>Obtížnost</h4></th>
 	<th class="white"><h4>Popis</h4></th>
 	<th class="white"><h4>Tag</h4></th>
-	{#each records as record}
+	{#each $recordsStore as record}
 		<tr>
 			<td class="text-sm white">{record.date}</td>
 			<td class="text-sm number-sm white">{record.length}</td>

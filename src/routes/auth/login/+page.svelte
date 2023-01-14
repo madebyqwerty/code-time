@@ -3,9 +3,16 @@
 	import Wrapper from '../Wrapper.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
+	import { goto } from '$app/navigation';
 
 	let email: string,
 		password: string = '';
+
+	function handleLogin() {
+		login(email, password);
+
+		goto('/home');
+	}
 </script>
 
 <Wrapper>
@@ -13,7 +20,7 @@
 	<a class="text-base grey grey-hover" href="/auth/register"
 		>Ještě nemáte účet? Zde si ho vytvořte</a
 	>
-	<form on:submit|preventDefault={() => login(email, password)}>
+	<form on:submit|preventDefault={handleLogin}>
 		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" />
 		<Input
 			type="password"

@@ -9,7 +9,7 @@
 <section class="home-page">
 	<Sidenav />
 	<section class="content">
-		<Table records={data.records} />
+		<Table />
 	</section>
 </section>
 

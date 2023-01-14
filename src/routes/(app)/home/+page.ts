@@ -1,13 +1,14 @@
 import type { PageLoad } from './$types';
 import { getRecordsByDate } from '$lib/pocketbase/getRecordsByDate';
+import { recordsStore } from '$lib/pocketbase/recordsStore';
+
+const subtractMonth = (date: Date, months: number) => {
+	date.setMonth(date.getMonth() - months);
+	return date;
+};
 
 export const load = (async ({ depends, url }) => {
 	depends('home');
-
-	const subtractMonth = (date: Date, months: number) => {
-		date.setMonth(date.getMonth() - months);
-		return date;
-	};
 
 	const defaultPast = subtractMonth(new Date(), 1);
 	const defaultDate = new Date();
@@ -18,19 +19,19 @@ export const load = (async ({ depends, url }) => {
 	const datePast = from ? new Date(from) : defaultPast;
 	const dateEnd = to ? new Date(to) : defaultDate;
 
-	let records = await getRecordsByDate(datePast, dateEnd);
+	const records = await getRecordsByDate(datePast, dateEnd);
 
-	console.log('records', records);
+	recordsStore.set(
+		records.map((r) => {
+			return {
+				...r,
+				date: new Date(r.date).toLocaleDateString('cs'),
+				expand: {
+					tags: r.expand?.tags ? r.expand.tags : []
+				}
+			};
+		})
+	);
 
-	records = records.map((r) => {
-		return {
-			...r,
-			date: new Date(r.date).toLocaleDateString('cs'),
-			expand: {
-				tags: r.expand?.tags ? r.expand.tags : []
-			}
-		};
-	});
-
-	return { records };
+	return {};
 }) satisfies PageLoad;
