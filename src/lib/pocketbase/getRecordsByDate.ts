@@ -7,7 +7,6 @@ import type { RecordsResponse } from './types';
  * @param  {Date} dateStart Datum kdy programoval
  * @param  {Date} dateEnd Délka v minutách jak dlouho programoval
  */
-
 export async function getRecordsByDate(dateStart: Date, dateEnd: Date) {
 	const start = dateStart.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
 	const end = dateEnd.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
