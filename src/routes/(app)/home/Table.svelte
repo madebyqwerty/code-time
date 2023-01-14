@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { languages } from '$lib/utils/languages';
+	import { languageColors } from '$lib/utils/languages';
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
@@ -30,7 +30,7 @@
 			<td class="text-sm number-sm white">{record.length}</td>
 			<td class="text-sm white">
 				{#each record.language as language}
-					<span class="language" style="background: {languages[language]};">{language}</span>
+					<span class="language" style="background: {languageColors[language]};">{language}</span>
 				{/each}
 			</td>
 			<td class="text-sm number white">{'*'.repeat(record.rating)}</td>

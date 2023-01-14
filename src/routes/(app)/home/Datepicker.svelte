@@ -9,12 +9,14 @@
 	let datepicker: Instance;
 
 	async function handleDateChange(dates: Date[]) {
-		const url = new URL(window.location.href);
-		url.searchParams.set('from', dates[0].toISOString());
-		url.searchParams.set('to', dates[1].toISOString());
+		if (dates.length > 0) {
+			const url = new URL(window.location.href);
+			url.searchParams.set('from', dates[0].toISOString());
+			url.searchParams.set('to', dates[1].toISOString());
 
-		await goto(url.toString());
-		await invalidate('home');
+			await goto(url.toString());
+			await invalidate('home');
+		}
 	}
 
 	onMount(() => {

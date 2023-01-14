@@ -2,7 +2,7 @@
 	import Checkbox from './Checkbox.svelte';
 	import { goto, invalidate } from '$app/navigation';
 	import { languageStore } from '$lib/pocketbase/languageStore';
-	import { languages } from '$lib/utils/languages';
+	import { languageNames, languageColors } from '$lib/utils/languages';
 
 	let selectedLanguages: string[] = [];
 
@@ -27,9 +27,10 @@
 		<div class="tag">
 			<Checkbox
 				{language}
-				--bg={languages[language]}
+				{selectedLanguages}
+				--bg={languageColors[language]}
 				on:check={(e) => handleTagChange(language, e.detail)}
-			/>{language}
+			/>{languageNames[language]}
 		</div>
 	{/each}
 </section>

@@ -1,24 +1,23 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { page } from '$app/stores';
 
 	const dispatch = createEventDispatcher<{ check: boolean }>();
 
-	let checked: boolean;
+	let checked: boolean = false;
 	export let language = '';
+	export let selectedLanguages: string[] = [];
 
-	const langs: string[] = JSON.parse($page.url.searchParams.get('langs') as string);
-
-	if (langs) {
-		console.log(langs);
-		checked = langs.includes(language);
-	}
+	checked = selectedLanguages.includes(language);
 
 	$: {
 		if (checked) {
-			dispatch('check', true);
+			setTimeout(() => {
+				dispatch('check', true);
+			}, 500);
 		} else {
-			dispatch('check', false);
+			setTimeout(() => {
+				dispatch('check', false);
+			}, 500);
 		}
 	}
 </script>
