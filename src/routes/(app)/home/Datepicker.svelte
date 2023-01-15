@@ -5,6 +5,7 @@
 	import { Czech } from 'flatpickr/dist/l10n/cs';
 	import './datepicker.css';
 	import { goto, invalidate } from '$app/navigation';
+	import { subtractMonth } from '$lib/utils/subtractMonth';
 
 	let datepicker: Instance;
 
@@ -23,9 +24,13 @@
 		datepicker = flatpickr('.flatpickr', {
 			mode: 'range',
 			locale: Czech,
-			onClose: (e) => handleDateChange(e)
+			onClose: (e) => handleDateChange(e),
+			defaultDate: [new Date(), subtractMonth(new Date(), 1)]
 		}) as Instance;
 	});
+
+	const today = new Date();
+	const past = subtractMonth(new Date(), 1);
 </script>
 
 <section>

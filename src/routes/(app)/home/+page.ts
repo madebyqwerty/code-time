@@ -2,25 +2,31 @@ import type { PageLoad } from './$types';
 import { recordsStore } from '$lib/pocketbase/recordsStore';
 import type { RecordsResponse } from '$lib/pocketbase/types';
 import { pb } from '$lib/pocketbase';
-import { analyzeLanguages } from '$lib/utils/analyzeLanguages';
+import { analyzeLanguagesAndTags } from '$lib/utils/analyzeLanguagesAndTags';
+import { subtractMonth } from '$lib/utils/subtractMonth';
+import { getDateFromString } from '$lib/utils/getDateFromString';
 
-const subtractMonth = (date: Date, months: number) => {
-	date.setMonth(date.getMonth() - months);
-	return date;
-};
+function createFilter(arr: Array<string> | null, type: string) {
+	let result = '';
+
+	if (arr && arr.length > 0) {
+		result += '&&';
+		arr.forEach((str, i) => {
+			result += `${type} ~ "${str}" ${i + 1 !== arr.length ? '&&' : ''}`;
+		});
+	}
+
+	return result;
+}
 
 export const load = (async ({ depends, url }) => {
 	depends('home');
 
 	// Get all the records in the given timeframe
-	const defaultPast = subtractMonth(new Date(), 1);
-	const defaultDate = new Date();
-
-	const from = url.searchParams.get('from');
-	const to = url.searchParams.get('to');
-
-	const datePast = from ? new Date(from) : defaultPast;
-	const dateEnd = to ? new Date(to) : defaultDate;
+	let datePast = getDateFromString(url.searchParams.get('from'));
+	let dateEnd = getDateFromString(url.searchParams.get('to'));
+	datePast ||= subtractMonth(new Date(), 1);
+	dateEnd ||= new Date();
 
 	const start = datePast.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
 	const end = dateEnd.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
@@ -30,25 +36,9 @@ export const load = (async ({ depends, url }) => {
 	const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
 	const tags: string[] | null = JSON.parse(url.searchParams.get('tags') as string);
 
-	filter =
-		(tags && tags.length > 0) || (langs && langs.length > 0) ? filter.concat(' && (') : filter;
+	filter += createFilter(tags, 'tags') + createFilter(langs, 'language');
 
-	if (tags && tags.length > 0) {
-		console.log(tags);
-		tags.forEach((tag, i) => {
-			filter = filter.concat(`tags ~ "${tag}" ${i + 1 !== tags.length ? '&&' : ''}`);
-		});
-	}
-
-	if (langs && langs.length > 0) {
-		filter = tags && tags.length > 0 ? filter.concat('&&') : filter;
-		langs.forEach((lang, i) => {
-			filter = filter.concat(`language ~ "${lang}" ${i + 1 !== langs.length ? '&&' : ''}`);
-		});
-	}
-
-	// Přidá nakonec závorku aby to byl validní filtr
-	filter = (tags && tags.length > 0) || (langs && langs.length > 0) ? filter.concat(')') : filter;
+	console.log(filter);
 
 	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
 		filter: filter,
@@ -56,7 +46,7 @@ export const load = (async ({ depends, url }) => {
 		$autoCancel: false
 	});
 
-	analyzeLanguages(records.items);
+	analyzeLanguagesAndTags(records.items);
 
 	recordsStore.set(
 		records.items.map((r) => {
@@ -69,5 +59,6 @@ export const load = (async ({ depends, url }) => {
 			};
 		})
 	);
+
 	return {};
 }) satisfies PageLoad;
