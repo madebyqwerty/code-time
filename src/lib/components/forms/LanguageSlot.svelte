@@ -1,5 +1,4 @@
 <script>
-    import languages from "$lib/utils/languages"
 
     export let option;
     export let height = `20px`;

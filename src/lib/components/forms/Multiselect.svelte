@@ -43,16 +43,16 @@
 		WebAssembly: '#0467FB'
 	};
 	const languages = Object.keys(langs);
+console.log("sdfjio")
+	export let selected:string[];
 
-	let selected: string[];
 </script>
 
-<pre>selected = {JSON.stringify(selected)}</pre>
+	<MultiSelect id="fav-languages" options={languages} placeholder="Take your pick..." bind:selected>
+		<LanguageSlot let:option {option} slot="selected" />
+		<LanguageSlot let:option {option} slot="option" />
+	</MultiSelect>
 
-<MultiSelect id="fav-languages" options={languages} placeholder="Take your pick..." bind:selected>
-	<LanguageSlot let:option {option} slot="selected" />
-	<LanguageSlot let:option {option} slot="option" />
-</MultiSelect>
 
 <style lang="scss">
 	:global(div.multiselect > ul.options) {
@@ -61,4 +61,5 @@
     :global(div.multiselect > ul.selected > li){
         background: lighten($background,10)
     }
+
 </style>
