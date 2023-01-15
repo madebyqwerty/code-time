@@ -6,9 +6,11 @@
 
 	export let active: boolean = false;
 	let checked = false;
+
 	onMount(() => {
 		checked = active;
 	});
+
 	$: {
 		if (checked) {
 			dispatch('check', true);

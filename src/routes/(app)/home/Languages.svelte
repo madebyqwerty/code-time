@@ -13,7 +13,7 @@
 		} else {
 			$page.url.searchParams.set(
 				'langs',
-				JSON.stringify(selectedLanguages.filter((el) => el !== id))
+				JSON.stringify(selectedLanguages.filter((e: string) => e !== id))
 			);
 		}
 
@@ -30,7 +30,8 @@
 				active={selectedLanguages.includes(language)}
 				--bg={languageColors[language]}
 				on:check={(e) => handleTagChange(language, e.detail)}
-			/>{languageNames[language]}
+			/>
+			{languageNames[language]}
 		</div>
 	{/each}
 </section>
