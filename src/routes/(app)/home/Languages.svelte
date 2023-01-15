@@ -3,31 +3,31 @@
 	import { goto, invalidate } from '$app/navigation';
 	import { languageStore } from '$lib/pocketbase/languageStore';
 	import { languageNames, languageColors } from '$lib/utils/languages';
+	import { page } from '$app/stores';
 
-	let selectedLanguages: string[] = [];
-
+	$: langsSearchParam = $page.url.searchParams.get('langs');
+	$: selectedLanguages = langsSearchParam !== null ? JSON.parse(langsSearchParam) : [];
 	async function handleTagChange(id: string, checked: boolean) {
 		if (checked) {
-			selectedLanguages = [...selectedLanguages, id];
+			$page.url.searchParams.set('langs', JSON.stringify([...selectedLanguages, id]));
 		} else {
-			selectedLanguages = selectedLanguages.filter((e) => e !== id);
+			$page.url.searchParams.set(
+				'langs',
+				JSON.stringify(selectedLanguages.filter((el) => el !== id))
+			);
 		}
-		const url = new URL(window.location.href);
 
-		url.searchParams.set('langs', JSON.stringify(selectedLanguages));
-
-		await goto(url);
+		await goto($page.url.toString());
 		await invalidate('home');
 	}
 </script>
 
 <section>
 	<h3>Jazyky</h3>
-	{#each $languageStore as language}
+	{#each $languageStore as language (language)}
 		<div class="tag">
 			<Checkbox
-				{language}
-				{selectedLanguages}
+				active={selectedLanguages.includes(language)}
 				--bg={languageColors[language]}
 				on:check={(e) => handleTagChange(language, e.detail)}
 			/>{languageNames[language]}

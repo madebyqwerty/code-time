@@ -16,7 +16,8 @@
 	{/if}
 
 	<Datepicker />
-	<Tags />
+	<!-- 	<Tags />
+ -->
 	<Languages />
 </nav>
 

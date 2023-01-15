@@ -1,23 +1,19 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ check: boolean }>();
 
-	let checked: boolean = false;
-	export let language = '';
-	export let selectedLanguages: string[] = [];
-
-	checked = selectedLanguages.includes(language);
-
+	export let active: boolean = false;
+	let checked = false;
+	onMount(() => {
+		checked = active;
+	});
 	$: {
 		if (checked) {
-			setTimeout(() => {
-				dispatch('check', true);
-			}, 500);
+			dispatch('check', true);
 		} else {
-			setTimeout(() => {
-				dispatch('check', false);
-			}, 500);
+			dispatch('check', false);
 		}
 	}
 </script>
