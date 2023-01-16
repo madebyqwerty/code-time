@@ -2,8 +2,6 @@
 	import type { PageData } from './$types';
 	import Sidenav from './Sidenav.svelte';
 	import Table from './Table.svelte';
-
-	export let data: PageData;
 </script>
 
 <section class="home-page">
