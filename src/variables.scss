@@ -37,3 +37,33 @@ $transition: 120ms;
 	justify-content: center;
 	align-items: center;
 }
+
+@mixin nav-section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+	padding-top: 1.2rem;
+	padding-bottom: 1.2rem;
+	& > h3 {
+		color: white;
+	}
+}
+
+@mixin scrollbars($size: 10px, $foreground-color: #999, $background-color: #333, $margin: 0.2rem) {
+	// For Chrome & Safari
+	&::-webkit-scrollbar {
+		width: $size;
+		height: $size;
+		margin: $margin;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $foreground-color;
+	}
+	&::-webkit-scrollbar-track {
+		background: $background-color;
+	}
+
+	// Standard version (Firefox only for now)
+	scrollbar-color: $foreground-color $background-color;
+	scrollbar-width: 10px;
+}

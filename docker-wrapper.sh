@@ -2,7 +2,7 @@
 
 # ~stolen~ borrowed from here https://docs.docker.com/config/containers/multi-service_container/
 
-node build &
+PORT=80 node build &
 ./pocketbase-server serve --http 0.0.0.0:8090
 
 # Wait for any process to exit

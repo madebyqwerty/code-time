@@ -1,15 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Sidenav from './Sidenav.svelte';
+	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
-
-	export let data: PageData;
 </script>
 
 <section class="home-page">
 	<Sidenav />
 	<section class="content">
-		<Table records={data.records} />
+		<Table />
 	</section>
 </section>
 
@@ -17,12 +15,12 @@
 	.home-page {
 		display: grid;
 		grid-template-columns: 400px 1fr;
-		width: 100vw;
+		max-width: 100vw;
 	}
 
 	.content {
 		padding-top: 3.2rem;
-		margin-left: auto;
-		margin-right: auto;
+		padding-left: 10%;
+		padding-right: 10%;
 	}
 </style>

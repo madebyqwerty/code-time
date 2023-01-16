@@ -1,10 +1,8 @@
 <script lang="ts">
-	import type { RecordsResponse } from '$lib/pocketbase/types';
-	import { languages } from '$lib/utils/languages';
+	import { languageColors, languageNames } from '$lib/utils/languages';
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
-
-	export let records: RecordsResponse[];
+	import { recordsStore } from '$lib/pocketbase/recordsStore';
 
 	let open = false;
 </script>
@@ -26,17 +24,19 @@
 	<th class="white"><h4>Obtížnost</h4></th>
 	<th class="white"><h4>Popis</h4></th>
 	<th class="white"><h4>Tag</h4></th>
-	{#each records as record}
+	{#each $recordsStore as record}
 		<tr>
 			<td class="text-sm white">{record.date}</td>
 			<td class="text-sm number-sm white">{record.length}</td>
 			<td class="text-sm white">
 				{#each record.language as language}
-					<span class="language" style="background: {languages[language]};">{language}</span>
+					<span class="language" style="background: {languageColors[language]};"
+						>{languageNames[language]}</span
+					>
 				{/each}
 			</td>
 			<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-			<td class="text-sm white">{record.description}</td>
+			<td class="text-sm white">{record.description?.substring(0, 20)}</td>
 			{#each record.expand?.tags as tag}
 				<td class="text-sm white">{tag.name}</td>
 			{:else}
@@ -49,6 +49,10 @@
 <CreateRecord bind:open />
 
 <style lang="scss">
+	table {
+		width: 100%;
+	}
+
 	h4 {
 		color: white;
 	}

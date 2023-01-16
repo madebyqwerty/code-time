@@ -1,15 +1,15 @@
 @import 'https://unpkg.com/tailwindcss@3.2.4/src/css/preflight.css';
-
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Silkscreen&display=swap');
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 
 html {
-	background: $background;
+	background: $background !important;
 	font-size: 10px;
 }
 
 * {
 	transition: $transition;
+	//outline: 1px solid red;
 }
 
 *::selection {
@@ -79,6 +79,7 @@ body {
 	line-height: 2.4rem;
 	text-decoration: none;
 	color: white;
+	@include scrollbars(0.5rem, $green-darkest, $background);
 }
 
 .width-max {

@@ -12,4 +12,4 @@ RUN npm run build
 
 CMD ["sh", "docker-wrapper.sh"]
 
-EXPOSE 3000
+EXPOSE 80

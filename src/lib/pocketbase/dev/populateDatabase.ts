@@ -1,10 +1,10 @@
-import { languages } from '$lib/utils/languages';
+import { languageColors } from '$lib/utils/languages';
 import { faker } from '@faker-js/faker/locale/cz';
 import { pb, createRecord, login } from '../.';
 import { createUser } from './createUser';
 import { createTag } from '../createTag';
 
-const jazyky = Object.keys(languages);
+const jazyky = Object.keys(languageColors);
 
 // Nefunguje to 100% tohle vezme jenom unikátní, a já bych chtěl aby to vymazalo duplikáty ale jsem moc línej to dodělat
 // Stejnak je to jenom DEV funkce
