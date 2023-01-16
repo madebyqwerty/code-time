@@ -32,6 +32,7 @@
 		position: sticky;
 		top: 0px;
 		overflow-y: scroll;
+		@include scrollbars(0.5rem, darken($background, 10), $green-primary);
 	}
 
 	h2 {

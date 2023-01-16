@@ -1,9 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Sidenav from './Sidenav.svelte';
+	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
-
-	export let data: PageData;
 </script>
 
 <section class="home-page">

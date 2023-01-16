@@ -48,3 +48,21 @@ $transition: 120ms;
 		color: white;
 	}
 }
+
+@mixin scrollbars($size: 10px, $foreground-color: #999, $background-color: #333, $margin: 0.8rem) {
+	// For Chrome & Safari
+	&::-webkit-scrollbar {
+		width: $size;
+		height: $size;
+		margin: $margin;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $foreground-color;
+	}
+	&::-webkit-scrollbar-track {
+		background: $background-color;
+	}
+
+	// Standard version (Firefox only for now)
+	scrollbar-color: $foreground-color $background-color;
+}
