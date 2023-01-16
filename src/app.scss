@@ -79,6 +79,7 @@ body {
 	line-height: 2.4rem;
 	text-decoration: none;
 	color: white;
+	@include scrollbars(0.5rem, $green-darkest, $background);
 }
 
 .width-max {

@@ -50,7 +50,7 @@
 	}
 
 	input {
-		background-color: $background;
+		background-color: lighten($background, 5);
 		color: $green-lightest;
 		padding: 0.4rem;
 		border: solid 1px $green-primary;

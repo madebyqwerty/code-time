@@ -24,7 +24,6 @@
 	nav {
 		height: 100vh;
 		width: 100%;
-		border-right: 2px solid $green-primary;
 		display: flex;
 		flex-direction: column;
 		padding: 1.6rem;
@@ -32,11 +31,12 @@
 		position: sticky;
 		top: 0px;
 		overflow-y: scroll;
-		@include scrollbars(0.5rem, darken($background, 10), $green-primary);
+		background-color: lighten($background, 5);
+		@include scrollbars(0.5rem, $green-darkest, lighten($background, 5));
 	}
 
 	h2 {
-		background: darken($background, 10);
+		background: $background;
 		padding: 0.8rem;
 		color: $green-primary;
 		width: 100%;
