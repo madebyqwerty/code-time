@@ -52,7 +52,7 @@ export const load = (async ({ depends, url }) => {
 		records.items.map((r) => {
 			return {
 				...r,
-				date: new Date(r.date).toLocaleDateString('cs'),
+				date: new Date(r.date),
 				expand: {
 					tags: r.expand?.tags ? r.expand.tags : []
 				}
