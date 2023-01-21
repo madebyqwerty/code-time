@@ -18,7 +18,7 @@ export function analyzeLanguagesAndTags(records: RecordsResponse[]) {
 			}
 		});
 
-		record.expand?.tags.forEach((tag: TagsResponse) => {
+		record.expand?.tags?.forEach((tag: TagsResponse) => {
 			tags[tag.id] = tag;
 			if (resultTags[tag.id]) {
 				resultTags[tag.id] += 1;
