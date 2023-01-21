@@ -7,7 +7,15 @@
 
 	let width: number, height: number;
 	let max = 0;
-	const data: Record<number, number> = {};
+	const data: Record<number, number> = {
+		1: 0,
+		2: 0,
+		3: 0,
+		4: 0,
+		5: 0,
+		6: 0,
+		7: 0
+	};
 
 	$recordsStore
 		.map((record) => record.date.getDay())
