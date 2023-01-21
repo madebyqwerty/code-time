@@ -8,10 +8,10 @@
 	let email: string,
 		password: string = '';
 
-	function handleLogin() {
+	async function handleLogin() {
 		login(email, password);
 
-		goto('/home');
+		await goto('/home');
 	}
 </script>
 
