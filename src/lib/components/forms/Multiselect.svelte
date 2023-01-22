@@ -2,7 +2,9 @@
 	import MultiSelect from 'svelte-multiselect';
 	import LanguageSlot from './LanguageSlot.svelte';
 
-	const langs = {
+	export let placeholder:string;
+
+	export let options = {
 		HTML: '#e34c26',
 		CSS: '#264de4',
 		Java: '#F9A825',
@@ -42,13 +44,12 @@
 		'F#': '#B845FC',
 		WebAssembly: '#0467FB'
 	};
-	const languages = Object.keys(langs);
-console.log("sdfjio")
+	const languages = Object.keys(options);
 	export let selected:string[];
 
 </script>
 
-	<MultiSelect id="fav-languages" options={languages} placeholder="Take your pick..." bind:selected>
+	<MultiSelect id="fav-languages" options={languages} {placeholder} bind:selected>
 		<LanguageSlot let:option {option} slot="selected" />
 		<LanguageSlot let:option {option} slot="option" />
 	</MultiSelect>
