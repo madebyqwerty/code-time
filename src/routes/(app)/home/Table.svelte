@@ -5,6 +5,43 @@
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 
 	let open = false;
+
+	let sortedData = $recordsStore;
+
+	interface sortingOption {
+		id: 'newest' | 'oldest' | 'hardest' | 'easiest';
+		name: string;
+	}
+
+	const sortingOptions: sortingOption[] = [
+		{
+			id: 'newest',
+			name: 'Od nejnovějších'
+		},
+		{
+			id: 'oldest',
+			name: 'Od nejstarších'
+		},
+		{ id: 'hardest', name: 'Od nejobtížnějších' },
+		{
+			id: 'easiest',
+			name: 'Od nejlehčích'
+		}
+	];
+
+	let selected: sortingOption = {
+		id: 'newest',
+		name: 'Od nejnovějších'
+	};
+
+	const sortingFunctions = {
+		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
+		oldest: () => sortedData.sort((a, b) => a.date.getTime() - b.date.getTime()),
+		hardest: () => sortedData.sort((a, b) => b.rating - a.rating),
+		easiest: () => sortedData.sort((a, b) => a.rating - b.rating)
+	};
+
+	$: sortedData = sortingFunctions[selected.id]();
 </script>
 
 <section>
@@ -17,7 +54,12 @@
 			{open}
 		/>
 	</header>
-
+	<label for="sort">Filtrovat podle</label>
+	<select name="sort" id="sort" bind:value={selected.id}>
+		{#each sortingOptions as sortOption}
+			<option value={sortOption.id}>{sortOption.name}</option>
+		{/each}
+	</select>
 	<table class="table-default">
 		<th class="white"><h4>Datum</h4></th>
 		<th class="white"><h4>Délka</h4></th>
@@ -25,7 +67,7 @@
 		<th class="white"><h4>Obtížnost</h4></th>
 		<th class="white"><h4>Popis</h4></th>
 		<th class="white"><h4>Tag</h4></th>
-		{#each $recordsStore as record}
+		{#each sortedData as record (record.id)}
 			<tr>
 				<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 				<td class="text-sm number-sm white">{record.length}</td>
@@ -51,6 +93,10 @@
 </section>
 
 <style lang="scss">
+	select {
+		background: lighten($background, 10);
+	}
+
 	table {
 		width: 100%;
 	}
