@@ -63,11 +63,11 @@
 		{/each}
 	</select>
 	<table class="table-default">
-		<th class="white"><h4>Datum</h4></th>
-		<th class="white"><h4>Délka</h4></th>
-		<th class="white"><h4>Jazyky</h4></th>
-		<th class="white"><h4>Obtížnost</h4></th>
-		<th class="white"><h4>Tag</h4></th>
+		<th><h4>Datum</h4></th>
+		<th><h4>Délka</h4></th>
+		<th><h4>Jazyky</h4></th>
+		<th><h4>Obtížnost</h4></th>
+		<th><h4>Tag</h4></th>
 		{#each sortedData as record (record.id)}
 			<tr>
 				<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
@@ -101,12 +101,8 @@
 		width: 100%;
 	}
 
-	h4 {
-		color: white;
-	}
-
 	td {
-		padding: 0.8rem;
+		padding: 1.2rem;
 
 		&:not(:first-child) {
 			border-left: 1px solid lighten($background, 20);
@@ -121,10 +117,15 @@
 	}
 
 	th {
-		padding: 2rem;
+		padding-bottom: 2rem;
+		padding-top: 2rem;
 		border-bottom: 1px solid $green-primary;
 	}
 
+	h4 {
+		color: white;
+		text-align: left;
+	}
 	.number {
 		font-size: 2.5rem;
 		font-family: 'Silkscreen';
