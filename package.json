@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"pocketbase": "./pocketbase-server serve",
+		"pocketbase": "sudo ./pocketbase-server serve --http 0.0.0.0:80",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

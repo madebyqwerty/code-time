@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
 </script>
