@@ -34,6 +34,8 @@
 		name: 'Od nejnovějších'
 	};
 
+	console.log(sortedData);
+
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
 		oldest: () => sortedData.sort((a, b) => a.date.getTime() - b.date.getTime()),

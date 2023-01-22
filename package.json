@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"pocketbase": "./pocketbase-server serve",
+		"pocketbase": "sudo ./pocketbase-server serve --http 0.0.0.0:80",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -18,6 +18,7 @@
 		"@faker-js/faker": "^7.6.0",
 		"@svelte-plugins/tooltips": "^0.1.6",
 		"@sveltejs/adapter-node": "^1.0.0-next.104",
+		"@sveltejs/adapter-static": "^1.0.5",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
