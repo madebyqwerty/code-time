@@ -60,5 +60,7 @@ export const load = (async ({ depends, url }) => {
 		})
 	);
 
-	return {};
+	return {
+		pathname: url.toString()
+	};
 }) satisfies PageLoad;
