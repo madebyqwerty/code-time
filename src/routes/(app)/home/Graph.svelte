@@ -2,24 +2,34 @@
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import { scaleLinear } from 'd3-scale';
 	import { onMount } from 'svelte';
+	import Bar from './Bar.svelte';
+
+	// Funkce změní dny tak aby začínali na ponděli místo neděle jako v pojebaným USA
+	function odAmerifikovatZkurvenejAmerickejStandard(num: number) {
+		if (num == 0) {
+			return 6;
+		}
+		return num - 1;
+	}
 
 	const days = ['Pondělí', 'Úterý', 'Středa', 'Čtvrek', 'Pátek', 'Sobota', 'Neděle'];
 
 	let width: number, height: number;
-	let max = 0;
+	let max = 1;
 	const data: Record<number, number> = {
+		0: 0,
 		1: 0,
 		2: 0,
 		3: 0,
 		4: 0,
 		5: 0,
-		6: 0,
-		7: 0
+		6: 0
 	};
 
 	$recordsStore
-		.map((record) => record.date.getDay())
+		.map((record) => odAmerifikovatZkurvenejAmerickejStandard(record.date.getDay()))
 		.forEach((date) => {
+			console.log(date);
 			data[date] ||= 0;
 			data[date] += 1;
 			if (data[date] > max) {
@@ -43,10 +53,10 @@
 	<h1>Graf</h1>
 	<div class="graph" bind:clientWidth={width} bind:clientHeight={height}>
 		{#if mounted}
-			{#each Object.keys(data) as dateString, i}
+			{#each Object.entries(data) as recordsCount}
 				<div class="bar-wrapper">
-					<div class="bar" style="height: {yScale(data[parseInt(dateString)])}px;" />
-					<span>{days[i]}</span>
+					<Bar --bar-height={`${yScale(recordsCount[1])}px`} count={recordsCount[1]} />
+					<span>{days[parseInt(recordsCount[0])]}</span>
 				</div>
 			{/each}
 		{/if}
@@ -54,11 +64,6 @@
 </section>
 
 <style lang="scss">
-	.bar {
-		width: 100%;
-		background-color: $green-primary;
-	}
-
 	section {
 		width: 100%;
 	}
@@ -67,6 +72,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-items: end;
 	}
 
 	.graph {

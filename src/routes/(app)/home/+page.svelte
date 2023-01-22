@@ -3,12 +3,16 @@
 	import Graph from './Graph.svelte';
 	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
+
+	export let data: PageData;
 </script>
 
 <section class="home-page">
 	<Sidenav />
 	<section class="content">
-		<Graph />
+		{#key data.pathname}
+			<Graph />
+		{/key}
 		<Table />
 	</section>
 </section>
