@@ -11,7 +11,7 @@
 	async function handleLogin() {
 		login(email, password);
 
-		await goto('/home');
+		await goto('/');
 	}
 </script>
 
