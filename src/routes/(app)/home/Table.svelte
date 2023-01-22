@@ -65,12 +65,11 @@
 		<th class="white"><h4>Délka</h4></th>
 		<th class="white"><h4>Jazyky</h4></th>
 		<th class="white"><h4>Obtížnost</h4></th>
-		<th class="white"><h4>Popis</h4></th>
 		<th class="white"><h4>Tag</h4></th>
 		{#each sortedData as record (record.id)}
 			<tr>
 				<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
-				<td class="text-sm number-sm white">{record.length}</td>
+				<td class="text-sm white">{record.length}</td>
 				<td class="text-sm white">
 					{#each record.language as language}
 						<span class="language" style="background: {languageColors[language]};"
@@ -79,7 +78,6 @@
 					{/each}
 				</td>
 				<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-				<td class="text-sm white">{record.description?.substring(0, 20)}</td>
 				{#each record.expand?.tags as tag}
 					<td class="text-sm white">{tag.name}</td>
 				{:else}
@@ -106,18 +104,18 @@
 	}
 
 	td {
-		padding: 1.5rem;
+		padding: 0.8rem;
 
 		&:not(:first-child) {
-			border-left: 1px solid lighten($background, 10);
+			border-left: 1px solid lighten($background, 20);
 		}
 		&:not(:last-child) {
-			border-right: 1px solid lighten($background, 10);
+			border-right: 1px solid lighten($background, 20);
 		}
 	}
 
 	tr:nth-of-type(odd) {
-		background-color: darken($background, 10%);
+		background-color: lighten($background, 5);
 	}
 
 	th {
@@ -129,10 +127,6 @@
 		font-size: 2.5rem;
 		font-family: 'Silkscreen';
 		text-align: center;
-		&-sm {
-			font-size: 2rem;
-			text-align: center;
-		}
 	}
 
 	.language {
