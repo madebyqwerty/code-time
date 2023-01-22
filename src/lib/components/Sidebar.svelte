@@ -27,7 +27,7 @@
 		/>
 		<aside
 			bind:clientWidth={width}
-			transition:fly={{ duration: 500, x: width, y: 0, opacity: 0.5, easing: cubicOut }}
+			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 0.5, easing: cubicOut }}
 		>
 			<Button on:click={close} type="close">
 				<iconify-icon icon="carbon:close-outline" inline={true} class="icon" />
@@ -47,7 +47,7 @@
 		bottom: 0px;
 		left: 0px;
 		display: grid;
-		place-items: end;
+		place-items: start;
 	}
 
 	.overlay {

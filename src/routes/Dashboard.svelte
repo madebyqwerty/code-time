@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { recordsStore } from '$lib/pocketbase/recordsStore';
+	import Graph from './Graph.svelte';
 	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
 </script>
@@ -6,7 +8,10 @@
 <section class="home-page">
 	<Sidenav />
 	<section class="content">
-		<Table />
+		{#if $recordsStore.length > 0}
+			<Graph />
+			<Table />
+		{/if}
 	</section>
 </section>
 

@@ -1,4 +1,4 @@
-import type { PageLoad } from './(app)/home/$types';
+import type { PageLoad } from './$types';
 import { recordsStore } from '$lib/pocketbase/recordsStore';
 import type { RecordsResponse } from '$lib/pocketbase/types';
 import { pb } from '$lib/pocketbase';
@@ -53,7 +53,7 @@ export const load = (async ({ depends, url }) => {
 			records.items.map((r) => {
 				return {
 					...r,
-					date: new Date(r.date).toLocaleDateString('cs'),
+					date: new Date(r.date),
 					expand: {
 						tags: r.expand?.tags ? r.expand.tags : []
 					}
@@ -61,5 +61,7 @@ export const load = (async ({ depends, url }) => {
 			})
 		);
 	}
-	return {};
+	return {
+		pathname: url.toString()
+	};
 }) satisfies PageLoad;

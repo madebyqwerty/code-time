@@ -16,6 +16,7 @@
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^7.6.0",
+		"@svelte-plugins/tooltips": "^0.1.6",
 		"@sveltejs/adapter-node": "^1.0.0-next.104",
 		"@sveltejs/adapter-static": "^1.0.5",
 		"@sveltejs/kit": "next",
@@ -40,6 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"d3-scale": "^4.0.2",
 		"flatpickr": "^4.6.13",
 		"iconify-icon": "^1.0.2",
 		"pocketbase": "^0.9.1",
