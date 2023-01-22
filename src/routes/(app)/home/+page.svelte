@@ -12,8 +12,8 @@
 	<section class="content">
 		{#key data.pathname}
 			<Graph />
+			<Table />
 		{/key}
-		<Table />
 	</section>
 </section>
 
