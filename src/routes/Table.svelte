@@ -3,6 +3,7 @@
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
+	import Button from '$lib/components/Button.svelte';
 
 	let open = false;
 
@@ -89,10 +90,29 @@
 		{/each}
 	</table>
 
+	{#if $recordsStore.length < 1}
+		<div class="no-data">
+			<h3>Nemáš ještě žádný záznam</h3>
+			<Button on:click={() => (open = true)}>Přidat záznam</Button>
+		</div>
+	{/if}
+
 	<CreateRecord bind:open />
 </section>
 
 <style lang="scss">
+	.no-data {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-bottom: 2rem;
+		padding-top: 2rem;
+		gap: 2rem;
+		& > h3 {
+			font-family: 'Fira Code', monospace;
+		}
+	}
+
 	select {
 		background: lighten($background, 10);
 	}

@@ -10,12 +10,10 @@
 <section class="home-page">
 	<Sidenav />
 	<section class="content">
-		{#if $recordsStore.length > 0}
-			{#key data.pathname}
-				<Graph />
-				<Table />
-			{/key}
-		{/if}
+		{#key data.pathname}
+			<Graph />
+			<Table />
+		{/key}
 	</section>
 </section>
 
