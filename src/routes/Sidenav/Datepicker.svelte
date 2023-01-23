@@ -6,6 +6,8 @@
 	import './datepicker.css';
 	import { goto, invalidate } from '$app/navigation';
 	import { subtractMonth } from '$lib/utils/subtractMonth';
+	import { page } from '$app/stores';
+	import { getDateFromString } from '$lib/utils/getDateFromString';
 
 	let datepicker: Instance;
 
@@ -20,17 +22,19 @@
 		}
 	}
 
+	let datePast = getDateFromString($page.url.searchParams.get('from'));
+	let dateEnd = getDateFromString($page.url.searchParams.get('to'));
+	datePast ||= subtractMonth(new Date(), 1);
+	dateEnd ||= new Date();
+
 	onMount(() => {
 		datepicker = flatpickr('.flatpickr', {
 			mode: 'range',
 			locale: Czech,
 			onClose: (e) => handleDateChange(e),
-			defaultDate: [new Date(), subtractMonth(new Date(), 1)]
+			defaultDate: [datePast, dateEnd]
 		}) as Instance;
 	});
-
-	const today = new Date();
-	const past = subtractMonth(new Date(), 1);
 </script>
 
 <section>

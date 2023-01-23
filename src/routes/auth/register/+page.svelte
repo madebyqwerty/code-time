@@ -30,7 +30,7 @@
 				name
 			});
 			await login(email, password);
-			goto('/home');
+			goto('/');
 		}
 	}
 </script>

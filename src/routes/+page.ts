@@ -61,6 +61,7 @@ export const load = (async ({ depends, url }) => {
 			})
 		);
 	}
+
 	return {
 		pathname: url.toString()
 	};

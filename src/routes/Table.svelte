@@ -3,6 +3,7 @@
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
+	import Button from '$lib/components/Button.svelte';
 
 	let open = false;
 
@@ -63,11 +64,11 @@
 		{/each}
 	</select>
 	<table class="table-default">
-		<th class="white"><h4>Datum</h4></th>
-		<th class="white"><h4>Délka</h4></th>
-		<th class="white"><h4>Jazyky</h4></th>
-		<th class="white"><h4>Obtížnost</h4></th>
-		<th class="white"><h4>Tag</h4></th>
+		<th><h4>Datum</h4></th>
+		<th><h4>Délka</h4></th>
+		<th><h4>Jazyky</h4></th>
+		<th><h4>Obtížnost</h4></th>
+		<th><h4>Tag</h4></th>
 		{#each sortedData as record (record.id)}
 			<tr>
 				<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
@@ -89,10 +90,29 @@
 		{/each}
 	</table>
 
+	{#if $recordsStore.length < 1}
+		<div class="no-data">
+			<h3>Nemáš ještě žádný záznam</h3>
+			<Button on:click={() => (open = true)}>Přidat záznam</Button>
+		</div>
+	{/if}
+
 	<CreateRecord bind:open />
 </section>
 
 <style lang="scss">
+	.no-data {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-bottom: 2rem;
+		padding-top: 2rem;
+		gap: 2rem;
+		& > h3 {
+			font-family: 'Fira Code', monospace;
+		}
+	}
+
 	select {
 		background: lighten($background, 10);
 	}
@@ -101,12 +121,8 @@
 		width: 100%;
 	}
 
-	h4 {
-		color: white;
-	}
-
 	td {
-		padding: 0.8rem;
+		padding: 1.2rem;
 
 		&:not(:first-child) {
 			border-left: 1px solid lighten($background, 20);
@@ -121,10 +137,15 @@
 	}
 
 	th {
-		padding: 2rem;
+		padding-bottom: 2rem;
+		padding-top: 2rem;
 		border-bottom: 1px solid $green-primary;
 	}
 
+	h4 {
+		color: white;
+		text-align: left;
+	}
 	.number {
 		font-size: 2.5rem;
 		font-family: 'Silkscreen';
