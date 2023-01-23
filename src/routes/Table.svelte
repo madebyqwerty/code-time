@@ -10,7 +10,7 @@
 	let sortedData = $recordsStore;
 
 	interface sortingOption {
-		id: 'newest' | 'oldest' | 'hardest' | 'easiest';
+		id: 'newest' | 'oldest' | 'hardest' | 'easiest' | 'longest' | 'shortest';
 		name: string;
 	}
 
@@ -27,6 +27,14 @@
 		{
 			id: 'easiest',
 			name: 'Od nejlehčích'
+		},
+		{
+			id: 'longest',
+			name: 'Od nejdelších'
+		},
+		{
+			id: 'shortest',
+			name: 'Od nejkratších'
 		}
 	];
 
@@ -35,13 +43,13 @@
 		name: 'Od nejnovějších'
 	};
 
-	console.log(sortedData);
-
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
 		oldest: () => sortedData.sort((a, b) => a.date.getTime() - b.date.getTime()),
 		hardest: () => sortedData.sort((a, b) => b.rating - a.rating),
-		easiest: () => sortedData.sort((a, b) => a.rating - b.rating)
+		easiest: () => sortedData.sort((a, b) => a.rating - b.rating),
+		shortest: () => sortedData.sort((a, b) => a.length - b.length),
+		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
 
 	$: sortedData = sortingFunctions[selected.id]();
