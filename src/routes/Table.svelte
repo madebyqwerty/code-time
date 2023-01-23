@@ -4,13 +4,14 @@
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import Button from '$lib/components/Button.svelte';
+	import { fly } from 'svelte/transition';
 
 	let open = false;
 
 	let sortedData = $recordsStore;
 
 	interface sortingOption {
-		id: 'newest' | 'oldest' | 'hardest' | 'easiest';
+		id: 'newest' | 'oldest' | 'hardest' | 'easiest' | 'longest' | 'shortest';
 		name: string;
 	}
 
@@ -27,6 +28,14 @@
 		{
 			id: 'easiest',
 			name: 'Od nejlehčích'
+		},
+		{
+			id: 'longest',
+			name: 'Od nejdelších'
+		},
+		{
+			id: 'shortest',
+			name: 'Od nejkratších'
 		}
 	];
 
@@ -35,13 +44,13 @@
 		name: 'Od nejnovějších'
 	};
 
-	console.log(sortedData);
-
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
 		oldest: () => sortedData.sort((a, b) => a.date.getTime() - b.date.getTime()),
 		hardest: () => sortedData.sort((a, b) => b.rating - a.rating),
-		easiest: () => sortedData.sort((a, b) => a.rating - b.rating)
+		easiest: () => sortedData.sort((a, b) => a.rating - b.rating),
+		shortest: () => sortedData.sort((a, b) => a.length - b.length),
+		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
 
 	$: sortedData = sortingFunctions[selected.id]();
@@ -63,32 +72,34 @@
 			<option value={sortOption.id}>{sortOption.name}</option>
 		{/each}
 	</select>
-	<table class="table-default">
-		<th><h4>Datum</h4></th>
-		<th><h4>Délka</h4></th>
-		<th><h4>Jazyky</h4></th>
-		<th><h4>Obtížnost</h4></th>
-		<th><h4>Tag</h4></th>
-		{#each sortedData as record (record.id)}
-			<tr>
-				<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
-				<td class="text-sm white">{record.length}</td>
-				<td class="text-sm white">
-					{#each record.language as language}
-						<span class="language" style="background: {languageColors[language]};"
-							>{languageNames[language]}</span
-						>
+	{#key sortedData}
+		<table class="table-default">
+			<th><h4>Datum</h4></th>
+			<th><h4>Délka</h4></th>
+			<th><h4>Jazyky</h4></th>
+			<th><h4>Obtížnost</h4></th>
+			<th><h4>Tag</h4></th>
+			{#each sortedData as record, i}
+				<tr style="--animation-order:{i * 100}ms">
+					<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
+					<td class="text-sm white">{record.length}</td>
+					<td class="text-sm white">
+						{#each record.language as language}
+							<span class="language" style="background: {languageColors[language]};"
+								>{languageNames[language]}</span
+							>
+						{/each}
+					</td>
+					<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
+					{#each record.expand?.tags as tag}
+						<td class="text-sm white">{tag.name}</td>
+					{:else}
+						<td />
 					{/each}
-				</td>
-				<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-				{#each record.expand?.tags as tag}
-					<td class="text-sm white">{tag.name}</td>
-				{:else}
-					<td />
-				{/each}
-			</tr>
-		{/each}
-	</table>
+				</tr>
+			{/each}
+		</table>
+	{/key}
 
 	{#if $recordsStore.length < 1}
 		<div class="no-data">
@@ -119,6 +130,24 @@
 
 	table {
 		width: 100%;
+		margin-bottom: 8rem;
+	}
+
+	@keyframes appear {
+		from {
+			transform: translate(0, 20%);
+		}
+		to {
+			transform: translate(0, 0);
+			opacity: 100;
+		}
+	}
+
+	tr {
+		animation: appear 1s forwards;
+		animation-delay: var(--animation-order);
+		transform: translate(0, 20%);
+		opacity: 0;
 	}
 
 	td {
