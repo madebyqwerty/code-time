@@ -6,7 +6,7 @@ import { analyzeLanguagesAndTags } from '$lib/utils/analyzeLanguagesAndTags';
 import { subtractMonth } from '$lib/utils/subtractMonth';
 import { getDateFromString } from '$lib/utils/getDateFromString';
 
-function createFilter(arr: Array<string> | null, type: string) {
+function createFilter(arr: Array<string | number> | null, type: string) {
 	let result = '';
 
 	if (arr && arr.length > 0) {
@@ -36,8 +36,12 @@ export const load = (async ({ depends, url }) => {
 
 		const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
 		const tags: string[] | null = JSON.parse(url.searchParams.get('tags') as string);
+		const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string).map(
+			(el: number) => el + 1
+		);
 
-		filter += createFilter(tags, 'tags') + createFilter(langs, 'language');
+		filter +=
+			createFilter(tags, 'tags') + createFilter(langs, 'language') + createFilter(stars, 'rating');
 
 		console.log(filter);
 

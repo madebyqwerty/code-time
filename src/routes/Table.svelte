@@ -92,8 +92,8 @@
 
 	{#if $recordsStore.length < 1}
 		<div class="no-data">
-			<h3>Nemáš ještě žádný záznam</h3>
-			<Button on:click={() => (open = true)}>Přidat záznam</Button>
+			<h4>Nenašli jsme žádný záznam</h4>
+			<Button on:click={() => (open = true)}>Přidat nový</Button>
 		</div>
 	{/if}
 
@@ -108,7 +108,7 @@
 		padding-bottom: 2rem;
 		padding-top: 2rem;
 		gap: 2rem;
-		& > h3 {
+		& > h4 {
 			font-family: 'Fira Code', monospace;
 		}
 	}
