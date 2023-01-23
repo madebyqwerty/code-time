@@ -2,7 +2,7 @@ import { invalidate, invalidateAll } from '$app/navigation';
 import PocketBase from 'pocketbase';
 import { writable } from 'svelte/store';
 
-export const pb = new PocketBase('http://0.0.0.0:80');
+export const pb = new PocketBase(window.location.href);
 
 export const currentUser = writable(pb.authStore.model);
 
