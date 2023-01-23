@@ -2,6 +2,7 @@
 	import Datepicker from './Datepicker.svelte';
 	import Languages from './Languages.svelte';
 	import Tags from './Tags.svelte';
+	import Stars from './Stars.svelte';
 
 	let isManager = false;
 </script>
@@ -14,7 +15,7 @@
 			<h3>UŽIVATEL</h3>
 		</section>
 	{/if}
-
+	<Stars />
 	<Datepicker />
 	<Tags />
 	<Languages />
