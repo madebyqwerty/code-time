@@ -3,6 +3,7 @@
 	import Graph from './Graph.svelte';
 	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
+
 </script>
 
 <section class="home-page">

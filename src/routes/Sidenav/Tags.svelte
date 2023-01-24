@@ -3,6 +3,7 @@
 	import { tagStore } from '$lib/pocketbase/tagStore';
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
+	import SidebarLeft from "$lib/components/SidebarLeft.svelte"
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
@@ -22,6 +23,18 @@
 		invalidate('home');
 	}
 </script>
+
+<SidebarLeft bind:open={openTags} title="UPRAVIT ŠTÍTKY">
+	{#each $tagStore as tag (tag.id)}
+		<div class="tag">
+			<Checkbox
+				active={selectedTags.includes(tag.id)}
+				--bg={tag.color}
+				on:check={(e) => handleTagChange(tag.id, e.detail)}
+			/>{tag.name}
+		</div>
+	{/each}
+</SidebarLeft>
 
 <section>
 	<div class="headerlmao">
