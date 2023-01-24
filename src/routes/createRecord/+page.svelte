@@ -13,7 +13,6 @@
 	}
 	let selectedOptions: string[];
 	let w;
-	$: console.log(selectedOptions);
 </script>
 
 <button on:click={handleClick}>Vytvořit záznam</button>
