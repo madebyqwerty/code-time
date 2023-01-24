@@ -4,10 +4,8 @@
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import Button from '$lib/components/Button.svelte';
-	import { fly } from 'svelte/transition';
 
 	let open = false;
-
 	let sortedData = $recordsStore;
 
 	interface sortingOption {
@@ -53,6 +51,7 @@
 		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
 
+	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected.id]();
 </script>
 
