@@ -15,12 +15,8 @@
 		};
 
 	async function register() {
-		console.log('registering');
-
 		error.repeatPassword = password !== repeatPassword;
 		error.password = password.length < 12;
-
-		console.log(error);
 
 		if (!error.password && !error.repeatPassword) {
 			await pb.collection('users').create({

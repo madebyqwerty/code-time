@@ -19,7 +19,6 @@ export async function createRecord(
 	description: string,
 	tags: string[]
 ) {
-	console.log(language);
 	const data = {
 		date: date.toISOString(),
 		length: length,

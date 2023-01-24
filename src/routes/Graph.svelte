@@ -29,7 +29,6 @@
 	$recordsStore
 		.map((record) => odAmerifikovatZkurvenejAmerickejStandard(record.date.getDay()))
 		.forEach((date) => {
-			console.log(date);
 			data[date] ||= 0;
 			data[date] += 1;
 			if (data[date] > max) {
@@ -45,8 +44,6 @@
 			.range([0, height - 16 - 42]);
 		mounted = true;
 	});
-
-	console.log(data);
 </script>
 
 <section>
