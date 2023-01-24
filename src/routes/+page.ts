@@ -19,52 +19,58 @@ function createFilter(arr: Array<string | number> | null, type: string) {
 	return result;
 }
 
+function convertDateToPocketbaseFormat(date: Date | null) {
+	if (date) {
+		return date.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
+	}
+	return null;
+}
+
 export const load = (async ({ depends, url }) => {
 	depends('home');
 
-	if (pb.authStore.model) {
-		// Get all the records in the given timeframe
-		let datePast = getDateFromString(url.searchParams.get('from'));
-		let dateEnd = getDateFromString(url.searchParams.get('to'));
-		datePast ||= subtractMonth(new Date(), 1);
-		dateEnd ||= new Date();
-
-		const start = datePast.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
-		const end = dateEnd.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
-
-		let filter = `(date >= "${start}" && date <= "${end}")`;
-
-		const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
-		const tags: string[] | null = JSON.parse(url.searchParams.get('tags') as string);
-		const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string).map(
-			(el: number) => el + 1
-		);
-
-		filter +=
-			createFilter(tags, 'tags') + createFilter(langs, 'language') + createFilter(stars, 'rating');
-
-		console.log(filter);
-
-		const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
-			filter: filter,
-			expand: 'tags',
-			$autoCancel: false
-		});
-
-		analyzeLanguagesAndTags(records.items);
-
-		recordsStore.set(
-			records.items.map((r) => {
-				return {
-					...r,
-					date: new Date(r.date),
-					expand: {
-						tags: r.expand?.tags ? r.expand.tags : []
-					}
-				};
-			})
-		);
+	if (!pb.authStore.model) {
+		return {
+			pathname: url.toString()
+		};
 	}
+
+	// Get all the records in the given timeframe
+	let datePast = convertDateToPocketbaseFormat(getDateFromString(url.searchParams.get('from')));
+	let dateEnd = convertDateToPocketbaseFormat(getDateFromString(url.searchParams.get('to')));
+	datePast ||= convertDateToPocketbaseFormat(subtractMonth(new Date(), 1));
+	dateEnd ||= convertDateToPocketbaseFormat(new Date());
+
+	let filter = `(date >= "${datePast}" && date <= "${dateEnd}")`;
+
+	const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
+	const tags: string[] | null = JSON.parse(url.searchParams.get('tags') as string);
+	const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string)?.map(
+		(el: number) => el + 1
+	);
+
+	filter +=
+		createFilter(tags, 'tags') + createFilter(langs, 'language') + createFilter(stars, 'rating');
+
+	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
+		filter: filter,
+		expand: 'tags',
+		$autoCancel: false
+	});
+
+	analyzeLanguagesAndTags(records.items);
+
+	recordsStore.set(
+		records.items.map((r) => {
+			return {
+				...r,
+				date: new Date(r.date),
+				expand: {
+					tags: r.expand?.tags ? r.expand.tags : []
+				}
+			};
+		})
+	);
 
 	return {
 		pathname: url.toString()
