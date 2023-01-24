@@ -6,13 +6,13 @@ import { analyzeLanguagesAndTags } from '$lib/utils/analyzeLanguagesAndTags';
 import { subtractMonth } from '$lib/utils/subtractMonth';
 import { getDateFromString } from '$lib/utils/getDateFromString';
 
-function createFilter(arr: Array<string | number> | null, type: string) {
+function createFilter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
 	let result = '';
 
 	if (arr && arr.length > 0) {
 		result += '&&';
 		arr.forEach((str, i) => {
-			result += `${type} ~ "${str}" ${i + 1 !== arr.length ? '&&' : ''}`;
+			result += `${type} ~ "${str}" ${i + 1 !== arr.length ? mode : ''}`;
 		});
 	}
 
@@ -50,7 +50,9 @@ export const load = (async ({ depends, url }) => {
 	);
 
 	filter +=
-		createFilter(tags, 'tags') + createFilter(langs, 'language') + createFilter(stars, 'rating');
+		createFilter(tags, 'tags') +
+		createFilter(langs, 'language') +
+		createFilter(stars, 'rating', '||');
 
 	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
 		filter: filter,
