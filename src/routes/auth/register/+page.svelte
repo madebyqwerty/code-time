@@ -23,7 +23,8 @@
 				email,
 				password,
 				passwordConfirm: repeatPassword,
-				name
+				name,
+				is_manager: type === 'managers'
 			});
 			await login(email, password);
 			goto('/');
