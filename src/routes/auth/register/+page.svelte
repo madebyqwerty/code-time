@@ -19,7 +19,7 @@
 		error.password = password.length < 12;
 
 		if (!error.password && !error.repeatPassword) {
-			await pb.collection(type).create({
+			await pb.collection('users').create({
 				email,
 				password,
 				passwordConfirm: repeatPassword,
