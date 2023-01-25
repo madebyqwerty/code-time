@@ -37,4 +37,8 @@
 		flex-direction: column;
 		gap: 6.4rem;
 	}
+
+	h2 {
+		color: $green-primary;
+	}
 </style>

@@ -151,13 +151,6 @@
 
 	td {
 		padding: 1.2rem;
-
-		&:not(:first-child) {
-			border-left: 1px solid lighten($background, 20);
-		}
-		&:not(:last-child) {
-			border-right: 1px solid lighten($background, 20);
-		}
 	}
 
 	tr:nth-of-type(odd) {

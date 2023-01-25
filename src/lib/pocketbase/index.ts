@@ -11,6 +11,7 @@ export const currentUser = writable<Record | Admin>(pb.authStore.model!);
 
 pb.authStore.onChange(async () => {
 	currentUser.set(pb.authStore.model!);
+	console.log('login');
 	await invalidate('home');
 });
 

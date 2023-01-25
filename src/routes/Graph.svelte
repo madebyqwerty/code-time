@@ -47,7 +47,7 @@
 </script>
 
 <section>
-	<h1>Graf</h1>
+	<h2>Graf</h2>
 	<div class="graph" bind:clientWidth={width} bind:clientHeight={height}>
 		{#if mounted}
 			{#each Object.entries(data) as recordsCount}

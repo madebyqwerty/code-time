@@ -11,7 +11,7 @@
 <span>
 	<label for={name} class="text-sm">{label}</label>
 	<div class="input-wrapper">
-		<textarea {name} bind:value {placeholder} {required} />
+		<textarea {name} bind:value {placeholder} {required} rows="12" />
 	</div>
 
 	<p class="text-sm grey {error ? 'error' : ''}">{error ? error : helperText}</p>

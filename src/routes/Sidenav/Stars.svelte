@@ -17,8 +17,8 @@
 			url.searchParams.set('stars', JSON.stringify(stars.filter((star) => star !== starCount)));
 		}
 
+		console.log('stars');
 		await goto(url);
-		await invalidate('home');
 	};
 </script>
 

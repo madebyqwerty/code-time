@@ -30,7 +30,8 @@
 		}
 
 		await goto($page.url);
-		invalidate('home');
+		console.log('tags 1');
+		await invalidate('home');
 	}
 
 	const setBg = () => {
@@ -53,6 +54,7 @@
 			) {
 				createTag(addTagInput, color);
 				openTags = false;
+				console.log('tag2');
 				await invalidate('home');
 			}
 		} catch (e) {}

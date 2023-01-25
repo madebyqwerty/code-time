@@ -17,7 +17,8 @@ export async function createRecord(
 	language: Language[],
 	rating: number,
 	description: string,
-	tags: string[]
+	tags: string[],
+	id: string = pb.authStore.model!.id
 ) {
 	const data = {
 		date: date.toISOString(),
@@ -26,8 +27,8 @@ export async function createRecord(
 		rating: rating,
 		description: description,
 		tags: tags,
-		user_id: pb.authStore.model?.id
+		user_id: id
 	};
 
-	const record = await pb.collection('records').create(data, { $autoCancel: false });
+	await pb.collection('records').create(data, { $autoCancel: false });
 }

@@ -18,6 +18,7 @@
 		const url = $page.url;
 		url.searchParams.set('user_id', JSON.stringify(id));
 		await goto(url.toString());
+		console.log('userMenu1');
 		await invalidate('home');
 	}
 
@@ -42,6 +43,7 @@
 		newUserEmail = '';
 		newUserName = '';
 		newUserPassword = '';
+		console.log('usermenu2');
 		await invalidate('home');
 		open = false;
 	}
@@ -81,7 +83,11 @@
 						</MenuItem>
 					{/each}
 					<MenuItem as="div" let:active>
-						<button class="menu-button menu-item add-button" on:click={openSidebar} class:active>
+						<button
+							class="menu-button menu-item manager-add-button"
+							on:click={openSidebar}
+							class:active
+						>
 							<div class="divider" />
 							<div class="content">
 								<iconify-icon icon="pixelarticons:frame-add" inline={true} /> Přidat uživatele
@@ -109,7 +115,7 @@
 	<Input
 		bind:value={newUserPassword}
 		type="password"
-		showPasswordSwitch="true"
+		showPasswordSwitch={true}
 		label="Heslo pro nového uživatele"
 		placeholder="******"
 	/>
@@ -165,7 +171,7 @@
 		z-index: 10 !important;
 	}
 
-	.add-button {
+	.manager-add-button {
 		padding-top: 0.8rem;
 		display: block;
 		& > .divider {
@@ -177,6 +183,7 @@
 		}
 		& > .content {
 			display: flex;
+			align-items: center;
 			gap: 0.8rem;
 		}
 	}

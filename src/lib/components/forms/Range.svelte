@@ -17,8 +17,8 @@
 			<div class="eye" />
 			<div class="eye" />
 			<div class="mth" />
-			<div class="square" style="top:{80 - rangeValue/6 * 24}%;left:0%;" />
-			<div class="square" style="top:{80 - rangeValue/6 * 24}%;left:80%;" />
+			<div class="square" style="top:{80 - (rangeValue / 6) * 24}%;left:0%;" />
+			<div class="square" style="top:{80 - (rangeValue / 6) * 24}%;left:80%;" />
 		</div>
 	</div>
 </div>
@@ -72,8 +72,8 @@
 		height: 8rem;
 		line-height: 8rem;
 		font-size: 8rem;
-        width:100%;
-        font-family:"Fira Code";
+		width: 100%;
+		font-family: 'Fira Code';
 	}
 
 	.rating label {
@@ -82,9 +82,9 @@
 		left: 0;
 		height: 100%;
 		cursor: pointer;
-        display:flex;
-        flex-direction:row;
-        justify-content:space-between;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 	}
 
 	.rating label:last-child {
@@ -97,22 +97,22 @@
 
 	.rating label:nth-child(2) {
 		z-index: 4;
-        width:calc(25% + 4.8rem);
+		width: calc(25% + 4.8rem);
 	}
 
 	.rating label:nth-child(3) {
 		z-index: 3;
-        width:calc(50% + 3.2rem);
+		width: calc(50% + 3.2rem);
 	}
 
 	.rating label:nth-child(4) {
 		z-index: 2;
-        width:calc(75% + 1.6rem);
+		width: calc(75% + 1.6rem);
 	}
 
 	.rating label:nth-child(5) {
 		z-index: 1;
-        width:100%;
+		width: 100%;
 	}
 
 	.rating label input {
@@ -125,9 +125,9 @@
 	.rating label .icon {
 		float: left;
 		color: transparent;
-        -webkit-text-stroke: 2px lighten($green-primary, 25);
-        transition:250ms ease;
-        transition-delay:50ms;
+		-webkit-text-stroke: 2px lighten($green-primary, 25);
+		transition: 250ms ease;
+		transition-delay: 50ms;
 	}
 
 	.rating label:last-child .icon {
@@ -136,17 +136,14 @@
 	.rating:not(:hover) label input:checked ~ .icon,
 	.rating:hover label:hover input ~ .icon {
 		color: lighten($green-primary, 25);
-
 	}
-    .rating label input:focus:not(:checked) ~ .icon {
+	.rating label input:focus:not(:checked) ~ .icon {
 		color: #000;
 		text-shadow: 0 0 5px lighten($green-primary, 25);
-
 	}
 	.rating label input:focus:not(:checked) ~ .icon:last-child {
 		color: #000;
 		text-shadow: 0 0 5px lighten($green-primary, 25);
-
 	}
 	/* input[type='range'] {
 		-webkit-appearance: none;
@@ -189,7 +186,7 @@
 		width: 0.7rem;
 		background: $green-primary;
 		position: absolute;
-        transition: 140ms ease-in-out;
+		transition: 140ms ease-in-out;
 	}
 	.mth {
 		height: 0.7rem;
@@ -198,7 +195,7 @@
 		position: absolute;
 		top: 68%;
 		left: 20%;
-        transition: 140ms ease-in-out;
+		transition: 140ms ease-in-out;
 	}
 	.eye {
 		top: 0%;
@@ -206,7 +203,7 @@
 		&:first-child {
 			left: 0%;
 		}
-        transition: 140ms ease-in-out;
+		transition: 140ms ease-in-out;
 	}
 	.square {
 		&:first-child {
@@ -215,7 +212,7 @@
 		&:last-child {
 			left: 80%;
 		}
-        transition: 140ms ease-in-out;
+		transition: 140ms ease-in-out;
 	}
 	.range-label {
 		display: flex;
@@ -230,7 +227,7 @@
 		width: 3.5rem;
 	}
 
-/* 	input {
+	/* 	input {
 		color: white;
 		border: 2px solid $green-primary;
 		background: transparent;
@@ -255,5 +252,4 @@
 	/* span {
 		width: 100%;
 	} */
-
 </style>
