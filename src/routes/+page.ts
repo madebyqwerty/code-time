@@ -59,9 +59,12 @@ export const load = (async ({ depends, url }) => {
 	if (pb.authStore.model.is_manager) {
 		await populateUserStore();
 
+		let userID = JSON.parse(url.searchParams.get('user_id')!);
+		userID ||= 0;
+
 		const users = get(userStore);
 		if (users.length > 0) {
-			filter += `&& user_id.id = "${users[0].id}"`;
+			filter += `&& user_id.id = "${users[userID].id}"`;
 		} else {
 			return { pathname: url.toString() };
 		}
