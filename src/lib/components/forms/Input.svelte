@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	export let label: string;
 	export let value: string;
-	export let rangeValue = 0.5;
 	export let type: string;
 	export let placeholder: string;
 	export let name: string = placeholder;
@@ -31,33 +30,9 @@
 </script>
 
 <span>
-	{#if type != 'range'}
 		<label for={name} class="text-sm">{label}</label>
-	{/if}
-	<div class="input-wrapper{type == 'range' ? '2' : ''}">
-		{#if type == 'range'}
-			<div class="range-label">
-				<label for={name} class="text-sm">{label}</label>
-				<div class="smile">
-					<div class="eye" />
-					<div class="eye" />
-					<div class="mth" />
-					<div class="square" style="top:{80 - rangeValue * 24}%;left:0%;" />
-					<div class="square" style="top:{80 - rangeValue * 24}%;left:80%;" />
-				</div>
-			</div>
-			<input
-				bind:value={rangeValue}
-				type="range"
-				{required}
-				{name}
-				{placeholder}
-				min={0}
-				max={1}
-				step={0.002}
-				class="text-base {error ? 'error' : ''}"
-			/>
-		{:else}
+	<div class="input-wrapper">
+		
 			<input
 				bind:value
 				bind:this={input}
@@ -66,7 +41,6 @@
 				{placeholder}
 				class="text-base {error ? 'error' : ''}"
 			/>
-		{/if}
 
 		{#if showPasswordSwitch}
 			<button type="button" on:click={switchType} class="icon">
