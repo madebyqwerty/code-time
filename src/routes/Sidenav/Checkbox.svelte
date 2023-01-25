@@ -24,12 +24,12 @@
 
 <style lang="scss">
 	input {
-		appearance: none;
-		width: 1.4rem;
-		height: 1.4rem;
-		border: 2px solid var(--bg);
+		appearance: none  !important;
+		width: 1.4rem  !important;
+		height: 1.4rem  !important;
+		border: 2px solid var(--bg) !important;
 		&:checked {
-			background: var(--bg);
+			background: var(--bg)  !important;
 		}
 	}
 </style>

@@ -4,7 +4,7 @@ export const prerender = true;
 import type { LayoutLoad } from './$types';
 import { populateTagStore } from '$lib/pocketbase/tagStore';
 
-export const load = (async () => {
+export const load = (async (depends) => {
 	await populateTagStore();
 
 	return {};
