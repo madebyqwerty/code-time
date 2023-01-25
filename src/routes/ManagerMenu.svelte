@@ -108,7 +108,8 @@
 	/>
 	<Input
 		bind:value={newUserPassword}
-		type="text"
+		type="password"
+		showPasswordSwitch="true"
 		label="Heslo pro nového uživatele"
 		placeholder="******"
 	/>
