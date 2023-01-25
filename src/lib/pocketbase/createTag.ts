@@ -11,12 +11,12 @@ import { pb } from '.';
  * @returns {Promise<string>} ID vytvořeného tagu
  */
 
-export async function createTag(name: string, color: string, description: string): Promise<string> {
+export async function createTag(name: string, color: string): Promise<string> {
 	const tag = await pb.collection('tags').create(
 		{
 			name,
 			color,
-			description,
+			description:"",
 			user: pb.authStore.model?.id
 		},
 		{ $autoCancel: false }
