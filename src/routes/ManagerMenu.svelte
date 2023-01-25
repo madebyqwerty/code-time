@@ -6,6 +6,8 @@
 	import { userStore } from '$lib/pocketbase/userStore';
 	import { Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { tooltip } from '@svelte-plugins/tooltips';
+	import Button from '$lib/components/Button.svelte';
+	import { currentUser, pb } from '$lib/pocketbase';
 
 	$: selectedSearchParam = $page.url.searchParams.get('user_id');
 	$: selectedUserID = selectedSearchParam ? JSON.parse(selectedSearchParam) : 0;
@@ -23,8 +25,25 @@
 	let newUserName = '';
 	let newUserPassword = '';
 	let newUserEmail = '';
-	function createNewUser() {
+
+	function openSidebar() {
 		open = true;
+	}
+
+	async function createNewUser() {
+		await pb.collection('users').create({
+			email: newUserEmail,
+			password: newUserPassword,
+			passwordConfirm: newUserPassword,
+			name: newUserName,
+			is_manager: false,
+			manager: $currentUser.id
+		});
+		newUserEmail = '';
+		newUserName = '';
+		newUserPassword = '';
+		await invalidate('home');
+		open = false;
 	}
 </script>
 
@@ -53,14 +72,16 @@
 			<div class="menu-items" style="width: {menuButtonWidth}px; overflow:hidden;">
 				<MenuItems>
 					{#each $userStore as user, i}
-						<MenuItem as="div">
-							<button class="menu-button menu-item" on:click={() => handleUserChange(i)}
-								>{user.name}</button
+						<MenuItem as="div" let:active>
+							<button
+								class="menu-button menu-item"
+								on:click={() => handleUserChange(i)}
+								class:active>{user.name}</button
 							>
 						</MenuItem>
 					{/each}
-					<MenuItem as="div">
-						<button class="menu-button menu-item add-button" on:click={createNewUser}>
+					<MenuItem as="div" let:active>
+						<button class="menu-button menu-item add-button" on:click={openSidebar} class:active>
 							<div class="divider" />
 							<div class="content">
 								<iconify-icon icon="pixelarticons:frame-add" inline={true} /> Přidat uživatele
@@ -91,6 +112,9 @@
 		label="Heslo pro nového uživatele"
 		placeholder="******"
 	/>
+	Vytvořením uživatele, vytvoříte běžný účet, jehož přihlašovací údaje potom můžete dát svému programátorovi,
+	aby si mohl sám přidávat záznamy.
+	<Button on:click={createNewUser}>Vytvořit uživatele</Button>
 </Sidebar>
 
 <style lang="scss">
@@ -115,6 +139,10 @@
 			align-items: center;
 			gap: 10px;
 		}
+		&.active {
+			background-color: $green-primary;
+			color: $light-background;
+		}
 	}
 
 	iconify-icon {
@@ -133,6 +161,7 @@
 	.menu-items {
 		position: absolute;
 		width: 100%;
+		z-index: 10 !important;
 	}
 
 	.add-button {

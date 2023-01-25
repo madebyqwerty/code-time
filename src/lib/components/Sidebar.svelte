@@ -58,6 +58,7 @@
 	}
 
 	aside {
+		@include scrollbars(10px, $green-primary, $background);
 		height: 100vh;
 		width: 42%;
 		background: $background;
