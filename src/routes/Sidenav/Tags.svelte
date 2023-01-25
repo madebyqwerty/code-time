@@ -7,17 +7,17 @@
 	import SidebarLeft from '$lib/components/SidebarLeft.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { createTag } from '$lib/pocketbase/createTag.ts';
+	import { createTag } from '$lib/pocketbase/createTag';
 	import ColorPicker from './ColorPicker.svelte';
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
 	let openTags = false;
 	let editTag = false;
-	let addTagInput:string;
+	let addTagInput: string;
 	let edited;
 	let searchInput: string;
-	let color;
+	let color: string;
 
 	async function handleTagChange(id: string, checked: boolean) {
 		if (checked) {
@@ -34,18 +34,28 @@
 	}
 
 	const setBg = () => {
-		const randomColor = Math.floor(Math.random()*160+47).toString(16)+Math.floor(Math.random()*160+47).toString(16)+Math.floor(Math.random()*160+47).toString(16);
+		const randomColor =
+			Math.floor(Math.random() * 160 + 47).toString(16) +
+			Math.floor(Math.random() * 160 + 47).toString(16) +
+			Math.floor(Math.random() * 160 + 47).toString(16);
 		let n = 6 - randomColor.length;
 		color = '#' + '0'.repeat(n) + randomColor;
 	};
+
 	setBg();
+
 	async function handleAdd() {
-		try{
-			if (addTagInput.length>2&&addTagInput.length<30&&parseInt(color.slice(1),12)<2985983){
-				createTag(addTagInput,color);
+		try {
+			if (
+				addTagInput.length > 2 &&
+				addTagInput.length < 30 &&
+				parseInt(color.slice(1), 12) < 2985983
+			) {
+				createTag(addTagInput, color);
+				openTags = false;
+				await invalidate('home');
 			}
-		} catch(e){}
-		
+		} catch (e) {}
 	}
 </script>
 
@@ -84,11 +94,11 @@
 	{/each}
 </section>
 <SidebarLeft bind:open={openTags} title="DODAT ŠTÍTEK">
-	<form on:submit|preventDefault={handleAdd}>
+	<div class="form">
 		<Input type="text" bind:value={addTagInput} placeholder="Jméno štítku" label="Název štítku" />
-		<ColorPicker bind:value={color}/>
-		<Button>Přidat štítek</Button>
-	</form>
+		<ColorPicker bind:value={color} />
+		<Button on:click={handleAdd}>Přidat štítek</Button>
+	</div>
 	{#each $tagStore as tag (tag.id)}
 		<div class="tag">
 			<div class="tag-text">
