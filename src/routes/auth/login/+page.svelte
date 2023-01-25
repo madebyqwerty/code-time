@@ -6,12 +6,16 @@
 	import { goto } from '$app/navigation';
 
 	let email: string,
-		password: string = '';
+		password: string = '',
+		wrongPassword: boolean = false;
 
 	async function handleLogin() {
-		login(email, password);
-
-		await goto('/');
+		try {
+			await login(email, password);
+			await goto('/');
+		} catch {
+			wrongPassword = true;
+		}
 	}
 </script>
 
@@ -27,6 +31,7 @@
 			bind:value={password}
 			placeholder="*****"
 			showPasswordSwitch={true}
+			error={wrongPassword ? 'Špatný E-mail nebo Heslo' : ''}
 			label="Heslo"
 		/>
 		<Button>Přihlásit se</Button>
