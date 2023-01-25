@@ -14,7 +14,7 @@
 			repeatPassword: false
 		};
 
-	async function register() {
+	async function register(type: 'managers' | 'users') {
 		error.repeatPassword = password !== repeatPassword;
 		error.password = password.length < 12;
 
@@ -23,7 +23,8 @@
 				email,
 				password,
 				passwordConfirm: repeatPassword,
-				name
+				name,
+				is_manager: type === 'managers'
 			});
 			await login(email, password);
 			goto('/');
@@ -34,7 +35,14 @@
 <Wrapper>
 	<h1 class="width-max white">REGISTRACE</h1>
 	<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
-	<form class="wrapper" on:submit|preventDefault={register}>
+	<div class="wrapper">
+		<Input
+			type="text"
+			bind:value={name}
+			placeholder="Martin Novák"
+			label="Jméno a příjmení"
+			required
+		/>
 		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" required />
 		<Input
 			type="password"
@@ -57,8 +65,20 @@
 			error={error.repeatPassword ? 'Hesla se neshodují' : ''}
 			required
 		/>
-		<Button>Vytvořit účet</Button>
-	</form>
+		<div class="buttons">
+			<Button
+				on:click={() => {
+					register('users');
+				}}>Vytvořit účet</Button
+			>
+			<Button
+				type="secondary"
+				on:click={() => {
+					register('managers');
+				}}>Vytvořit manažerský účet</Button
+			>
+		</div>
+	</div>
 </Wrapper>
 
 <style lang="scss">
