@@ -17,7 +17,7 @@
 
 	async function register() {
 		error.repeatPassword = password !== repeatPassword;
-		error.password = password.length < 12 || password.length > 72;
+		error.password = password.length < 12;
 		error.correctEmail = !/\S+@\S+\.\S+/.test(email);
 
 		if (!error.password && !error.repeatPassword && !error.correctEmail) {
@@ -46,18 +46,18 @@
 			required
 		/>
 		<Input
-			type="text"
+			type="password"
 			bind:value={password}
 			placeholder="****"
 			name="password"
 			label="Heslo"
 			helperText="Heslo musí mít minimálně 12 znaků"
 			showPasswordSwitch={true}
-			error={error.password ? 'Heslo musí mít 12-72 znaků' : ''}
+			error={error.password ? 'Heslo má méně jak 12 znaků' : ''}
 			required
 		/>
 		<Input
-			type="text"
+			type="password"
 			bind:value={repeatPassword}
 			placeholder="****"
 			label="Zopakovat heslo"
