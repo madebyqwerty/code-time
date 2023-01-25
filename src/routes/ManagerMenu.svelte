@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
+	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Input from '$lib/components/forms/Input.svelte';
 	import { userStore } from '$lib/pocketbase/userStore';
 	import { Menu, MenuButton, MenuItems, MenuItem } from '@rgossiaux/svelte-headlessui';
 	import { tooltip } from '@svelte-plugins/tooltips';
@@ -15,6 +17,14 @@
 		url.searchParams.set('user_id', JSON.stringify(id));
 		await goto(url.toString());
 		await invalidate('home');
+	}
+
+	let open = false;
+	let newUserName = '';
+	let newUserPassword = '';
+	let newUserEmail = '';
+	function createNewUser() {
+		open = true;
 	}
 </script>
 
@@ -43,15 +53,45 @@
 			<div class="menu-items" style="width: {menuButtonWidth}px; overflow:hidden;">
 				<MenuItems>
 					{#each $userStore as user, i}
-						<button class="menu-button menu-item" on:click={() => handleUserChange(i)}
-							>{user.name}</button
-						>
+						<MenuItem as="div">
+							<button class="menu-button menu-item" on:click={() => handleUserChange(i)}
+								>{user.name}</button
+							>
+						</MenuItem>
 					{/each}
+					<MenuItem as="div">
+						<button class="menu-button menu-item add-button" on:click={createNewUser}>
+							<div class="divider" />
+							<div class="content">
+								<iconify-icon icon="pixelarticons:frame-add" inline={true} /> Přidat uživatele
+							</div>
+						</button>
+					</MenuItem>
 				</MenuItems>
 			</div>
 		</span>
 	</Menu>
 </section>
+<Sidebar bind:open title="Přidat uživatele">
+	<Input
+		bind:value={newUserName}
+		type="text"
+		label="Jméno nového uživatele"
+		placeholder="Martin Novák"
+	/>
+	<Input
+		bind:value={newUserEmail}
+		type="email"
+		label="E-mail nového uživatele"
+		placeholder="martin.novak@email.cz"
+	/>
+	<Input
+		bind:value={newUserPassword}
+		type="text"
+		label="Heslo pro nového uživatele"
+		placeholder="******"
+	/>
+</Sidebar>
 
 <style lang="scss">
 	$light-background: lighten($background, 10);
@@ -93,5 +133,21 @@
 	.menu-items {
 		position: absolute;
 		width: 100%;
+	}
+
+	.add-button {
+		padding-top: 0.8rem;
+		display: block;
+		& > .divider {
+			margin-left: 10%;
+			margin-right: 10%;
+			height: 1px;
+			margin-bottom: 1.6rem;
+			background-color: lighten($light-background, 10);
+		}
+		& > .content {
+			display: flex;
+			gap: 0.8rem;
+		}
 	}
 </style>

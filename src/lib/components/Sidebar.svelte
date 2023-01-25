@@ -47,6 +47,7 @@
 		left: 0px;
 		display: grid;
 		place-items: start;
+		z-index: 10 !important;
 	}
 
 	.overlay {
@@ -57,7 +58,6 @@
 	}
 
 	aside {
-		z-index: 20;
 		height: 100vh;
 		width: 42%;
 		background: $background;
