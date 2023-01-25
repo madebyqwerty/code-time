@@ -16,7 +16,7 @@
 
 	async function register() {
 		error.repeatPassword = password !== repeatPassword;
-		error.password = password.length < 12;
+		error.password = password.length < 12 || password.length > 72;
 
 		if (!error.password && !error.repeatPassword) {
 			await pb.collection('users').create({
@@ -44,7 +44,7 @@
 			label="Heslo"
 			helperText="Heslo musí mít minimálně 12 znaků"
 			showPasswordSwitch={true}
-			error={error.password ? 'Heslo má méně jak 12 znaků' : ''}
+			error={error.password ? 'Heslo musí mít 12-72 znaků' : ''}
 			required
 		/>
 		<Input
