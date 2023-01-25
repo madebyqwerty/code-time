@@ -43,6 +43,5 @@ export function analyzeLanguagesAndTags(records: RecordsResponse[]) {
 		(a: string, b: string) => resultTags[b] - resultTags[a]
 	);
 
-	console.log(tags);
 	tagStore.set(tagIDs.map((id) => tags[id]));
 }

@@ -2,6 +2,8 @@
 	import Datepicker from './Datepicker.svelte';
 	import Languages from './Languages.svelte';
 	import Tags from './Tags.svelte';
+	import Stars from './Stars.svelte';
+	import UserMenu from './UserMenu.svelte';
 
 	let isManager = false;
 </script>
@@ -14,7 +16,8 @@
 			<h3>UŽIVATEL</h3>
 		</section>
 	{/if}
-
+	<UserMenu />
+	<Stars />
 	<Datepicker />
 	<Tags />
 	<Languages />
@@ -33,6 +36,21 @@
 		overflow-y: scroll;
 		background-color: lighten($background, 5);
 		@include scrollbars(0.5rem, $green-darkest, lighten($background, 5));
+
+		& :global(*) {
+			transition: none;
+		}
+
+		& :global(h3) {
+			color: white;
+		}
+		& :global(section) {
+			padding-top: 1.2rem;
+			padding-bottom: 1.2rem;
+			gap: 0.8rem;
+			display: flex;
+			flex-direction: column;
+		}
 	}
 
 	h2 {

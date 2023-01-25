@@ -26,7 +26,6 @@
 
 	const switchType = () => {
 		type = type === 'password' ? 'text' : 'password';
-		console.log(type);
 	};
 </script>
 

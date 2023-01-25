@@ -11,5 +11,3 @@ COPY . .
 RUN npm run build
 
 CMD ["sh", "docker-wrapper.sh"]
-
-EXPOSE 80
