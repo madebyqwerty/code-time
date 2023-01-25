@@ -37,7 +37,7 @@
 	<form class="wrapper" on:submit|preventDefault={register}>
 		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" required />
 		<Input
-			type="text"
+			type="password"
 			bind:value={password}
 			placeholder="****"
 			name="password"
@@ -48,7 +48,7 @@
 			required
 		/>
 		<Input
-			type="text"
+			type="password"
 			bind:value={repeatPassword}
 			placeholder="****"
 			label="Zopakovat heslo"
