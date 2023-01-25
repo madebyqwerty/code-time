@@ -2,7 +2,7 @@
 	import '../app.scss';
 	import 'iconify-icon';
 
-	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import Button from '$lib/components/Button.svelte';
 
 </script>

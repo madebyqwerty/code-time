@@ -1,4 +1,6 @@
-
+<script>
+    	import { toast } from '@zerodevx/svelte-toast';
+</script>
 
 
 <Button
