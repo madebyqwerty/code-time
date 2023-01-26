@@ -3,6 +3,7 @@
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
+	import { unfilteredTagStore } from '$lib/pocketbase/unfilteredTagStore.ts';
 	import Button from '$lib/components/Button.svelte';
 
 	let open = false;
@@ -53,6 +54,7 @@
 
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected.id]();
+	$: console.log(sortedData);
 </script>
 
 <section>
@@ -73,15 +75,25 @@
 	</select>
 	{#key sortedData}
 		<table class="table-default">
-			<th><h4>Datum</h4></th>
-			<th><h4>Délka</h4></th>
-			<th><h4>Jazyky</h4></th>
-			<th><h4>Obtížnost</h4></th>
-			<th><h4>Tag</h4></th>
+			<colgroup>
+				<col class="table-date" />
+				<col class="table-length" />
+				<col class="table-langs" />
+				<col class="table-diff" />
+				<col class="table-tags" />
+			</colgroup>
+			<tr>
+				<th><h4>Datum</h4></th>
+				<th><h4>Délka</h4></th>
+				<th><h4>Jazyky</h4></th>
+				<th><h4>Obtížnost</h4></th>
+				<th><h4>Tags</h4></th>
+			</tr>
+
 			{#each sortedData as record, i}
 				<tr style="--animation-order:{i * 100}ms">
 					<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
-					<td class="text-sm white">{record.length}</td>
+					<td class="text-sm white text-center">{record.length}</td>
 					<td class="text-sm white">
 						{#each record.language as language}
 							<span class="language" style="background: {languageColors[language]};"
@@ -90,11 +102,17 @@
 						{/each}
 					</td>
 					<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-					{#each record.expand?.tags as tag}
-						<td class="text-sm white">{tag.name}</td>
-					{:else}
-						<td />
-					{/each}
+					<td class="text-sm white">
+						{#each record.tags as tag, i}
+							{#if $unfilteredTagStore}
+								<span>
+									{tag}
+									{JSON.stringify($unfilteredTagStore.filter((taglmao) => taglmao.id == tag)[0])}
+									{#if i + 1 < record.tags.length},{/if}
+								</span>
+							{/if}
+						{/each}
+					</td>
 				</tr>
 			{/each}
 		</table>
@@ -130,6 +148,22 @@
 	table {
 		width: 100%;
 		margin-bottom: 8rem;
+		table-layout: fixed;
+	}
+	.table {
+		&-date {
+			width: 13rem;
+		}
+		&-length {
+			width: 13rem;
+		}
+		&-langs {
+		}
+		&-diff {
+			width: 20rem;
+		}
+		&-tags {
+		}
 	}
 
 	@keyframes appear {
@@ -165,7 +199,7 @@
 
 	h4 {
 		color: white;
-		text-align: left;
+		text-align: center;
 	}
 	.number {
 		font-size: 2.5rem;
@@ -174,8 +208,9 @@
 	}
 
 	.language {
-		padding: 0.5rem;
+		padding: 0.3rem 0.5rem;
 		font-size: 1.7rem;
+		line-height: 200%;
 		margin-right: 1rem;
 	}
 

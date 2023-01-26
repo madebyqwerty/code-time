@@ -2,10 +2,10 @@ import { writable } from 'svelte/store';
 import { pb } from '.';
 import type { TagsResponse } from './types';
 
-export const tagStore = writable<TagsResponse[]>([]);
+export const unfilteredTagStore = writable<TagsResponse[]>([]);
 
 export async function populateTagStore() {
 	const tags = await pb.collection('tags').getFullList<TagsResponse>(1000);
 
-	tagStore.set(tags);
+	unfilteredTagStore.set(tags);
 }
