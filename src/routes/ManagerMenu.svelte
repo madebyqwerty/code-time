@@ -62,21 +62,23 @@
 			<iconify-icon icon="pixelarticons:open" />
 		</span>
 	</p>
-	<Menu>
-		<div slot="menu-button">
-			<strong>Vybraný uživatel:</strong>
-			{$userStore[selectedUserID].name}
-		</div>
-		<div slot="menu-items">
-			{#each $userStore as user, i}
-				<MenuItem on:click={() => handleUserChange(i)}>
-					{user.name}
-				</MenuItem>
-			{/each}
-			<MenuDivider />
-			<MenuItem on:click={openSidebar}>Přidat nového uživatele</MenuItem>
-		</div>
-	</Menu>
+	<div class="menu">
+		<Menu>
+			<div slot="menu-button">
+				<strong>Vybraný uživatel:</strong>
+				{$userStore[selectedUserID].name}
+			</div>
+			<div slot="menu-items">
+				{#each $userStore as user, i}
+					<MenuItem on:click={() => handleUserChange(i)}>
+						{user.name}
+					</MenuItem>
+				{/each}
+				<MenuDivider />
+				<MenuItem on:click={openSidebar}>Přidat nového uživatele</MenuItem>
+			</div>
+		</Menu>
+	</div>
 </section>
 
 <Sidebar bind:open title="Přidat uživatele">
@@ -112,5 +114,9 @@
 		align-items: center;
 		gap: 0.8rem;
 		margin-bottom: 1.2rem;
+	}
+
+	.menu {
+		width: max-content;
 	}
 </style>

@@ -12,7 +12,7 @@
 	.menu-item {
 		@include menu-child();
 		justify-content: start;
-		background-color: lighten($background, 5);
+		background-color: lighten($background, 15);
 		&.active {
 			background-color: $green-primary;
 			color: $background;

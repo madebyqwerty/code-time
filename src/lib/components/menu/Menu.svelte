@@ -4,8 +4,8 @@
 	let menuButtonWidth = 0;
 </script>
 
-<Menu let:open>
-	<MenuButton>
+<Menu let:open style="width: 100%;">
+	<MenuButton style="width: 100%;">
 		<div class="menu-button" bind:clientWidth={menuButtonWidth}>
 			<div class="content">
 				<slot name="menu-button" />
@@ -29,6 +29,7 @@
 		@include menu-child();
 		justify-content: space-between;
 		background-color: $light-background;
+		width: 100%;
 
 		& > .content {
 			display: flex;

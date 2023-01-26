@@ -3,9 +3,9 @@
 </div>
 
 <style lang="scss">
-	$light-background: lighten($background, 10);
+	$light-background: lighten($background, 15);
 	.divider-wrapper {
-		background-color: lighten($background, 5);
+		background-color: lighten($background, 15);
 		padding-left: 10%;
 		padding-right: 10%;
 		padding-bottom: 1.6rem;
