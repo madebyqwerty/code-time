@@ -5,6 +5,9 @@ import { pb } from '$lib/pocketbase';
 import { analyzeLanguagesAndTags } from '$lib/utils/analyzeLanguagesAndTags';
 import { subtractMonth } from '$lib/utils/subtractMonth';
 import { getDateFromString } from '$lib/utils/getDateFromString';
+import { populateUserStore, userStore } from '$lib/pocketbase/userStore';
+import { get } from 'svelte/store';
+import { populateTagStore } from '$lib/pocketbase/tagStore';
 
 function createFilter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
 	let result = '';
@@ -34,6 +37,7 @@ export const load = (async ({ depends, url }) => {
 			pathname: url.toString()
 		};
 	}
+	await populateTagStore();
 
 	// Get all the records in the given timeframe
 	let datePast = convertDateToPocketbaseFormat(getDateFromString(url.searchParams.get('from')));
@@ -53,6 +57,22 @@ export const load = (async ({ depends, url }) => {
 		createFilter(tags, 'tags') +
 		createFilter(langs, 'language') +
 		createFilter(stars, 'rating', '||');
+
+	if (pb.authStore.model.is_manager) {
+		await populateUserStore();
+
+		let userID = JSON.parse(url.searchParams.get('user_id')!);
+		userID ||= 0;
+
+		const users = get(userStore);
+		if (users.length > 0) {
+			filter += `&& user_id.id = "${users[userID].id}"`;
+		} else {
+			return { pathname: url.toString() };
+		}
+	}
+
+	console.log(filter);
 
 	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
 		filter: filter,

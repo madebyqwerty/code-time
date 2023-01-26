@@ -16,8 +16,6 @@ pb.authStore.onChange(async () => {
 
 export async function login(email: string, password: string) {
 	await pb.collection('users').authWithPassword(email, password, { $autoCancel: false });
-	await invalidateAll();
-	await invalidate('home');
 }
 
 export { createRecord } from './createRecord';

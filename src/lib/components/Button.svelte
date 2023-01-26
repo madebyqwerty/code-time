@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let type: 'primary' | 'secondary' | 'close' = 'primary';
+	export let type: 'primary' | 'secondary' | "close" |'close2' = 'primary';
 </script>
 
 <button class="{type} text-base" on:click>
@@ -74,6 +74,19 @@
 			none,
 			$red-lightest,
 			$red-lightest
+		);
+	}
+	.close2 {
+		@include button-default(
+			none,
+			white,
+			white,
+			none,
+			white,
+			white,
+			none,
+			white,
+			white
 		);
 	}
 </style>

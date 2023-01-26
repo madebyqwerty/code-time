@@ -12,33 +12,31 @@
 	const dispatch = createEventDispatcher();
 
 	const close = () => {
+		console.log('closing');
 		open = false;
 	};
 </script>
 
 {#if open}
 	<span>
-		<div
-			class="overlay"
-			transition:fade={{ duration: 500, easing: cubicOut }}
-			on:click={close}
-			on:keydown={close}
-		/>
 		<aside
 			bind:clientWidth={width}
-			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 0.5, easing: cubicOut }}
+			transition:fly={{ duration: 500, x: -width, y: 0, opacity:1, easing: cubicOut }}
 		>
-			<Button on:click={close} type="close">
-				<iconify-icon icon="carbon:close-outline" inline={true} class="icon" />
-				Zavřít
+			<Button on:click={close} type="close2">
+				&#60; Zavřít
 			</Button>
-			<h1>{title}</h1>
+			<h3>{title}</h3>
 			<slot />
 		</aside>
 	</span>
 {/if}
 
 <style lang="scss">
+h3{
+    line-height:300%;
+    color:white;
+}
 	span {
 		position: fixed;
 		top: 0px;
@@ -47,7 +45,6 @@
 		left: 0px;
 		display: grid;
 		place-items: start;
-		z-index: 10 !important;
 	}
 
 	.overlay {
@@ -58,9 +55,9 @@
 	}
 
 	aside {
-		@include scrollbars(10px, $green-primary, $background);
+		z-index: 20;
 		height: 100vh;
-		width: 42%;
+		width: 400px;
 		background: $background;
 		padding: 3.2rem;
 		overflow-y: scroll;

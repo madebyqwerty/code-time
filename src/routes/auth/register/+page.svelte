@@ -15,17 +15,21 @@
 			correctEmail: false
 		};
 
-	async function register() {
+	async function register(type: 'managers' | 'users') {
 		error.repeatPassword = password !== repeatPassword;
-		error.password = password.length < 12;
+
 		error.correctEmail = !/\S+@\S+\.\S+/.test(email);
+
+		error.password = password.length < 12 || password.length > 72;
+
 
 		if (!error.password && !error.repeatPassword && !error.correctEmail) {
 			await pb.collection('users').create({
 				email,
 				password,
 				passwordConfirm: repeatPassword,
-				name
+				name,
+				is_manager: type === 'managers'
 			});
 			await login(email, password);
 			goto('/');
@@ -53,7 +57,7 @@
 			label="Heslo"
 			helperText="Heslo musí mít minimálně 12 znaků"
 			showPasswordSwitch={true}
-			error={error.password ? 'Heslo má méně jak 12 znaků' : ''}
+			error={error.password ? 'Heslo musí mít 12-72 znaků' : ''}
 			required
 		/>
 		<Input
@@ -66,8 +70,20 @@
 			error={error.repeatPassword ? 'Hesla se neshodují' : ''}
 			required
 		/>
-		<Button>Vytvořit účet</Button>
-	</form>
+		<div class="buttons">
+			<Button
+				on:click={() => {
+					register('users');
+				}}>Vytvořit účet</Button
+			>
+			<Button
+				type="secondary"
+				on:click={() => {
+					register('managers');
+				}}>Vytvořit manažerský účet</Button
+			>
+		</div>
+	</div>
 </Wrapper>
 
 <style lang="scss">

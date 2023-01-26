@@ -3,6 +3,8 @@
 	import Graph from './Graph.svelte';
 	import Sidenav from './Sidenav/Sidenav.svelte';
 	import Table from './Table.svelte';
+	import { currentUser } from '$lib/pocketbase';
+	import ManagerMenu from './ManagerMenu.svelte';
 
 	export let data: { pathname: string };
 </script>
@@ -10,6 +12,9 @@
 <section class="home-page">
 	<Sidenav />
 	<section class="content">
+		{#if $currentUser.is_manager}
+			<ManagerMenu />
+		{/if}
 		{#key $recordsStore}
 			<Graph />
 		{/key}
