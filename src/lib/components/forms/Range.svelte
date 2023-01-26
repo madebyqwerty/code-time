@@ -35,33 +35,33 @@
 <div class="rating">
 	<label>
 		<input type="radio" bind:group={rangeValue} name="stars" value="1" />
-		<span class="icon">★</span>
+		<span class="star-icon-range">★</span>
 	</label>
 	<label>
 		<input type="radio" bind:group={rangeValue} name="stars" value="2" />
-		<span class="icon">★</span>
-		<span class="icon">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
 	</label>
 	<label>
 		<input type="radio" bind:group={rangeValue} name="stars" value="3" />
-		<span class="icon">★</span>
-		<span class="icon">★</span>
-		<span class="icon">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
 	</label>
 	<label>
 		<input type="radio" bind:group={rangeValue} name="stars" value="4" />
-		<span class="icon">★</span>
-		<span class="icon">★</span>
-		<span class="icon">★</span>
-		<span class="icon">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
 	</label>
 	<label>
 		<input type="radio" bind:group={rangeValue} name="stars" value="5" />
-		<span class="icon">★</span>
-		<span class="icon">★</span>
-		<span class="icon">★</span>
-		<span class="icon">★</span>
-		<span class="icon">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
+		<span class="star-icon-range">★</span>
 	</label>
 </div>
 
@@ -73,7 +73,6 @@
 		line-height: 8rem;
 		font-size: 8rem;
 		width: 100%;
-		font-family: 'Fira Code';
 	}
 
 	.rating label {
@@ -122,26 +121,27 @@
 		opacity: 0;
 	}
 
-	.rating label .icon {
+	.rating label .star-icon-range {
 		float: left;
 		color: transparent;
 		-webkit-text-stroke: 2px lighten($green-primary, 25);
 		transition: 250ms ease;
 		transition-delay: 50ms;
+		font-family: 'Silkscreen';
 	}
 
-	.rating label:last-child .icon {
+	.rating label:last-child .star-icon-range {
 		color: transparent;
 	}
-	.rating:not(:hover) label input:checked ~ .icon,
-	.rating:hover label:hover input ~ .icon {
+	.rating:not(:hover) label input:checked ~ .star-icon-range,
+	.rating:hover label:hover input ~ .star-icon-range {
 		color: lighten($green-primary, 25);
 	}
-	.rating label input:focus:not(:checked) ~ .icon {
+	.rating label input:focus:not(:checked) ~ .star-icon-range {
 		color: #000;
 		text-shadow: 0 0 5px lighten($green-primary, 25);
 	}
-	.rating label input:focus:not(:checked) ~ .icon:last-child {
+	.rating label input:focus:not(:checked) ~ .star-icon-range:last-child {
 		color: #000;
 		text-shadow: 0 0 5px lighten($green-primary, 25);
 	}
@@ -242,7 +242,7 @@
 			border: 2px solid #90d690;
 		}
 	} */
-	/* .icon {
+	/* .star-icon-range {
 		color: white;
 		position: absolute;
 		left: 90%;
