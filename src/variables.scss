@@ -67,3 +67,11 @@ $transition: 120ms;
 	scrollbar-color: $foreground-color $background-color;
 	scrollbar-width: 10px;
 }
+
+@mixin menu-child {
+	padding: 0.8rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+}
