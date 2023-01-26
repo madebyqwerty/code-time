@@ -83,13 +83,11 @@ export const load = (async ({ depends, url }) => {
 	analyzeLanguagesAndTags(records.items);
 
 	recordsStore.set(
-		records.items.map((r) => {
+		records.items.map((record) => {
 			return {
-				...r,
-				date: new Date(r.date),
-				expand: {
-					tags: r.expand?.tags ? r.expand.tags : []
-				}
+				...record,
+				date: new Date(record.date),
+				tags: record.tags ? record.tags : []
 			};
 		})
 	);

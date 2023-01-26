@@ -81,7 +81,7 @@
 	</div>
 </section>
 
-<Sidebar bind:open title="Přidat uživatele">
+<Sidebar bind:open title="Nový uživatel">
 	<Input
 		bind:value={newUserName}
 		type="text"

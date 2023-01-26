@@ -3,7 +3,7 @@
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
-	import { unfilteredTagStore } from '$lib/pocketbase/unfilteredTagStore.ts';
+	import { tagStore } from '$lib/pocketbase/tagStore';
 	import Button from '$lib/components/Button.svelte';
 
 	let open = false;
@@ -54,7 +54,7 @@
 
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected.id]();
-	$: console.log(sortedData);
+	$: console.log($tagStore);
 </script>
 
 <section>
@@ -104,13 +104,11 @@
 					<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 					<td class="text-sm white">
 						{#each record.tags as tag, i}
-							{#if $unfilteredTagStore}
-								<span>
-									{tag}
-									{JSON.stringify($unfilteredTagStore.filter((taglmao) => taglmao.id == tag)[0])}
-									{#if i + 1 < record.tags.length},{/if}
-								</span>
-							{/if}
+							<span>
+								{tag}
+								{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
+								{#if i + 1 < record.tags.length},{/if}
+							</span>
 						{/each}
 					</td>
 				</tr>
@@ -157,12 +155,8 @@
 		&-length {
 			width: 13rem;
 		}
-		&-langs {
-		}
 		&-diff {
 			width: 20rem;
-		}
-		&-tags {
 		}
 	}
 
