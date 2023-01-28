@@ -10,6 +10,5 @@ export async function populateUserStore() {
 	});
 
 	console.log({ users });
-
 	userStore.set(users);
 }

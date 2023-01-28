@@ -55,7 +55,7 @@
 
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected.id]();
-	$: console.log(sortedData);
+	$: console.log($tagStore);
 </script>
 
 <section>
@@ -158,12 +158,8 @@
 		&-length {
 			width: 13rem;
 		}
-		&-langs {
-		}
 		&-diff {
 			width: 20rem;
-		}
-		&-tags {
 		}
 	}
 

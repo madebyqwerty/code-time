@@ -4,18 +4,10 @@
 	import Tags from './Tags.svelte';
 	import Stars from './Stars.svelte';
 	import UserMenu from './UserMenu.svelte';
-
-	let isManager = false;
 </script>
 
 <nav>
 	<h2>CodeTime</h2>
-
-	{#if isManager}
-		<section>
-			<h3>UŽIVATEL</h3>
-		</section>
-	{/if}
 	<UserMenu />
 	<Stars />
 	<Datepicker />
