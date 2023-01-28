@@ -4,6 +4,7 @@
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import { unfilteredTagStore } from '$lib/pocketbase/unfilteredTagStore.ts';
+	import { tagStore } from '$lib/pocketbase/tagStore.ts';
 	import Button from '$lib/components/Button.svelte';
 
 	let open = false;
@@ -104,10 +105,10 @@
 					<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 					<td class="text-sm white">
 						{#each record.tags as tag, i}
-							{#if $unfilteredTagStore}
+							{#if $tagStore}
 								<span>
 									{tag}
-									{JSON.stringify($unfilteredTagStore.filter((taglmao) => taglmao.id == tag)[0])}
+									{JSON.stringify($tagStore.filter((taglmao) => taglmao.id == tag)[0])}
 									{#if i + 1 < record.tags.length},{/if}
 								</span>
 							{/if}

@@ -8,6 +8,7 @@ import { getDateFromString } from '$lib/utils/getDateFromString';
 import { populateUserStore, userStore } from '$lib/pocketbase/userStore';
 import { get } from 'svelte/store';
 import { populateTagStore } from '$lib/pocketbase/tagStore';
+import { populateUnfilteredTagStore } from '$lib/pocketbase/unfilteredTagStore';
 
 function createFilter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
 	let result = '';
@@ -38,6 +39,7 @@ export const load = (async ({ depends, url }) => {
 		};
 	}
 	await populateTagStore();
+	await populateUnfilteredTagStore();
 
 	// Get all the records in the given timeframe
 	let datePast = convertDateToPocketbaseFormat(getDateFromString(url.searchParams.get('from')));

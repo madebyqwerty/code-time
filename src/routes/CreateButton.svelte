@@ -52,7 +52,7 @@
 	.vert {
 		height: 3rem;
 		width: 0.4rem;
-		transition: 300ms ease;
+		transition: 300ms ease !important;
 	}
 	.hor {
 		height: 0.4rem;

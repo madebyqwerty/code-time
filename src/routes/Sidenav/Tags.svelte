@@ -2,6 +2,10 @@
 	import Checkbox from './Checkbox.svelte';
 	import CreateButton from '../CreateButton.svelte';
 	import { tagStore } from '$lib/pocketbase/tagStore';
+	import {
+		unfilteredTagStore,
+		populateUnfilteredTagStore
+	} from '$lib/pocketbase/unfilteredTagStore';
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import SidebarLeft from '$lib/components/SidebarLeft.svelte';
@@ -12,11 +16,11 @@
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
+	$:console.log($unfilteredTagStore)
+	$: populateUnfilteredTagStore(addTagInput)
 	let openTags = false;
 	let editTag = false;
 	let addTagInput: string;
-	let edited;
-	let searchInput: string;
 	let color: string;
 
 	async function handleTagChange(id: string, checked: boolean) {
@@ -101,27 +105,29 @@
 		<ColorPicker bind:value={color} />
 		<Button on:click={handleAdd}>Přidat štítek</Button>
 	</div>
-	{#each $tagStore as tag (tag.id)}
-		<div class="tag">
-			<div class="tag-text">
-				<Checkbox
-					active={selectedTags.includes(tag.id)}
-					--bg={tag.color}
-					on:check={(e) => handleTagChange(tag.id, e.detail)}
-				/>{tag.name}
+	{#if $unfilteredTagStore}
+		{#each $unfilteredTagStore.items as tag (tag.id)}
+			<div class="tag">
+				<div class="tag-text">
+					<Checkbox
+						active={selectedTags.includes(tag.id)}
+						--bg={tag.color}
+						on:check={(e) => handleTagChange(tag.id, e.detail)}
+					/>{tag.name}
+				</div>
+				<div class="tag-icons">
+					<button
+						on:click={() => {
+							editTag = !editTag;
+							edited = tag;
+						}}
+						class="tag-icon"
+						>...
+					</button>
+				</div>
 			</div>
-			<div class="tag-icons">
-				<button
-					on:click={() => {
-						editTag = !editTag;
-						edited = tag;
-					}}
-					class="tag-icon"
-					>...
-				</button>
-			</div>
-		</div>
-	{/each}
+		{/each}
+	{/if}
 </SidebarLeft>
 <SidebarLeft bind:open={editTag} title="UPRAVIT ŠTÍTEK" />
 
