@@ -183,6 +183,10 @@
 		padding: 1.2rem;
 	}
 
+	td:not(:last-child) {
+		border-right: 1px solid $background-light;
+	}
+
 	tr:nth-of-type(odd) {
 		background-color: lighten($background, 5);
 	}
