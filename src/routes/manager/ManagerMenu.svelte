@@ -8,6 +8,7 @@
 	import MenuItem from '$lib/components/menu/MenuItem.svelte';
 	import MenuDivider from '$lib/components/menu/MenuDivider.svelte';
 	import ManageUsersSidebar from './ManageUsersSidebar.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	$: selectedSearchParam = $page.url.searchParams.get('user_id');
 	$: selectedUserID = selectedSearchParam ? JSON.parse(selectedSearchParam) : 0;
@@ -44,26 +45,28 @@
 			<iconify-icon icon="pixelarticons:open" />
 		</span>
 	</p>
-
-	<div class="menu-wrapper">
-		<Menu>
-			<div class="menu-button" slot="menu-button">
-				<strong>Vybraný uživatel:</strong>
-				{$userStore[selectedUserID].name}
-				<iconify-icon icon={'pixelarticons:chevron-down'} class:open class:closed={!open} />
-			</div>
-			<div slot="menu-items">
-				{#each $userStore as user, i}
-					<MenuItem on:click={() => handleUserChange(i)}>
-						{user.name}
-					</MenuItem>
-				{/each}
-				<MenuDivider />
-				<MenuItem on:click={openManageUserMenu}>Spravovat uživatele</MenuItem>
-				<MenuItem on:click={openCreateMenu}>Přidat nového uživatele</MenuItem>
-			</div>
-		</Menu>
-	</div>
+	{#if $userStore.length > 0}
+		<div class="menu-wrapper">
+			<Menu>
+				<div class="menu-button" slot="menu-button">
+					<strong>Vybraný uživatel:</strong>
+					{$userStore[selectedUserID].name}
+				</div>
+				<div slot="menu-items">
+					{#each $userStore as user, i}
+						<MenuItem on:click={() => handleUserChange(i)}>
+							{user.name}
+						</MenuItem>
+					{/each}
+					<MenuDivider />
+					<MenuItem on:click={openManageUserMenu}>Spravovat uživatele</MenuItem>
+					<MenuItem on:click={openCreateMenu}>Přidat nového uživatele</MenuItem>
+				</div>
+			</Menu>
+		</div>
+	{:else}
+		<Button on:click={openCreateMenu}>Přidat uživatele</Button>
+	{/if}
 </section>
 
 <CreateNewUserSidebar bind:open={createMenuOpen} />

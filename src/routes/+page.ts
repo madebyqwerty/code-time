@@ -68,10 +68,6 @@ export const load = (async ({ depends, url }) => {
 
 		const users = get(userStore);
 
-		if (!users[userID]) {
-			userID = 0;
-		}
-
 		if (users.length > 0) {
 			filter += `&& user_id.id = "${users[userID].id}"`;
 		} else {

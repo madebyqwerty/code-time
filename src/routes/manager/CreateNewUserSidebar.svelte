@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import { currentUser, pb } from '$lib/pocketbase';
+	import { page } from '$app/stores';
 
 	export let open: boolean;
 	let newUserName = '';
@@ -17,7 +18,8 @@
 			passwordConfirm: newUserPassword,
 			name: newUserName,
 			is_manager: false,
-			manager: $currentUser.id
+			manager: $currentUser.id,
+			emailVisibility: true
 		});
 		newUserEmail = '';
 		newUserName = '';
@@ -27,7 +29,7 @@
 	}
 </script>
 
-<Sidebar bind:open title="Přidat uživatele">
+<Sidebar bind:open title="Nový uživatel">
 	<Input
 		bind:value={newUserName}
 		type="text"
@@ -47,7 +49,15 @@
 		label="Heslo pro nového uživatele"
 		placeholder="******"
 	/>
-	Vytvořením uživatele, vytvoříte běžný účet, jehož přihlašovací údaje potom můžete dát svému programátorovi,
-	aby si mohl sám přidávat záznamy.
+	<p>
+		Vytvořením uživatele, vytvoříte běžný účet, jehož přihlašovací údaje potom můžete dát svému
+		programátorovi, aby si mohl sám přidávat záznamy.
+	</p>
 	<Button on:click={createNewUser}>Vytvořit uživatele</Button>
 </Sidebar>
+
+<style lang="scss">
+	p {
+		margin-top: 2.4rem;
+	}
+</style>

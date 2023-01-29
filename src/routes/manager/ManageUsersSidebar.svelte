@@ -1,15 +1,19 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import { pb } from '$lib/pocketbase';
 	import { userStore } from '$lib/pocketbase/userStore';
+	import { page } from '$app/stores';
 
 	export let open: boolean;
 
-	function deleteUser(id: string) {
-		console.log(`Deleted user with ${id}`);
+	async function deleteUser(id: string) {
+		const url = $page.url;
+		url.searchParams.set('user_id', JSON.stringify(0));
+
 		pb.collection('users').delete(id);
-		invalidate('home');
+		await goto(url);
+		await invalidate('home');
 		open = false;
 	}
 </script>
