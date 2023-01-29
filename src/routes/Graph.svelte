@@ -16,7 +16,17 @@
 
 	let width: number, height: number;
 	let max = 1;
-	const data: Record<number, number> = {
+	const dataLength: Record<number, number> = {
+		0: 0,
+		1: 0,
+		2: 0,
+		3: 0,
+		4: 0,
+		5: 0,
+		6: 0
+	};
+
+	const dataDays: Record<number, number> = {
 		0: 0,
 		1: 0,
 		2: 0,
@@ -27,12 +37,15 @@
 	};
 
 	$recordsStore
-		.map((record) => odAmerifikovatZkurvenejAmerickejStandard(record.date.getDay()))
-		.forEach((date) => {
-			data[date] ||= 0;
-			data[date] += 1;
-			if (data[date] > max) {
-				max = data[date];
+		.map((record) => [
+			odAmerifikovatZkurvenejAmerickejStandard(record.date.getDay()),
+			record.length
+		])
+		.forEach(([date, length]) => {
+			dataLength[date] += length;
+			dataDays[date] += 1;
+			if (dataLength[date] > max) {
+				max = dataLength[date];
 			}
 		});
 
@@ -50,9 +63,13 @@
 	<h2>Graf</h2>
 	<div class="graph" bind:clientWidth={width} bind:clientHeight={height}>
 		{#if mounted}
-			{#each Object.entries(data) as recordsCount}
+			{#each Object.entries(dataLength) as recordsCount}
 				<div class="bar-wrapper">
-					<Bar --bar-height={`${yScale(recordsCount[1])}px`} count={recordsCount[1]} />
+					<Bar
+						--bar-height={`${yScale(recordsCount[1])}px`}
+						daysCount={dataDays[parseInt(recordsCount[0])]}
+						lengthCount={recordsCount[1]}
+					/>
 					<span>{days[parseInt(recordsCount[0])]}</span>
 				</div>
 			{/each}

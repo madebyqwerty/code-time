@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { tooltip } from '@svelte-plugins/tooltips';
-	export let count: number;
+	export let daysCount: number;
+	export let lengthCount: number;
 </script>
 
 <div
 	class="bar"
 	use:tooltip={{
-		content: `${count} záznam${count !== 1 ? ([2, 3, 4].includes(count) ? 'y' : 'ů') : ''}`,
+		content: `${lengthCount} minut${
+			lengthCount !== 1 ? ([2, 3, 4].includes(lengthCount) ? 'y' : '') : 'a'
+		} <br/>
+    ${daysCount} záznam${daysCount !== 1 ? ([2, 3, 4].includes(daysCount) ? 'y' : 'ů') : ''}
+    `,
 		position: 'right'
 	}}
 />

@@ -45,7 +45,7 @@
 			</div>
 		{/if}
 
-		<form class="wrapper">
+		<div class="wrapper">
 			<Textarea
 				bind:value={inputData.description}
 				placeholder="Naučil jsem se používat print() v Pythonu"
@@ -68,7 +68,7 @@
 				/>
 			</div>
 			<Button on:click={createRecordWrapper}>Přidat záznam</Button>
-		</form>
+		</div>
 	{:else}
 		<p>
 			Máte manažerský účet ale žádného přiřazeného uživatele, vytvořte jedneho z hlavního stránky
