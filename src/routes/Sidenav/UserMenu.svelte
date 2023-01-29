@@ -22,11 +22,3 @@
 		</div>
 	</Menu>
 </section>
-
-<style lang="scss">
-	.menu-button {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-</style>

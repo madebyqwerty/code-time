@@ -65,8 +65,8 @@ h4 {
 	color: white;
 }
 
-.text-center{
-	text-align:center;
+.text-center {
+	text-align: center;
 }
 
 a {
@@ -104,4 +104,10 @@ body {
 	&-hover:hover {
 		color: lighten($green-primary, 20);
 	}
+}
+
+.menu-button {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
 }
