@@ -10,6 +10,8 @@
 	import ManageUsersSidebar from './ManageUsersSidebar.svelte';
 	import Button from '$lib/components/Button.svelte';
 
+	export let selectedUserID: number = 0;
+	export let labelType: 'green' | 'white' = 'green';
 	$: selectedSearchParam = $page.url.searchParams.get('user_id');
 	$: selectedUserID = selectedSearchParam ? JSON.parse(selectedSearchParam) : 0;
 
@@ -33,7 +35,7 @@
 </script>
 
 <section>
-	<p class="label">
+	<p class="label {labelType}">
 		Výběr uživatele
 		<span
 			use:tooltip={{
@@ -80,6 +82,13 @@
 		align-items: center;
 		gap: 0.8rem;
 		margin-bottom: 1.2rem;
+		&.green {
+			color: $green-lightest;
+		}
+		&.white {
+			color: white;
+			@include text-sm;
+		}
 	}
 
 	.menu-wrapper {

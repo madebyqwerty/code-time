@@ -92,7 +92,7 @@
 			</tr>
 
 			{#each sortedData as record, i}
-				<tr style="--animation-order:{i * 100}ms">
+				<tr style="--animation-order:{i * 100}ms" class="row">
 					<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 					<td class="text-sm white text-center">{record.length}</td>
 					<td class="text-sm white">
@@ -173,7 +173,7 @@
 		}
 	}
 
-	tr {
+	tr.row {
 		animation: appear 1s forwards;
 		animation-delay: var(--animation-order);
 		transform: translate(0, 20%);
@@ -215,5 +215,9 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	select {
+		margin-bottom: 3.2rem;
 	}
 </style>

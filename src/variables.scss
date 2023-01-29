@@ -76,3 +76,11 @@ $transition: 120ms;
 	gap: 1rem;
 	width: 100%;
 }
+
+@mixin text-sm {
+	font-family: 'Fira Code', monospace;
+	font-size: 1.4rem;
+	line-height: 2.4rem;
+	text-decoration: none;
+	color: white;
+}
