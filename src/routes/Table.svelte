@@ -107,8 +107,7 @@
 						{#each record.tags as tag, i}
 							{#if $tagStore}
 								<span>
-									{tag}
-									{JSON.stringify($tagStore.filter((taglmao) => taglmao.id == tag)[0])}
+									{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
 									{#if i + 1 < record.tags.length},{/if}
 								</span>
 							{/if}
