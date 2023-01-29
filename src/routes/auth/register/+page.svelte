@@ -9,16 +9,21 @@
 		password: string,
 		repeatPassword: string,
 		name: string,
-		error: { password: boolean; repeatPassword: boolean } = {
+		error: { password: boolean; repeatPassword: boolean; correctEmail: boolean } = {
 			password: false,
-			repeatPassword: false
+			repeatPassword: false,
+			correctEmail: false
 		};
 
 	async function register(type: 'managers' | 'users') {
 		error.repeatPassword = password !== repeatPassword;
-		error.password = password.length < 12;
 
-		if (!error.password && !error.repeatPassword) {
+		error.correctEmail = !/\S+@\S+\.\S+/.test(email);
+
+		error.password = password.length < 12 || password.length > 72;
+
+
+		if (!error.password && !error.repeatPassword && !error.correctEmail) {
 			await pb.collection('users').create({
 				email,
 				password,
@@ -35,15 +40,15 @@
 <Wrapper>
 	<h1 class="width-max white">REGISTRACE</h1>
 	<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
-	<div class="wrapper">
+	<form class="wrapper" on:submit|preventDefault={register}>
 		<Input
 			type="text"
-			bind:value={name}
-			placeholder="Martin Novák"
-			label="Jméno a příjmení"
+			bind:value={email}
+			placeholder="jmeno@priklad.cz"
+			label="E-mail"
+			error={error.correctEmail ? 'Neplatný E-mail' : ''}
 			required
 		/>
-		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" required />
 		<Input
 			type="password"
 			bind:value={password}
@@ -52,7 +57,7 @@
 			label="Heslo"
 			helperText="Heslo musí mít minimálně 12 znaků"
 			showPasswordSwitch={true}
-			error={error.password ? 'Heslo má méně jak 12 znaků' : ''}
+			error={error.password ? 'Heslo musí mít 12-72 znaků' : ''}
 			required
 		/>
 		<Input
