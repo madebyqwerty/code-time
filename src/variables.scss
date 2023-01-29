@@ -1,5 +1,6 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
 $background: #0e1015;
+$background-light: lighten($background, 10);
 
 // Zelená => Primary barva
 $green-primary: #46bc46;
