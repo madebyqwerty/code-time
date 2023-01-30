@@ -1,5 +1,4 @@
-# How to run
-
-`npm run dev`
-`npm run pocketbase`
-# fiks
+# Tým QWERTY
+- Tomáš Kebrle
+- Václav Parma
+- Daniel Ransdorf
