@@ -4,7 +4,6 @@
 	import Range from '$lib/components/forms/Range.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { createRecord, currentUser } from '$lib/pocketbase';
-	import { login } from '$lib/pocketbase';
 	import Multiselect from '$lib/components/forms/Multiselect.svelte';
 	import { languageIDs, languageNames } from '$lib/utils/languages';
 	import { tagStore } from '$lib/pocketbase/tagStore';
@@ -70,6 +69,8 @@
 			<Button on:click={createRecordWrapper}>Přidat záznam</Button>
 		</div>
 	{:else}
+		<ManagerMenu bind:selectedUserID={userID} labelType="white" />
+
 		<p>
 			Máte manažerský účet ale žádného přiřazeného uživatele, vytvořte jedneho z hlavního stránky
 		</p>

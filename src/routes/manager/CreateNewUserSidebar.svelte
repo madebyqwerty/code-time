@@ -21,11 +21,11 @@
 			manager: $currentUser.id,
 			emailVisibility: true
 		});
+		open = false;
+		await invalidate('home');
 		newUserEmail = '';
 		newUserName = '';
 		newUserPassword = '';
-		await invalidate('home');
-		open = false;
 	}
 </script>
 
