@@ -9,6 +9,13 @@
 	import { tagStore } from '$lib/pocketbase/tagStore';
 	import { userStore } from '$lib/pocketbase/userStore';
 	import ManagerMenu from './manager/ManagerMenu.svelte';
+	import Label from '$lib/components/forms/Label.svelte';
+	import { onMount } from 'svelte';
+	import { Czech } from 'flatpickr/dist/l10n/cs';
+	import flatpickr from 'flatpickr';
+	import type { Instance } from 'flatpickr/dist/types/instance';
+	import './Sidenav/datepicker.css';
+	import Number from '$lib/components/forms/Number.svelte';
 
 	export let open = false;
 	let userID: number;
@@ -20,7 +27,8 @@
 		difficulty: '3',
 		description: '',
 		languages: [],
-		tags: []
+		tags: [],
+		date: new Date()
 	};
 
 	function createRecordWrapper() {
@@ -34,6 +42,17 @@
 			$userStore[userID].id
 		);
 	}
+
+	let datepicker;
+
+	onMount(() => {
+		datepicker = flatpickr('.flatpickr', {
+			mode: 'single',
+			locale: Czech,
+			onClose: (e) => (inputData.date = e[0]),
+			defaultDate: inputData.date
+		}) as Instance;
+	});
 </script>
 
 <Sidebar bind:open title="Nový záznam">
@@ -45,14 +64,37 @@
 		{/if}
 
 		<div class="wrapper">
-			<Textarea
-				bind:value={inputData.description}
-				placeholder="Naučil jsem se používat print() v Pythonu"
-				label="Popis"
-			/>
-			<Range bind:value={inputData.difficulty} name="obtiznost" label="Obtížnost" />
-			<div id="meter" bind:clientWidth={w} style="width:100%;" />
+			<div class="description">
+				<Textarea
+					bind:value={inputData.description}
+					placeholder="Naučil jsem se používat print() v Pythonu"
+					label="Popis"
+				/>
+			</div>
+
+			<div class="diffuculty">
+				<div class="label-wrapper"><Label>Obtížnost</Label></div>
+				<Range bind:value={inputData.difficulty} name="obtiznost" />
+			</div>
+
+			<div class="datetime">
+				<div class="date">
+					<Label>Datum</Label>
+					<input
+						class="flatpickr flatpickr-input"
+						type="text"
+						placeholder="Vyber rozmezí"
+						data-id="range"
+						readonly={true}
+					/>
+				</div>
+				<div class="time">
+					<Number label="Délka tréninku" id="training" step={5} />
+				</div>
+			</div>
+
 			<div class="multiselect-wrapper">
+				<Label>Programovací jazyky</Label>
 				<Multiselect
 					placeholder="Vybrat jazyk"
 					bind:selected={inputData.languages}
@@ -60,6 +102,7 @@
 				/>
 			</div>
 			<div class="multiselect-wrapper">
+				<Label>Štítky</Label>
 				<Multiselect
 					placeholder="Vybrat štítky"
 					bind:selected={inputData.tags}
@@ -77,11 +120,32 @@
 	{/if}
 </Sidebar>
 
-<style>
-	.multiselect-wrapper {
-		margin: 2rem 0;
-	}
-	.menu-wrapper {
+<style lang="scss">
+	.wrapper {
 		margin-bottom: 0.8rem;
+		display: flex;
+		flex-direction: column;
+		gap: 3.2rem;
+	}
+
+	input {
+		color: $green-lightest;
+		border: 1px solid $green-primary;
+		background: transparent;
+		padding: 0.8rem;
+		display: block;
+		width: 100%;
+	}
+
+	.label-wrapper {
+		margin-bottom: -1.6rem;
+	}
+
+	.datetime {
+		display: flex;
+		gap: 1.6rem;
+		& > * {
+			width: 100%;
+		}
 	}
 </style>

@@ -9,8 +9,6 @@
 
 	let width;
 
-	const dispatch = createEventDispatcher();
-
 	const close = () => {
 		open = false;
 	};
@@ -59,10 +57,10 @@
 
 	aside {
 		@include scrollbars(10px, $green-primary, $background);
-		height: 100vh;
+		min-height: 100vh;
 		width: 42%;
 		background: $background;
-		padding: 3.2rem;
+		padding: 4rem;
 		overflow-y: scroll;
 	}
 
