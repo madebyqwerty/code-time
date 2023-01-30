@@ -17,3 +17,5 @@ declare global {
 		}
 	}
 }
+
+declare module '*';

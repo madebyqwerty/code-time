@@ -11,7 +11,7 @@
 		const url = $page.url;
 		url.searchParams.set('user_id', JSON.stringify(0));
 
-		pb.collection('users').delete(id);
+		pb.collection('users').delete(id, { $$autoCancel: false });
 		await goto(url);
 		await invalidate('home');
 		open = false;
