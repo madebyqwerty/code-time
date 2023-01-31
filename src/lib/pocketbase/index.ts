@@ -1,4 +1,4 @@
-import { invalidate, invalidateAll } from '$app/navigation';
+import { goto, invalidate, invalidateAll } from '$app/navigation';
 import PocketBase, { Admin, Record } from 'pocketbase';
 import { writable } from 'svelte/store';
 
@@ -10,9 +10,14 @@ export const pb = new PocketBase(pocketBaseURL);
 export const currentUser = writable<Record | Admin>(pb.authStore.model!);
 
 pb.authStore.onChange(async () => {
-	currentUser.set(pb.authStore.model!);
-	console.log('login');
-	await invalidate('home');
+	if (pb.authStore.model !== null) {
+		currentUser.set(pb.authStore.model!);
+		console.log('login');
+		await invalidate('home');
+	} else {
+		await goto('/');
+		window.location.reload();
+	}
 });
 
 export async function login(email: string, password: string) {

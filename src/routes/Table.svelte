@@ -5,11 +5,19 @@
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import { tagStore } from '$lib/pocketbase/tagStore.ts';
 	import Button from '$lib/components/Button.svelte';
+	import type { Records } from '$lib/pocketbase/recordsStore';
 
 	let open = false;
 	let sortedData = $recordsStore;
 
-	let selected: string = "newest"
+	interface SortingFunctions {
+		newest: () => Records[];
+		oldest: () => Records[];
+		hardest: () => Records[];
+		easiest: () => Records[];
+		shortest: () => Records[];
+		longest: () => Records[];
+	}
 
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
@@ -19,8 +27,8 @@
 		shortest: () => sortedData.sort((a, b) => a.length - b.length),
 		longest: () => sortedData.sort((a, b) => b.length - a.length),
 		shuffle: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime())
-	}
-
+	};
+	let selected: keyof SortingFunctions = 'newest';
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected]();
 	$: console.log($tagStore);
@@ -33,8 +41,7 @@
 			on:click={() => {
 				open = !open;
 			}}
-			{open}
-		/>
+			{open} />
 	</header>
 
 	{#key sortedData}
@@ -42,14 +49,14 @@
 			<colgroup>
 				<col class="table-date" />
 				<col class="table-length" />
-				<col class="table-langs" />
 				<col class="table-diff" />
+				<col class="table-langs" />
 				<col class="table-tags" />
 			</colgroup>
 			<thead>
 				<tr>
-					<th
-						><button
+					<th>
+						<button
 							on:click={() => {
 								if (selected == 'newest') {
 									selected = 'oldest';
@@ -58,26 +65,28 @@
 								} else {
 									selected = 'newest';
 								}
-							}}
-							><h4>Datum</h4>
+							}}>
+							<h4>Datum</h4>
 							<div class="arrows">
-								<div
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'oldest'}
+									class:inactive={selected !== 'oldest'}
+									inline={true}
 									class="up"
-									style={selected == 'oldest'
-										? 'border-color: transparent transparent white transparent'
-										: ''}
-								/>
-								<div
+									width={20} />
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'newest'}
+									class:inactive={selected !== 'newest'}
 									class="down"
-									style={selected == 'newest'
-										? 'border-color:white transparent transparent transparent'
-										: ''}
-								/>
-							</div></button
-						></th
-					>
-					<th
-						><button
+									inline={true}
+									width={20} />
+							</div>
+						</button>
+					</th>
+					<th>
+						<button
 							on:click={() => {
 								if (selected == 'longest') {
 									selected = 'shortest';
@@ -86,27 +95,28 @@
 								} else {
 									selected = 'longest';
 								}
-							}}
-							><h4>Délka</h4>
+							}}>
+							<h4>Délka</h4>
 							<div class="arrows">
-								<div
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'shortest'}
+									class:inactive={selected !== 'shortest'}
+									inline={true}
 									class="up"
-									style={selected == 'shortest'
-										? 'border-color: transparent transparent white transparent'
-										: ''}
-								/>
-								<div
+									width={20} />
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'longest'}
+									class:inactive={selected !== 'longest'}
 									class="down"
-									style={selected == 'longest'
-										? 'border-color:white transparent transparent transparent'
-										: ''}
-								/>
-							</div></button
-						></th
-					>
-					<th><h4>Jazyky</h4></th>
-					<th
-						><button
+									inline={true}
+									width={20} />
+							</div>
+						</button>
+					</th>
+					<th>
+						<button
 							on:click={() => {
 								if (selected == 'hardest') {
 									selected = 'easiest';
@@ -115,25 +125,28 @@
 								} else {
 									selected = 'hardest';
 								}
-							}}
-							><h4>Obtížnost</h4>
+							}}>
+							<h4>Obtížnost</h4>
 							<div class="arrows">
-								<div
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'easiest'}
+									class:inactive={selected !== 'easiest'}
+									inline={true}
 									class="up"
-									style={selected == 'easiest'
-										? 'border-color: transparent transparent white transparent'
-										: ''}
-								/>
-								<div
+									width={20} />
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'hardest'}
+									class:inactive={selected !== 'hardest'}
 									class="down"
-									style={selected == 'hardest'
-										? 'border-color:white transparent transparent transparent'
-										: ''}
-								/>
-							</div></button
-						></th
-					>
-					<th><h4>Tags</h4></th>
+									inline={true}
+									width={20} />
+							</div>
+						</button>
+					</th>
+					<th><h4>Jazyky</h4></th>
+					<th><h4>Tagy</h4></th>
 				</tr>
 			</thead>
 
@@ -142,14 +155,13 @@
 					<tr style="--animation-order:{i * 100}ms" class="row">
 						<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 						<td class="text-sm white text-center">{record.length}</td>
+						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 						<td class="text-sm white">
 							{#each record.language as language}
 								<span class="language" style="background: {languageColors[language]};"
-									>{languageNames[language]}</span
-								>
+									>{languageNames[language]}</span>
 							{/each}
 						</td>
-						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 						<td class="text-sm white">
 							{#each record.tags as tag, i}
 								{#if $tagStore}
@@ -189,15 +201,12 @@
 		}
 	}
 
-	select {
-		background: lighten($background, 10);
-	}
-
 	table {
 		width: 100%;
 		margin-bottom: 8rem;
 		table-layout: fixed;
 	}
+
 	.table {
 		&-date {
 			width: 13rem;
@@ -225,26 +234,25 @@
 		animation-delay: var(--animation-order);
 		transform: translate(0, 20%);
 		opacity: 0;
-	
 	}
 
 	td {
 		padding: 1.2rem;
-		position:relative;
+		position: relative;
 	}
 
 	td:not(:last-child) {
 		border-right: 1px solid lighten($background, 2.5);
 	}
-	tr:nth-of-type(odd) >td::before {
+	tr:nth-of-type(odd) > td::before {
 		background: lighten($background, 5);
-		content:"";
-		position:absolute;
-		width:100%;
-		height:100%;
-		top:0;
-		left:0;
-		z-index:-1;
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: -1;
 	}
 
 	th {
@@ -255,8 +263,8 @@
 
 	h4 {
 		color: white;
-		text-align: center;
 	}
+
 	.number {
 		font-size: 2.5rem;
 		font-family: 'Silkscreen';
@@ -276,36 +284,39 @@
 		align-items: center;
 	}
 
-	select {
-		margin-bottom: 3.2rem;
-	}
 	th > button {
 		display: flex;
-		flex-direction: row;
-		padding: 0 2rem;
-		width: 100%;
-		justify-content: center;
-		position: relative;
+		padding: 0 1rem;
+		align-items: center;
+		gap: 4px;
 	}
+
 	.arrows {
+		height: 40px;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 3px;
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-	}
-	.up {
-		border-width: 0 0.7rem 0.7rem 0.7rem;
-		border-style: solid;
-		border-color: transparent transparent darken(#181c24, 5) transparent;
-	}
-	.down {
-		border-width: 0.7rem 0.7rem 0 0.7rem;
-		border-style: solid;
-		border-color: darken(#181c24, 5) transparent transparent transparent;
+		gap: 1px;
+		padding-top: 10px;
+
+		& > * {
+			margin-bottom: -5px;
+			margin-top: -5px;
+		}
+
+		& > .selected {
+			color: white;
+		}
+
+		& > .inactive {
+			color: lighten($background, 20);
+		}
+
+		& > .up {
+			transform: rotate(-90deg);
+		}
+
+		& > .down {
+			transform: rotate(90deg);
+		}
 	}
 </style>
