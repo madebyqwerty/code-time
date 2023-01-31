@@ -5,8 +5,6 @@
 	import Table from './Table.svelte';
 	import { currentUser } from '$lib/pocketbase';
 	import ManagerMenu from './manager/ManagerMenu.svelte';
-
-	export let data: { pathname: string };
 </script>
 
 <section class="home-page">

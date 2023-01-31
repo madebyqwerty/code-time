@@ -34,9 +34,7 @@ export const load = (async ({ depends, url }) => {
 	depends('home');
 
 	if (!pb.authStore.model) {
-		return {
-			pathname: url.toString()
-		};
+		return;
 	}
 	await populateTagStore();
 	await populateUnfilteredTagStore();
@@ -71,7 +69,7 @@ export const load = (async ({ depends, url }) => {
 		if (users.length > 0) {
 			filter += `&& user_id.id = "${users[userID].id}"`;
 		} else {
-			return { pathname: url.toString() };
+			return;
 		}
 	}
 
@@ -95,7 +93,5 @@ export const load = (async ({ depends, url }) => {
 		})
 	);
 
-	return {
-		pathname: url.toString()
-	};
+	return;
 }) satisfies PageLoad;
