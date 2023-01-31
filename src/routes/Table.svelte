@@ -225,18 +225,26 @@
 		animation-delay: var(--animation-order);
 		transform: translate(0, 20%);
 		opacity: 0;
+	
 	}
 
 	td {
 		padding: 1.2rem;
+		position:relative;
 	}
 
 	td:not(:last-child) {
-		border-right: 1px solid $background-light;
+		border-right: 1px solid lighten($background, 2.5);
 	}
-
-	tr:nth-of-type(odd) {
-		background-color: lighten($background, 5);
+	tr:nth-of-type(odd) >td::before {
+		background: lighten($background, 5);
+		content:"";
+		position:absolute;
+		width:100%;
+		height:100%;
+		top:0;
+		left:0;
+		z-index:-1;
 	}
 
 	th {
