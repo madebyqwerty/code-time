@@ -13,6 +13,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import { createTag } from '$lib/pocketbase/createTag';
 	import ColorPicker from './ColorPicker.svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
@@ -20,7 +21,7 @@
 	$: populateUnfilteredTagStore(addTagInput);
 	let openTags = false;
 	let editTag = false;
-	let addTagInput: string;
+	let addTagInput: string="";
 	let color: string;
 
 	async function handleTagChange(id: string, checked: boolean) {
@@ -51,14 +52,19 @@
 
 	async function handleAdd() {
 		try {
-			if (
-				addTagInput.length > 2 &&
-				addTagInput.length < 30 &&
-				parseInt(color.slice(1), 12) < 2985983
-			) {
-				createTag(addTagInput, color);
+			let output = await createTag(addTagInput, color);
+			console.log(output);
+			if (output == 'shortname') {
+				toast.push('Název tagu musí být delší než 2 znaky', {duration:4000});
+			}
+			else if (output == 'longname') {
+				toast.push('Název tagu musí být kratší než 30 znaků', {duration:4000});
+			}
+			else if (output == 'wrongcolor') {
+				toast.push('Špatný formát barvy', {duration:4000});
+			} else {
 				openTags = false;
-				console.log('tag2');
+				
 				await invalidate('home');
 			}
 		} catch (e) {}
@@ -100,7 +106,13 @@
 </section>
 <SidebarLeft bind:open={openTags} title="DODAT ŠTÍTEK">
 	<div class="form">
-		<Input type="text" bind:value={addTagInput} placeholder="Jméno štítku" label="Název štítku" />
+		<Input
+			type="text"
+			bind:value={addTagInput}
+			maxlength={29}
+			placeholder="Jméno štítku"
+			label="Název štítku"
+		/>
 		<ColorPicker bind:value={color} />
 		<Button on:click={handleAdd}>Přidat štítek</Button>
 	</div>

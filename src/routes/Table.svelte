@@ -17,8 +17,9 @@
 		hardest: () => sortedData.sort((a, b) => b.rating - a.rating),
 		easiest: () => sortedData.sort((a, b) => a.rating - b.rating),
 		shortest: () => sortedData.sort((a, b) => a.length - b.length),
-		longest: () => sortedData.sort((a, b) => b.length - a.length)
-	};
+		longest: () => sortedData.sort((a, b) => b.length - a.length),
+		shuffle: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime())
+	}
 
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected]();
@@ -35,7 +36,6 @@
 			{open}
 		/>
 	</header>
-	<label for="sort">Filtrovat podle</label>
 
 	{#key sortedData}
 		<table class="table-default sortable">
@@ -49,30 +49,87 @@
 			<thead>
 				<tr>
 					<th
-						><button on:click={()=>{if(selected=="newest"){selected="oldest"}else{selected="newest"}}}
+						><button
+							on:click={() => {
+								if (selected == 'newest') {
+									selected = 'oldest';
+								} else if (selected == 'oldest') {
+									selected = 'shuffle';
+								} else {
+									selected = 'newest';
+								}
+							}}
 							><h4>Datum</h4>
 							<div class="arrows">
-								<div class="up" style={selected=="oldest"?"border-color: transparent transparent white transparent":""}/>
-								<div class="down" style={selected=="newest"?"border-color:white transparent transparent transparent":""}/>
+								<div
+									class="up"
+									style={selected == 'oldest'
+										? 'border-color: transparent transparent white transparent'
+										: ''}
+								/>
+								<div
+									class="down"
+									style={selected == 'newest'
+										? 'border-color:white transparent transparent transparent'
+										: ''}
+								/>
 							</div></button
 						></th
 					>
 					<th
-						><button on:click={()=>{if(selected=="longest"){selected="shortest"}else if(selected=="shortest"){selected="newest"}else{selected="longest"}}}
+						><button
+							on:click={() => {
+								if (selected == 'longest') {
+									selected = 'shortest';
+								} else if (selected == 'shortest') {
+									selected = 'shuffle';
+								} else {
+									selected = 'longest';
+								}
+							}}
 							><h4>Délka</h4>
 							<div class="arrows">
-								<div class="up" style={selected=="shortest"?"border-color: transparent transparent white transparent":""}/>
-								<div class="down" style={selected=="longest"?"border-color:white transparent transparent transparent":""}/>
+								<div
+									class="up"
+									style={selected == 'shortest'
+										? 'border-color: transparent transparent white transparent'
+										: ''}
+								/>
+								<div
+									class="down"
+									style={selected == 'longest'
+										? 'border-color:white transparent transparent transparent'
+										: ''}
+								/>
 							</div></button
 						></th
 					>
 					<th><h4>Jazyky</h4></th>
 					<th
-						><button on:click={()=>{if(selected=="hardest"){selected="easiest"}else if(selected=="easiest"){selected="newest"}else{selected="hardest"}}}
+						><button
+							on:click={() => {
+								if (selected == 'hardest') {
+									selected = 'easiest';
+								} else if (selected == 'easiest') {
+									selected = 'shuffle';
+								} else {
+									selected = 'hardest';
+								}
+							}}
 							><h4>Obtížnost</h4>
 							<div class="arrows">
-								<div class="up" style={selected=="easiest"?"border-color: transparent transparent white transparent":""}/>
-								<div class="down" style={selected=="hardest"?"border-color:white transparent transparent transparent":""}/>
+								<div
+									class="up"
+									style={selected == 'easiest'
+										? 'border-color: transparent transparent white transparent'
+										: ''}
+								/>
+								<div
+									class="down"
+									style={selected == 'hardest'
+										? 'border-color:white transparent transparent transparent'
+										: ''}
+								/>
 							</div></button
 						></th
 					>
@@ -214,33 +271,33 @@
 	select {
 		margin-bottom: 3.2rem;
 	}
-	th>button{
-		display:flex;
-		flex-direction:row;
-		padding:0 2rem;
-		width:100%;
-		justify-content:center;
-		position:relative;
-	}
-	.arrows{
-		display:flex;
-		flex-direction:column;
+	th > button {
+		display: flex;
+		flex-direction: row;
+		padding: 0 2rem;
+		width: 100%;
 		justify-content: center;
-		align-items:center;
-		gap:3px;
-		position:absolute;
-		right:0;
-		top:50%;
-		transform:translateY(-50%);
+		position: relative;
 	}
-	.up{
-		border-width: 0 .7rem .7rem .7rem;
-		border-style:solid;
-		border-color: transparent transparent darken(#181c24,5) transparent;
+	.arrows {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 3px;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
 	}
-	.down{
-		border-width: .7rem .7rem 0 .7rem;
-		border-style:solid;
-		border-color:darken(#181c24,5) transparent transparent transparent;
+	.up {
+		border-width: 0 0.7rem 0.7rem 0.7rem;
+		border-style: solid;
+		border-color: transparent transparent darken(#181c24, 5) transparent;
+	}
+	.down {
+		border-width: 0.7rem 0.7rem 0 0.7rem;
+		border-style: solid;
+		border-color: darken(#181c24, 5) transparent transparent transparent;
 	}
 </style>

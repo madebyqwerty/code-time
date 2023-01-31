@@ -9,6 +9,7 @@
 	export let helperText: string = '';
 	export let error = '';
 	export let required = false;
+	export let maxlength: number = 99999;
 
 	let input: HTMLInputElement;
 	let mounted: boolean;
@@ -38,6 +39,7 @@
 			{required}
 			{name}
 			{placeholder}
+			{maxlength}
 			class="text-base {error ? 'error' : ''}"
 		/>
 
