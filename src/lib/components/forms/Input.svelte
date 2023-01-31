@@ -30,17 +30,16 @@
 </script>
 
 <span>
-		<label for={name} class="text-sm">{label}</label>
+	<label for={name} class="text-sm">{label}</label>
 	<div class="input-wrapper">
-		
-			<input
-				bind:value
-				bind:this={input}
-				{required}
-				{name}
-				{placeholder}
-				class="text-base {error ? 'error' : ''}"
-			/>
+		<input
+			bind:value
+			bind:this={input}
+			{required}
+			{name}
+			{placeholder}
+			class="text-base {error ? 'error' : ''}"
+		/>
 
 		{#if showPasswordSwitch}
 			<button type="button" on:click={switchType} class="icon">
@@ -53,49 +52,6 @@
 </span>
 
 <style lang="scss">
-	.eye,
-	.square {
-		height: 0.7rem;
-		width: 0.7rem;
-		background: $green-primary;
-		position: absolute;
-	}
-	.mth {
-		height: 0.7rem;
-		width: 2.1rem;
-		background: $green-primary;
-		position: absolute;
-		top: 68%;
-		left: 20%;
-	}
-	.eye {
-		top: 0%;
-		left: 80%;
-		&:first-child {
-			left: 0%;
-		}
-	}
-	.square {
-		&:first-child {
-			left: 0%;
-		}
-		&:last-child {
-			left: 80%;
-		}
-	}
-	.range-label {
-		display: flex;
-		flex-direction: row;
-		gap: 3rem;
-		align-items: flex-end;
-		padding-top: 2rem;
-	}
-	.smile {
-		position: relative;
-		height: 3.5rem;
-		width: 3.5rem;
-	}
-
 	input {
 		color: white;
 		border: 2px solid $green-primary;
@@ -123,9 +79,6 @@
 		align-items: center;
 		width: 100%;
 		position: relative;
-		&2 {
-			flex-direction: column;
-		}
 	}
 	span {
 		width: 100%;

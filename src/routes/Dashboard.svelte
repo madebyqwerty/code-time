@@ -5,8 +5,6 @@
 	import Table from './Table.svelte';
 	import { currentUser } from '$lib/pocketbase';
 	import ManagerMenu from './manager/ManagerMenu.svelte';
-
-	export let data: { pathname: string };
 </script>
 
 <section class="home-page">
@@ -36,9 +34,5 @@
 		display: flex;
 		flex-direction: column;
 		gap: 6.4rem;
-	}
-
-	h2 {
-		color: $green-primary;
 	}
 </style>

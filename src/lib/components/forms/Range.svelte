@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let value = 3;
-	export let name: string;
 </script>
 
 <div class="range-wrapper">
@@ -83,7 +82,6 @@
 	@for $i from 1 through 5 {
 		.rating label:nth-child(#{$i}) {
 			z-index: calc(5 - $i + 1);
-			@debug calc(5 - $i + 1);
 		}
 	}
 

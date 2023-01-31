@@ -16,8 +16,8 @@
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
-	$:console.log($unfilteredTagStore)
-	$: populateUnfilteredTagStore(addTagInput)
+	$: console.log($unfilteredTagStore);
+	$: populateUnfilteredTagStore(addTagInput);
 	let openTags = false;
 	let editTag = false;
 	let addTagInput: string;
@@ -90,7 +90,6 @@
 				<button
 					on:click={() => {
 						editTag = !editTag;
-						edited = tag;
 					}}
 					class="tag-icon"
 					>...
@@ -119,7 +118,6 @@
 					<button
 						on:click={() => {
 							editTag = !editTag;
-							edited = tag;
 						}}
 						class="tag-icon"
 						>...
@@ -135,29 +133,14 @@
 	h3 {
 		color: white;
 	}
-	g {
-		stroke-width: 1;
-	}
-	path {
-		fill: white;
-	}
+
 	.headerlmao {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		flex-direction: row;
 	}
-	.icon {
-		height: 2.5rem;
-		width: 2.5rem;
-		font-size: 4rem;
-		line-height: 2.5rem;
-		color: white;
-	}
-	svg {
-		height: 2.5rem;
-		width: 2.5rem;
-	}
+
 	.tag {
 		padding: 0.4rem;
 		color: white;
@@ -165,13 +148,13 @@
 		gap: 0.8rem;
 		align-items: center;
 		justify-content: space-between;
-		& svg,
+
 		&-icon {
 			height: 1.6rem;
 			width: 1.6rem;
 			opacity: 0;
 		}
-		&:hover svg,
+
 		&:hover &-icon {
 			opacity: 1;
 		}

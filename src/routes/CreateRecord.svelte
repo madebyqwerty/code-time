@@ -3,7 +3,8 @@
 	import Textarea from '$lib/components/forms/Textarea.svelte';
 	import Range from '$lib/components/forms/Range.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { createRecord, currentUser } from '$lib/pocketbase';
+	import { createRecord } from '$lib/pocketbase/createRecord';
+	import { currentUser } from '$lib/pocketbase';
 	import Multiselect from '$lib/components/forms/Multiselect.svelte';
 	import { languageIDs, languageNames } from '$lib/utils/languages';
 	import { tagStore } from '$lib/pocketbase/tagStore';
