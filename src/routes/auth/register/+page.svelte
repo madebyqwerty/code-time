@@ -22,7 +22,6 @@
 
 		error.password = password.length < 12 || password.length > 72;
 
-
 		if (!error.password && !error.repeatPassword && !error.correctEmail) {
 			await pb.collection('users').create({
 				email,
@@ -83,7 +82,7 @@
 				}}>Vytvořit manažerský účet</Button
 			>
 		</div>
-	</div>
+	</form>
 </Wrapper>
 
 <style lang="scss">

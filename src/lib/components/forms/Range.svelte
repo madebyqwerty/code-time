@@ -1,6 +1,5 @@
 <script lang="ts">
-	export let value: string;
-	export let rangeValue = 3;
+	export let value = 3;
 	export let name: string;
 </script>
 
@@ -11,37 +10,37 @@
 				<div class="eye" />
 				<div class="eye" />
 				<div class="mth" />
-				<div class="square" style="top:{80 - (rangeValue / 6) * 24}%;left:0%;" />
-				<div class="square" style="top:{80 - (rangeValue / 6) * 24}%;left:80%;" />
+				<div class="square" style="top:{80 - (value / 6) * 24}%;left:0%;" />
+				<div class="square" style="top:{80 - (value / 6) * 24}%;left:80%;" />
 			</div>
 		</div>
 	</div>
 
 	<div class="rating">
 		<label>
-			<input type="radio" bind:group={rangeValue} name="stars" value="1" />
+			<input type="radio" bind:group={value} name="stars" value="1" />
 			<span class="star-icon-range">★</span>
 		</label>
 		<label>
-			<input type="radio" bind:group={rangeValue} name="stars" value="2" />
-			<span class="star-icon-range">★</span>
-			<span class="star-icon-range">★</span>
-		</label>
-		<label>
-			<input type="radio" bind:group={rangeValue} name="stars" value="3" />
-			<span class="star-icon-range">★</span>
+			<input type="radio" bind:group={value} name="stars" value="2" />
 			<span class="star-icon-range">★</span>
 			<span class="star-icon-range">★</span>
 		</label>
 		<label>
-			<input type="radio" bind:group={rangeValue} name="stars" value="4" />
-			<span class="star-icon-range">★</span>
+			<input type="radio" bind:group={value} name="stars" value="3" />
 			<span class="star-icon-range">★</span>
 			<span class="star-icon-range">★</span>
 			<span class="star-icon-range">★</span>
 		</label>
 		<label>
-			<input type="radio" bind:group={rangeValue} name="stars" value="5" />
+			<input type="radio" bind:group={value} name="stars" value="4" />
+			<span class="star-icon-range">★</span>
+			<span class="star-icon-range">★</span>
+			<span class="star-icon-range">★</span>
+			<span class="star-icon-range">★</span>
+		</label>
+		<label>
+			<input type="radio" bind:group={value} name="stars" value="5" />
 			<span class="star-icon-range">★</span>
 			<span class="star-icon-range">★</span>
 			<span class="star-icon-range">★</span>

@@ -10,49 +10,42 @@
 	import { userStore } from '$lib/pocketbase/userStore';
 	import ManagerMenu from './manager/ManagerMenu.svelte';
 	import Label from '$lib/components/forms/Label.svelte';
-	import { onMount } from 'svelte';
-	import { Czech } from 'flatpickr/dist/l10n/cs';
-	import flatpickr from 'flatpickr';
-	import type { Instance } from 'flatpickr/dist/types/instance';
 	import './Sidenav/datepicker.css';
 	import Number from '$lib/components/forms/Number.svelte';
+	import Datepicker from '$lib/components/forms/Datepicker.svelte';
+	import { invalidate } from '$app/navigation';
 
 	export let open = false;
 	let userID: number;
 
-	let selectedOptions: string[];
-	let diff: number;
-	let w;
-	export let inputData = {
-		difficulty: '3',
+	let defaultData = {
+		difficulty: 3,
 		description: '',
 		languages: [],
 		tags: [],
-		date: new Date()
+		date: new Date(),
+		length: 5
 	};
+
+	export let inputData = { ...defaultData };
 
 	function createRecordWrapper() {
 		createRecord(
-			new Date(),
-			10,
+			inputData.date,
+			inputData.length,
 			inputData.languages.map((lang) => languageIDs[lang]),
-			parseInt(inputData.difficulty),
+			inputData.difficulty,
 			inputData.description,
 			inputData.tags.map((tag) => $tagStore[$tagStore.map((tag2) => tag2.name).indexOf(tag)].id),
-			$userStore[userID].id
+			$currentUser.is_manager ? $userStore[userID].id : $currentUser.id
 		);
+
+		open = false;
+
+		inputData = { ...defaultData };
+
+		invalidate('home');
 	}
-
-	let datepicker;
-
-	onMount(() => {
-		datepicker = flatpickr('.flatpickr', {
-			mode: 'single',
-			locale: Czech,
-			onClose: (e) => (inputData.date = e[0]),
-			defaultDate: inputData.date
-		}) as Instance;
-	});
 </script>
 
 <Sidebar bind:open title="Nový záznam">
@@ -80,16 +73,10 @@
 			<div class="datetime">
 				<div class="date">
 					<Label>Datum</Label>
-					<input
-						class="flatpickr flatpickr-input"
-						type="text"
-						placeholder="Vyber rozmezí"
-						data-id="range"
-						readonly={true}
-					/>
+					<Datepicker bind:value={inputData.date} />
 				</div>
 				<div class="time">
-					<Number label="Délka tréninku" id="training" step={5} />
+					<Number label="Délka tréninku" id="training" step={5} bind:value={inputData.length} />
 				</div>
 			</div>
 
@@ -126,15 +113,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 3.2rem;
-	}
-
-	input {
-		color: $green-lightest;
-		border: 1px solid $green-primary;
-		background: transparent;
-		padding: 0.8rem;
-		display: block;
-		width: 100%;
 	}
 
 	.label-wrapper {
