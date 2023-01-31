@@ -6,10 +6,11 @@
 	export let min = 0;
 	export let max = Infinity;
 	export let label: string;
+	export let value: number;
 </script>
 
 <Label forValue={id}>{label}</Label>
-<input type="number" {id} {step} {min} {max} />
+<input type="number" {id} {step} {min} {max} bind:value />
 
 <style lang="scss">
 	input {
