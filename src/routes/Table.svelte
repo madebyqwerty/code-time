@@ -5,11 +5,19 @@
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import { tagStore } from '$lib/pocketbase/tagStore.ts';
 	import Button from '$lib/components/Button.svelte';
+	import type { Records } from '$lib/pocketbase/recordsStore';
 
 	let open = false;
 	let sortedData = $recordsStore;
 
-	let selected: string = 'newest';
+	interface SortingFunctions {
+		newest: () => Records[];
+		oldest: () => Records[];
+		hardest: () => Records[];
+		easiest: () => Records[];
+		shortest: () => Records[];
+		longest: () => Records[];
+	}
 
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
@@ -19,6 +27,7 @@
 		shortest: () => sortedData.sort((a, b) => a.length - b.length),
 		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
+	let selected: keyof SortingFunctions = 'newest';
 
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected]();
@@ -34,15 +43,14 @@
 			}}
 			{open} />
 	</header>
-	<label for="sort">Filtrovat podle</label>
 
 	{#key sortedData}
 		<table class="table-default sortable">
 			<colgroup>
 				<col class="table-date" />
 				<col class="table-length" />
-				<col class="table-langs" />
 				<col class="table-diff" />
+				<col class="table-langs" />
 				<col class="table-tags" />
 			</colgroup>
 			<thead>
@@ -105,7 +113,6 @@
 							</div>
 						</button>
 					</th>
-					<th><h4>Jazyky</h4></th>
 					<th>
 						<button
 							on:click={() => {
@@ -136,6 +143,7 @@
 							</div>
 						</button>
 					</th>
+					<th><h4>Jazyky</h4></th>
 					<th><h4>Tagy</h4></th>
 				</tr>
 			</thead>
@@ -145,13 +153,13 @@
 					<tr style="--animation-order:{i * 100}ms" class="row">
 						<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 						<td class="text-sm white text-center">{record.length}</td>
+						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 						<td class="text-sm white">
 							{#each record.language as language}
 								<span class="language" style="background: {languageColors[language]};"
 									>{languageNames[language]}</span>
 							{/each}
 						</td>
-						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 						<td class="text-sm white">
 							{#each record.tags as tag, i}
 								{#if $tagStore}
@@ -191,15 +199,12 @@
 		}
 	}
 
-	select {
-		background: lighten($background, 10);
-	}
-
 	table {
 		width: 100%;
 		margin-bottom: 8rem;
 		table-layout: fixed;
 	}
+
 	.table {
 		&-date {
 			width: 13rem;
@@ -249,8 +254,8 @@
 
 	h4 {
 		color: white;
-		text-align: center;
 	}
+
 	.number {
 		font-size: 2.5rem;
 		font-family: 'Silkscreen';
@@ -273,8 +278,8 @@
 	th > button {
 		display: flex;
 		padding: 0 2rem;
-		justify-content: center;
 		align-items: center;
+		gap: 4px;
 	}
 
 	.arrows {
