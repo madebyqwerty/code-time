@@ -3,46 +3,13 @@
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
-	import { unfilteredTagStore } from '$lib/pocketbase/unfilteredTagStore.ts';
 	import { tagStore } from '$lib/pocketbase/tagStore.ts';
 	import Button from '$lib/components/Button.svelte';
 
 	let open = false;
 	let sortedData = $recordsStore;
 
-	interface sortingOption {
-		id: 'newest' | 'oldest' | 'hardest' | 'easiest' | 'longest' | 'shortest';
-		name: string;
-	}
-
-	const sortingOptions: sortingOption[] = [
-		{
-			id: 'newest',
-			name: 'Od nejnovějších'
-		},
-		{
-			id: 'oldest',
-			name: 'Od nejstarších'
-		},
-		{ id: 'hardest', name: 'Od nejobtížnějších' },
-		{
-			id: 'easiest',
-			name: 'Od nejlehčích'
-		},
-		{
-			id: 'longest',
-			name: 'Od nejdelších'
-		},
-		{
-			id: 'shortest',
-			name: 'Od nejkratších'
-		}
-	];
-
-	let selected: sortingOption = {
-		id: 'newest',
-		name: 'Od nejnovějších'
-	};
+	let selected: string = "newest"
 
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
@@ -54,7 +21,7 @@
 	};
 
 	$: sortedData = $recordsStore;
-	$: sortedData = sortingFunctions[selected.id]();
+	$: sortedData = sortingFunctions[selected]();
 	$: console.log($tagStore);
 </script>
 
@@ -69,13 +36,9 @@
 		/>
 	</header>
 	<label for="sort">Filtrovat podle</label>
-	<select name="sort" id="sort" bind:value={selected.id}>
-		{#each sortingOptions as sortOption}
-			<option value={sortOption.id}>{sortOption.name}</option>
-		{/each}
-	</select>
+
 	{#key sortedData}
-		<table class="table-default">
+		<table class="table-default sortable">
 			<colgroup>
 				<col class="table-date" />
 				<col class="table-length" />
@@ -83,38 +46,66 @@
 				<col class="table-diff" />
 				<col class="table-tags" />
 			</colgroup>
-			<tr>
-				<th><h4>Datum</h4></th>
-				<th><h4>Délka</h4></th>
-				<th><h4>Jazyky</h4></th>
-				<th><h4>Obtížnost</h4></th>
-				<th><h4>Tags</h4></th>
-			</tr>
-
-			{#each sortedData as record, i}
-				<tr style="--animation-order:{i * 100}ms" class="row">
-					<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
-					<td class="text-sm white text-center">{record.length}</td>
-					<td class="text-sm white">
-						{#each record.language as language}
-							<span class="language" style="background: {languageColors[language]};"
-								>{languageNames[language]}</span
-							>
-						{/each}
-					</td>
-					<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-					<td class="text-sm white">
-						{#each record.tags as tag, i}
-							{#if $tagStore}
-								<span>
-									{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
-									{#if i + 1 < record.tags.length},{/if}
-								</span>
-							{/if}
-						{/each}
-					</td>
+			<thead>
+				<tr>
+					<th
+						><button on:click={()=>{if(selected=="newest"){selected="oldest"}else{selected="newest"}}}
+							><h4>Datum</h4>
+							<div class="arrows">
+								<div class="up" style={selected=="oldest"?"border-color: transparent transparent white transparent":""}/>
+								<div class="down" style={selected=="newest"?"border-color:white transparent transparent transparent":""}/>
+							</div></button
+						></th
+					>
+					<th
+						><button on:click={()=>{if(selected=="longest"){selected="shortest"}else if(selected=="shortest"){selected="newest"}else{selected="longest"}}}
+							><h4>Délka</h4>
+							<div class="arrows">
+								<div class="up" style={selected=="shortest"?"border-color: transparent transparent white transparent":""}/>
+								<div class="down" style={selected=="longest"?"border-color:white transparent transparent transparent":""}/>
+							</div></button
+						></th
+					>
+					<th><h4>Jazyky</h4></th>
+					<th
+						><button on:click={()=>{if(selected=="hardest"){selected="easiest"}else if(selected=="easiest"){selected="newest"}else{selected="hardest"}}}
+							><h4>Obtížnost</h4>
+							<div class="arrows">
+								<div class="up" style={selected=="easiest"?"border-color: transparent transparent white transparent":""}/>
+								<div class="down" style={selected=="hardest"?"border-color:white transparent transparent transparent":""}/>
+							</div></button
+						></th
+					>
+					<th><h4>Tags</h4></th>
 				</tr>
-			{/each}
+			</thead>
+
+			<tbody>
+				{#each sortedData as record, i}
+					<tr style="--animation-order:{i * 100}ms" class="row">
+						<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
+						<td class="text-sm white text-center">{record.length}</td>
+						<td class="text-sm white">
+							{#each record.language as language}
+								<span class="language" style="background: {languageColors[language]};"
+									>{languageNames[language]}</span
+								>
+							{/each}
+						</td>
+						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
+						<td class="text-sm white">
+							{#each record.tags as tag, i}
+								{#if $tagStore}
+									<span>
+										{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
+										{#if i + 1 < record.tags.length},{/if}
+									</span>
+								{/if}
+							{/each}
+						</td>
+					</tr>
+				{/each}
+			</tbody>
 		</table>
 	{/key}
 
@@ -222,5 +213,34 @@
 
 	select {
 		margin-bottom: 3.2rem;
+	}
+	th>button{
+		display:flex;
+		flex-direction:row;
+		padding:0 2rem;
+		width:100%;
+		justify-content:center;
+		position:relative;
+	}
+	.arrows{
+		display:flex;
+		flex-direction:column;
+		justify-content: center;
+		align-items:center;
+		gap:3px;
+		position:absolute;
+		right:0;
+		top:50%;
+		transform:translateY(-50%);
+	}
+	.up{
+		border-width: 0 .7rem .7rem .7rem;
+		border-style:solid;
+		border-color: transparent transparent darken(#181c24,5) transparent;
+	}
+	.down{
+		border-width: .7rem .7rem 0 .7rem;
+		border-style:solid;
+		border-color:darken(#181c24,5) transparent transparent transparent;
 	}
 </style>
