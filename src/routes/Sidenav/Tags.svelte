@@ -141,11 +141,6 @@
 		flex-direction: row;
 	}
 
-	svg {
-		height: 2.5rem;
-		width: 2.5rem;
-	}
-
 	.tag {
 		padding: 0.4rem;
 		color: white;

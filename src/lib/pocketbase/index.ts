@@ -18,5 +18,3 @@ pb.authStore.onChange(async () => {
 export async function login(email: string, password: string) {
 	await pb.collection('users').authWithPassword(email, password, { $autoCancel: false });
 }
-
-export { createRecord } from './createRecord';

@@ -35,27 +35,22 @@
 			border: 2px solid #90d690;
 		}
 	}
-	.icon {
-		color: white;
-		position: absolute;
-		left: 90%;
-		margin-top: 0.2rem;
-	}
+
 	.input-wrapper {
 		display: flex;
 		align-items: center;
 		width: 100%;
 		position: relative;
-		&2 {
-			flex-direction: column;
-		}
 	}
+
 	span {
 		width: 100%;
 	}
+
 	p {
 		margin-top: 0.5rem;
 	}
+
 	.error {
 		color: $red-primary;
 		border-color: $red-primary !important;

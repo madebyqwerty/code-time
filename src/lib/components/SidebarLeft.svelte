@@ -21,11 +21,9 @@
 	<span>
 		<aside
 			bind:clientWidth={width}
-			transition:fly={{ duration: 500, x: -width, y: 0, opacity:1, easing: cubicOut }}
+			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 1, easing: cubicOut }}
 		>
-			<Button on:click={close} type="close2">
-				&#60; Zavřít
-			</Button>
+			<Button on:click={close} type="close2">&#60; Zavřít</Button>
 			<h3>{title}</h3>
 			<slot />
 		</aside>
@@ -33,10 +31,10 @@
 {/if}
 
 <style lang="scss">
-h3{
-    line-height:300%;
-    color:white;
-}
+	h3 {
+		line-height: 300%;
+		color: white;
+	}
 	span {
 		position: fixed;
 		top: 0px;
@@ -47,13 +45,6 @@ h3{
 		place-items: start;
 	}
 
-	.overlay {
-		position: fixed;
-		height: 100vh;
-		width: 100vw;
-		background: rgba(0, 0, 0, 0.5);
-	}
-
 	aside {
 		z-index: 20;
 		height: 100vh;
@@ -61,9 +52,5 @@ h3{
 		background: $background;
 		padding: 3.2rem;
 		overflow-y: scroll;
-	}
-
-	iconify-icon {
-		scale: 150%;
 	}
 </style>
