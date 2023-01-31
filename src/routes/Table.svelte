@@ -88,8 +88,6 @@
 							on:click={() => {
 								if (selected == 'longest') {
 									selected = 'shortest';
-								} else if (selected == 'shortest') {
-									selected = 'newest';
 								} else {
 									selected = 'longest';
 								}
@@ -118,8 +116,6 @@
 							on:click={() => {
 								if (selected == 'hardest') {
 									selected = 'easiest';
-								} else if (selected == 'easiest') {
-									selected = 'newest';
 								} else {
 									selected = 'hardest';
 								}
