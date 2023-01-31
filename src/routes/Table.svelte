@@ -9,7 +9,7 @@
 	let open = false;
 	let sortedData = $recordsStore;
 
-	let selected: string = "newest"
+	let selected: string = 'newest';
 
 	const sortingFunctions = {
 		newest: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime()),
@@ -32,8 +32,7 @@
 			on:click={() => {
 				open = !open;
 			}}
-			{open}
-		/>
+			{open} />
 	</header>
 	<label for="sort">Filtrovat podle</label>
 
@@ -48,35 +47,96 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th
-						><button on:click={()=>{if(selected=="newest"){selected="oldest"}else{selected="newest"}}}
-							><h4>Datum</h4>
+					<th>
+						<button
+							on:click={() => {
+								if (selected == 'newest') {
+									selected = 'oldest';
+								} else {
+									selected = 'newest';
+								}
+							}}>
+							<h4>Datum</h4>
 							<div class="arrows">
-								<div class="up" style={selected=="oldest"?"border-color: transparent transparent white transparent":""}/>
-								<div class="down" style={selected=="newest"?"border-color:white transparent transparent transparent":""}/>
-							</div></button
-						></th
-					>
-					<th
-						><button on:click={()=>{if(selected=="longest"){selected="shortest"}else if(selected=="shortest"){selected="newest"}else{selected="longest"}}}
-							><h4>Délka</h4>
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'oldest'}
+									class:inactive={selected !== 'oldest'}
+									inline={true}
+									class="up"
+									width={20} />
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'newest'}
+									class:inactive={selected !== 'newest'}
+									class="down"
+									inline={true}
+									width={20} />
+							</div>
+						</button>
+					</th>
+					<th>
+						<button
+							on:click={() => {
+								if (selected == 'longest') {
+									selected = 'shortest';
+								} else if (selected == 'shortest') {
+									selected = 'newest';
+								} else {
+									selected = 'longest';
+								}
+							}}>
+							<h4>Délka</h4>
 							<div class="arrows">
-								<div class="up" style={selected=="shortest"?"border-color: transparent transparent white transparent":""}/>
-								<div class="down" style={selected=="longest"?"border-color:white transparent transparent transparent":""}/>
-							</div></button
-						></th
-					>
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'shortest'}
+									class:inactive={selected !== 'shortest'}
+									inline={true}
+									class="up"
+									width={20} />
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'longest'}
+									class:inactive={selected !== 'longest'}
+									class="down"
+									inline={true}
+									width={20} />
+							</div>
+						</button>
+					</th>
 					<th><h4>Jazyky</h4></th>
-					<th
-						><button on:click={()=>{if(selected=="hardest"){selected="easiest"}else if(selected=="easiest"){selected="newest"}else{selected="hardest"}}}
-							><h4>Obtížnost</h4>
+					<th>
+						<button
+							on:click={() => {
+								if (selected == 'hardest') {
+									selected = 'easiest';
+								} else if (selected == 'easiest') {
+									selected = 'newest';
+								} else {
+									selected = 'hardest';
+								}
+							}}>
+							<h4>Obtížnost</h4>
 							<div class="arrows">
-								<div class="up" style={selected=="easiest"?"border-color: transparent transparent white transparent":""}/>
-								<div class="down" style={selected=="hardest"?"border-color:white transparent transparent transparent":""}/>
-							</div></button
-						></th
-					>
-					<th><h4>Tags</h4></th>
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'easiest'}
+									class:inactive={selected !== 'easiest'}
+									inline={true}
+									class="up"
+									width={20} />
+								<iconify-icon
+									icon="pixelarticons:play"
+									class:selected={selected == 'hardest'}
+									class:inactive={selected !== 'hardest'}
+									class="down"
+									inline={true}
+									width={20} />
+							</div>
+						</button>
+					</th>
+					<th><h4>Tagy</h4></th>
 				</tr>
 			</thead>
 
@@ -88,8 +148,7 @@
 						<td class="text-sm white">
 							{#each record.language as language}
 								<span class="language" style="background: {languageColors[language]};"
-									>{languageNames[language]}</span
-								>
+									>{languageNames[language]}</span>
 							{/each}
 						</td>
 						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
@@ -211,36 +270,39 @@
 		align-items: center;
 	}
 
-	select {
-		margin-bottom: 3.2rem;
-	}
-	th>button{
-		display:flex;
-		flex-direction:row;
-		padding:0 2rem;
-		width:100%;
-		justify-content:center;
-		position:relative;
-	}
-	.arrows{
-		display:flex;
-		flex-direction:column;
+	th > button {
+		display: flex;
+		padding: 0 2rem;
 		justify-content: center;
-		align-items:center;
-		gap:3px;
-		position:absolute;
-		right:0;
-		top:50%;
-		transform:translateY(-50%);
+		align-items: center;
 	}
-	.up{
-		border-width: 0 .7rem .7rem .7rem;
-		border-style:solid;
-		border-color: transparent transparent darken(#181c24,5) transparent;
-	}
-	.down{
-		border-width: .7rem .7rem 0 .7rem;
-		border-style:solid;
-		border-color:darken(#181c24,5) transparent transparent transparent;
+
+	.arrows {
+		height: 40px;
+		display: flex;
+		flex-direction: column;
+		gap: -10px;
+		padding-top: 10px;
+
+		& > * {
+			margin-bottom: -5px;
+			margin-top: -5px;
+		}
+
+		& > .selected {
+			color: white;
+		}
+
+		& > .inactive {
+			color: lighten($background, 20);
+		}
+
+		& > .up {
+			transform: rotate(-90deg);
+		}
+
+		& > .down {
+			transform: rotate(90deg);
+		}
 	}
 </style>
