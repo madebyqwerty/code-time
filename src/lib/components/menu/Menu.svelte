@@ -51,21 +51,4 @@
 		width: 100%;
 		z-index: 10;
 	}
-
-	.manager-add-button {
-		padding-top: 0.8rem;
-		display: block;
-		& > .divider {
-			margin-left: 10%;
-			margin-right: 10%;
-			height: 1px;
-			margin-bottom: 1.6rem;
-			background-color: lighten($light-background, 10);
-		}
-		& > .content {
-			display: flex;
-			align-items: center;
-			gap: 0.8rem;
-		}
-	}
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let option: string;
-	export let height = `20px`;
 	export let gap = '5pt';
 
 	const repo = `https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons`;
