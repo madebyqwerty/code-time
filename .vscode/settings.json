@@ -8,5 +8,6 @@
 		"**/Thumbs.db": true,
 		"": true,
 		"**/node_modules": false
-	}
+	},
+	"githubPullRequests.ignoredPullRequestBranches": ["main"]
 }
