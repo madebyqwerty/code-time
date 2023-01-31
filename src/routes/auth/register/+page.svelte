@@ -28,7 +28,8 @@
 				password,
 				passwordConfirm: repeatPassword,
 				name,
-				is_manager: type === 'managers'
+				is_manager: type === 'managers',
+				$autoCancel: false
 			});
 			await login(email, password);
 			goto('/');
@@ -39,15 +40,15 @@
 <Wrapper>
 	<h1 class="width-max white">REGISTRACE</h1>
 	<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
-	<form class="wrapper" on:submit|preventDefault={register}>
+	<form class="wrapper" on:submit|preventDefault={() => {}}>
+		<Input type="text" bind:value={name} placeholder="Martin Novák" label="Jméno" required />
 		<Input
 			type="text"
 			bind:value={email}
 			placeholder="jmeno@priklad.cz"
 			label="E-mail"
 			error={error.correctEmail ? 'Neplatný E-mail' : ''}
-			required
-		/>
+			required />
 		<Input
 			type="password"
 			bind:value={password}
@@ -57,8 +58,7 @@
 			helperText="Heslo musí mít minimálně 12 znaků"
 			showPasswordSwitch={true}
 			error={error.password ? 'Heslo musí mít 12-72 znaků' : ''}
-			required
-		/>
+			required />
 		<Input
 			type="password"
 			bind:value={repeatPassword}
@@ -67,20 +67,17 @@
 			name="repeatPassword"
 			showPasswordSwitch={true}
 			error={error.repeatPassword ? 'Hesla se neshodují' : ''}
-			required
-		/>
+			required />
 		<div class="buttons">
 			<Button
 				on:click={() => {
 					register('users');
-				}}>Vytvořit účet</Button
-			>
+				}}>Vytvořit účet</Button>
 			<Button
 				type="secondary"
 				on:click={() => {
 					register('managers');
-				}}>Vytvořit manažerský účet</Button
-			>
+				}}>Vytvořit manažerský účet</Button>
 		</div>
 	</form>
 </Wrapper>
