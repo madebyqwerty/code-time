@@ -30,8 +30,8 @@
 				active={selectedLanguages.includes(language)}
 				--bg={languageColors[language]}
 				on:check={(e) => handleTagChange(language, e.detail)}
-			/>
-			{languageNames[language]}
+			>{languageNames[language]}</Checkbox>
+			
 		</div>
 	{/each}
 </section>

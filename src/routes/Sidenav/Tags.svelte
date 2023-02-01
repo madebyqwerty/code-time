@@ -11,7 +11,7 @@
 	import SidebarLeft from '$lib/components/SidebarLeft.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { createTag } from '$lib/pocketbase/createTag';
+	import { createTag, updateTag } from '$lib/pocketbase/createTag';
 	import ColorPicker from './ColorPicker.svelte';
 	import { toast } from '@zerodevx/svelte-toast';
 
@@ -19,10 +19,18 @@
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
 	$: console.log($unfilteredTagStore);
 	$: populateUnfilteredTagStore(addTagInput);
+	$: $tagStore.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+	$: $unfilteredTagStore.items.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+	$: console.log(editedTag);
 	let openTags = false;
 	let editTag = false;
-	let addTagInput: string="";
+	let addTagInput: string = '';
 	let color: string;
+	let editedTag = {
+		name: '',
+		color: '00ff00',
+		id: ''
+	};
 
 	async function handleTagChange(id: string, checked: boolean) {
 		if (checked) {
@@ -55,16 +63,41 @@
 			let output = await createTag(addTagInput, color);
 			console.log(output);
 			if (output == 'shortname') {
-				toast.push('Název tagu musí být delší než 2 znaky', {duration:4000});
-			}
-			else if (output == 'longname') {
-				toast.push('Název tagu musí být kratší než 30 znaků', {duration:4000});
-			}
-			else if (output == 'wrongcolor') {
-				toast.push('Špatný formát barvy', {duration:4000});
+				toast.push('Název tagu musí být delší než 2 znaky', { duration: 4000 });
+			} else if (output == 'longname') {
+				toast.push('Název tagu musí být kratší než 30 znaků', { duration: 4000 });
+			} else if (output == 'wrongcolor') {
+				toast.push('Špatný formát barvy', { duration: 4000 });
+			} else if (output == 'clone') {
+				toast.push('Jiný tag má již stejný název', { duration: 4000 });
 			} else {
 				openTags = false;
-				
+				addTagInput = '';
+				setBg();
+				await invalidate('home');
+			}
+		} catch (e) {}
+	}
+	async function handleEdit() {
+		try {
+			let output = await updateTag(editedTag.name, editedTag.color, editedTag.id);
+			console.log(output);
+			if (output == 'shortname') {
+				toast.push('Název tagu musí být delší než 2 znaky', { duration: 4000 });
+			} else if (output == 'longname') {
+				toast.push('Název tagu musí být kratší než 30 znaků', { duration: 4000 });
+			} else if (output == 'wrongcolor') {
+				toast.push('Špatný formát barvy', { duration: 4000 });
+			} else if (output == 'clone') {
+				toast.push('Jiný tag má již stejný název', { duration: 4000 });
+			} else {
+				editTag = false;
+				editedTag = {
+					name: '',
+					color: '00ff00',
+					id: ''
+				};
+				setBg();
 				await invalidate('home');
 			}
 		} catch (e) {}
@@ -79,8 +112,7 @@
 			bind:open={openTags}
 			on:click={() => {
 				openTags = !openTags;
-			}}
-		/>
+			}} />
 	</div>
 
 	{#each $tagStore as tag (tag.id)}
@@ -89,16 +121,22 @@
 				<Checkbox
 					active={selectedTags.includes(tag.id)}
 					--bg={tag.color}
-					on:check={(e) => handleTagChange(tag.id, e.detail)}
-				/>{tag.name}
+					on:check={(e) => handleTagChange(tag.id, e.detail)}>{tag.name}</Checkbox>
 			</div>
 			<div class="tag-icons">
 				<button
 					on:click={() => {
 						editTag = !editTag;
+						editedTag = {
+							name: tag.name,
+							color: tag.color,
+							id: tag.id
+						};
 					}}
 					class="tag-icon"
-					>...
+					><div class="dot" />
+					<div class="dot" />
+					<div class="dot" />
 				</button>
 			</div>
 		</div>
@@ -111,8 +149,7 @@
 			bind:value={addTagInput}
 			maxlength={29}
 			placeholder="Jméno štítku"
-			label="Název štítku"
-		/>
+			label="Název štítku" />
 		<ColorPicker bind:value={color} />
 		<Button on:click={handleAdd}>Přidat štítek</Button>
 	</div>
@@ -123,23 +160,40 @@
 					<Checkbox
 						active={selectedTags.includes(tag.id)}
 						--bg={tag.color}
-						on:check={(e) => handleTagChange(tag.id, e.detail)}
-					/>{tag.name}
+						on:check={(e) => handleTagChange(tag.id, e.detail)}>{tag.name}</Checkbox>
 				</div>
 				<div class="tag-icons">
 					<button
 						on:click={() => {
 							editTag = !editTag;
+							editedTag = {
+								name: tag.name,
+								color: tag.color,
+								id: tag.id
+							};
 						}}
 						class="tag-icon"
-						>...
+						><div class="dot" />
+						<div class="dot" />
+						<div class="dot" />
 					</button>
 				</div>
 			</div>
 		{/each}
 	{/if}
 </SidebarLeft>
-<SidebarLeft bind:open={editTag} title="UPRAVIT ŠTÍTEK" />
+<SidebarLeft bind:open={editTag} title="UPRAVIT ŠTÍTEK">
+	<div class="form">
+		<Input
+			type="text"
+			bind:value={editedTag.name}
+			maxlength={29}
+			placeholder="Jméno štítku"
+			label="Název štítku" />
+		<ColorPicker bind:value={editedTag.color} />
+		<Button on:click={handleEdit}>Upravit štítek</Button>
+	</div>
+</SidebarLeft>
 
 <style lang="scss">
 	h3 {
@@ -153,6 +207,12 @@
 		flex-direction: row;
 	}
 
+	.dot{
+		height:4px;
+		width:4px;
+		background:white;
+		border-radius:5px;
+	}
 	.tag {
 		padding: 0.4rem;
 		color: white;
@@ -160,15 +220,32 @@
 		gap: 0.8rem;
 		align-items: center;
 		justify-content: space-between;
+		transition: 100ms ease;
+
+		&-text {
+			gap: 0.8rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
 
 		&-icon {
-			height: 1.6rem;
-			width: 1.6rem;
+			height: 2rem;
+			width:2rem;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
 			opacity: 0;
+			padding-right:.2rem;
+			transition:100ms ease;
 		}
 
 		&:hover &-icon {
 			opacity: 1;
+		}
+		&:hover {
+			background-color: #ffffff03;
 		}
 	}
 
