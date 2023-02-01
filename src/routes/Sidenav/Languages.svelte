@@ -26,12 +26,12 @@
 	<h3>Jazyky</h3>
 	{#each $languageStore as language (language)}
 		<div class="tag">
-			<Checkbox
-				active={selectedLanguages.includes(language)}
-				--bg={languageColors[language]}
-				on:check={(e) => handleTagChange(language, e.detail)}
-			>{languageNames[language]}</Checkbox>
-			
+			<div class="tag-text">
+				<Checkbox
+					active={selectedLanguages.includes(language)}
+					--bg={languageColors[language]}
+					on:check={(e) => handleTagChange(language, e.detail)}>{languageNames[language]}</Checkbox>
+			</div>
 		</div>
 	{/each}
 </section>
