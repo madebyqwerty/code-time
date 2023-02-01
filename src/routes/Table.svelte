@@ -6,6 +6,7 @@
 	import { tagStore } from '$lib/pocketbase/tagStore.ts';
 	import Button from '$lib/components/Button.svelte';
 	import type { Records } from '$lib/pocketbase/recordsStore';
+	import TableRow from './TableRow.svelte';
 
 	let open = false;
 	let sortedData = $recordsStore;
@@ -28,6 +29,7 @@
 		longest: () => sortedData.sort((a, b) => b.length - a.length),
 		shuffle: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime())
 	};
+
 	let selected: keyof SortingFunctions = 'newest';
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected]();
@@ -44,139 +46,119 @@
 			{open} />
 	</header>
 
-	{#key sortedData}
-		<table class="table-default sortable">
-			<colgroup>
-				<col class="table-date" />
-				<col class="table-length" />
-				<col class="table-diff" />
-				<col class="table-langs" />
-				<col class="table-tags" />
-			</colgroup>
-			<thead>
-				<tr>
-					<th>
-						<button
-							on:click={() => {
-								if (selected == 'newest') {
-									selected = 'oldest';
-								} else if (selected == 'oldest') {
-									selected = 'shuffle';
-								} else {
-									selected = 'newest';
-								}
-							}}>
-							<h4>Datum</h4>
-							<div class="arrows">
-								<iconify-icon
-									icon="pixelarticons:play"
-									class:selected={selected == 'oldest'}
-									class:inactive={selected !== 'oldest'}
-									inline={true}
-									class="up"
-									width={20} />
-								<iconify-icon
-									icon="pixelarticons:play"
-									class:selected={selected == 'newest'}
-									class:inactive={selected !== 'newest'}
-									class="down"
-									inline={true}
-									width={20} />
-							</div>
-						</button>
-					</th>
-					<th>
-						<button
-							on:click={() => {
-								if (selected == 'longest') {
-									selected = 'shortest';
-								} else if (selected == 'shortest') {
-									selected = 'shuffle';
-								} else {
-									selected = 'longest';
-								}
-							}}>
-							<h4>Délka</h4>
-							<div class="arrows">
-								<iconify-icon
-									icon="pixelarticons:play"
-									class:selected={selected == 'shortest'}
-									class:inactive={selected !== 'shortest'}
-									inline={true}
-									class="up"
-									width={20} />
-								<iconify-icon
-									icon="pixelarticons:play"
-									class:selected={selected == 'longest'}
-									class:inactive={selected !== 'longest'}
-									class="down"
-									inline={true}
-									width={20} />
-							</div>
-						</button>
-					</th>
-					<th>
-						<button
-							on:click={() => {
-								if (selected == 'hardest') {
-									selected = 'easiest';
-								} else if (selected == 'easiest') {
-									selected = 'shuffle';
-								} else {
-									selected = 'hardest';
-								}
-							}}>
-							<h4>Obtížnost</h4>
-							<div class="arrows">
-								<iconify-icon
-									icon="pixelarticons:play"
-									class:selected={selected == 'easiest'}
-									class:inactive={selected !== 'easiest'}
-									inline={true}
-									class="up"
-									width={20} />
-								<iconify-icon
-									icon="pixelarticons:play"
-									class:selected={selected == 'hardest'}
-									class:inactive={selected !== 'hardest'}
-									class="down"
-									inline={true}
-									width={20} />
-							</div>
-						</button>
-					</th>
-					<th><h4>Jazyky</h4></th>
-					<th><h4>Tagy</h4></th>
-				</tr>
-			</thead>
+	<table class="table-default sortable">
+		<colgroup>
+			<col class="table-date" />
+			<col class="table-length" />
+			<col class="table-diff" />
+			<col class="table-langs" />
+			<col class="table-tags" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>
+					<button
+						on:click={() => {
+							if (selected == 'newest') {
+								selected = 'oldest';
+							} else if (selected == 'oldest') {
+								selected = 'shuffle';
+							} else {
+								selected = 'newest';
+							}
+						}}>
+						<h4>Datum</h4>
+						<div class="arrows">
+							<iconify-icon
+								icon="pixelarticons:play"
+								class:selected={selected == 'oldest'}
+								class:inactive={selected !== 'oldest'}
+								inline={true}
+								class="up"
+								width={20} />
+							<iconify-icon
+								icon="pixelarticons:play"
+								class:selected={selected == 'newest'}
+								class:inactive={selected !== 'newest'}
+								class="down"
+								inline={true}
+								width={20} />
+						</div>
+					</button>
+				</th>
+				<th>
+					<button
+						on:click={() => {
+							if (selected == 'longest') {
+								selected = 'shortest';
+							} else if (selected == 'shortest') {
+								selected = 'shuffle';
+							} else {
+								selected = 'longest';
+							}
+						}}>
+						<h4>Délka</h4>
+						<div class="arrows">
+							<iconify-icon
+								icon="pixelarticons:play"
+								class:selected={selected == 'shortest'}
+								class:inactive={selected !== 'shortest'}
+								inline={true}
+								class="up"
+								width={20} />
+							<iconify-icon
+								icon="pixelarticons:play"
+								class:selected={selected == 'longest'}
+								class:inactive={selected !== 'longest'}
+								class="down"
+								inline={true}
+								width={20} />
+						</div>
+					</button>
+				</th>
+				<th>
+					<button
+						on:click={() => {
+							if (selected == 'hardest') {
+								selected = 'easiest';
+							} else if (selected == 'easiest') {
+								selected = 'shuffle';
+							} else {
+								selected = 'hardest';
+							}
+						}}>
+						<h4>Obtížnost</h4>
+						<div class="arrows">
+							<iconify-icon
+								icon="pixelarticons:play"
+								class:selected={selected == 'easiest'}
+								class:inactive={selected !== 'easiest'}
+								inline={true}
+								class="up"
+								width={20} />
+							<iconify-icon
+								icon="pixelarticons:play"
+								class:selected={selected == 'hardest'}
+								class:inactive={selected !== 'hardest'}
+								class="down"
+								inline={true}
+								width={20} />
+						</div>
+					</button>
+				</th>
+				<th><h4>Jazyky</h4></th>
+				<th><h4>Tagy</h4></th>
+			</tr>
+		</thead>
 
-			<tbody>
-				{#each sortedData as record, i}
-					<tr style="--animation-order:{i * 100}ms" class="row">
-						<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
-						<td class="text-sm white text-center">{record.length}</td>
-						<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-						<td class="text-sm white">
-							{#each record.language as language}
-								<span class="language" style="background: {languageColors[language]};"
-									>{languageNames[language]}</span>
-							{/each}
-						</td>
-						<td class="text-sm white">
-							{#each record.tags as tag, i}
-								{#if $tagStore}
-									<span>
-										{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
-										{#if i + 1 < record.tags.length},{/if}
-									</span>
-								{/if}
-							{/each}
-						</td>
-					</tr>
+		<tbody>
+			{#key sortedData}
+				{#each sortedData as record, i (record.id)}
+					<TableRow {record} {i} />
 				{/each}
-			</tbody>
-		</table>
-	{/key}
+			{/key}
+		</tbody>
+	</table>
 
 	{#if $recordsStore.length < 1}
 		<div class="no-data">
@@ -244,7 +226,7 @@
 	td:not(:last-child) {
 		border-right: 1px solid lighten($background, 2.5);
 	}
-	tr:nth-of-type(odd) > td::before {
+	:global(tr:nth-of-type(odd) > td::before) {
 		background: lighten($background, 5);
 		content: '';
 		position: absolute;
