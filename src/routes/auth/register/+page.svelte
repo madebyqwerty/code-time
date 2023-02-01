@@ -52,17 +52,17 @@
 		<Input
 			type="password"
 			bind:value={password}
-			placeholder="****"
+			placeholder="************"
 			name="password"
 			label="Heslo"
-			helperText="Heslo musí mít minimálně 12 znaků"
+			helperText="Heslo musí mít 12-72 znaků"
 			showPasswordSwitch={true}
 			error={error.password ? 'Heslo musí mít 12-72 znaků' : ''}
 			required />
 		<Input
 			type="password"
 			bind:value={repeatPassword}
-			placeholder="****"
+			placeholder="************"
 			label="Zopakovat heslo"
 			name="repeatPassword"
 			showPasswordSwitch={true}
