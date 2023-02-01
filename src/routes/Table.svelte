@@ -25,8 +25,7 @@
 		hardest: () => sortedData.sort((a, b) => b.rating - a.rating),
 		easiest: () => sortedData.sort((a, b) => a.rating - b.rating),
 		shortest: () => sortedData.sort((a, b) => a.length - b.length),
-		longest: () => sortedData.sort((a, b) => b.length - a.length),
-		shuffle: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime())
+		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
 	let selected: keyof SortingFunctions = 'newest';
 	$: sortedData = $recordsStore;
@@ -60,8 +59,6 @@
 							on:click={() => {
 								if (selected == 'newest') {
 									selected = 'oldest';
-								} else if (selected == 'oldest') {
-									selected = 'shuffle';
 								} else {
 									selected = 'newest';
 								}
@@ -90,8 +87,6 @@
 							on:click={() => {
 								if (selected == 'longest') {
 									selected = 'shortest';
-								} else if (selected == 'shortest') {
-									selected = 'shuffle';
 								} else {
 									selected = 'longest';
 								}
@@ -120,8 +115,6 @@
 							on:click={() => {
 								if (selected == 'hardest') {
 									selected = 'easiest';
-								} else if (selected == 'easiest') {
-									selected = 'shuffle';
 								} else {
 									selected = 'hardest';
 								}
