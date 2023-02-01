@@ -26,6 +26,7 @@
 	let editTag = false;
 	let addTagInput: string = '';
 	let color: string;
+	export let selectedTags=[];
 	let editedTag = {
 		name: '',
 		color: '00ff00',

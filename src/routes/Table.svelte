@@ -6,9 +6,33 @@
 	import { tagStore } from '$lib/pocketbase/tagStore.ts';
 	import Button from '$lib/components/Button.svelte';
 	import type { Records } from '$lib/pocketbase/recordsStore';
+	import TableTag from '$lib/components/TableTag.svelte';
 
 	let open = false;
 	let sortedData = $recordsStore;
+	export let selectedTags;
+	$: console.log(selectedTags);
+
+	function lighten(c, n) {
+		c = c.slice(1);
+		let r = parseInt(c.substring(0, 2), 16);
+		let g = parseInt(c.substring(2, 4), 16);
+		let b = parseInt(c.substring(4, 6), 16);
+
+		r = Math.round(r * (1 + n / 100));
+		g = Math.round(g * (1 + n / 100));
+		b = Math.round(b * (1 + n / 100));
+
+		r = Math.max(0, Math.min(255, r));
+		g = Math.max(0, Math.min(255, g));
+		b = Math.max(0, Math.min(255, b));
+
+		let shadeR = r.toString(16).padStart(2, '0');
+		let shadeG = g.toString(16).padStart(2, '0');
+		let shadeB = b.toString(16).padStart(2, '0');
+
+		return '#' + shadeR + shadeG + shadeB;
+	}
 
 	interface SortingFunctions {
 		newest: () => Records[];
@@ -158,10 +182,26 @@
 						<td class="text-sm white">
 							{#each record.tags as tag, i}
 								{#if $tagStore}
-									<span>
-										{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
-										{#if i + 1 < record.tags.length},{/if}
-									</span>
+									{#if selectedTags.includes(tag)}
+										<TableTag
+											--color={lighten('#ffffff', 0)}
+											--backgroundColor={lighten(
+												$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
+												-80
+											)}
+											--borderColor={lighten(
+												$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
+												0
+											)}>{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}</TableTag>
+									{:else}
+										<TableTag
+											--color={lighten('#ffffff', 0)}
+											--backgroundColor={lighten('#181c24', 0)}
+											--borderColor={lighten(
+												$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
+												0
+											)}>{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}</TableTag>
+									{/if}
 								{/if}
 							{/each}
 						</td>
