@@ -2,9 +2,8 @@
 	import { languageColors, languageNames } from '$lib/utils/languages';
 	import type { Records } from '$lib/pocketbase/recordsStore';
 	import { tagStore } from '$lib/pocketbase/tagStore';
-	import Sidebar from '$lib/components/Sidebar.svelte';
 	import RecordSidebar from './RecordSidebar.svelte';
-	import { fade } from 'svelte/transition';
+	import { getTagFromID } from '$lib/utils/getTagFromID';
 	export let record: Records;
 	export let i: number;
 
@@ -29,8 +28,7 @@
 		{#each record.tags as tag, i}
 			{#if $tagStore}
 				<span>
-					{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}
-					{#if i + 1 < record.tags.length},{/if}
+					{getTagFromID(tag).name}
 				</span>
 			{/if}
 		{/each}
@@ -56,6 +54,9 @@
 		transform: translate(0, 20%);
 		opacity: 0;
 		cursor: pointer;
+		&:hover {
+			background: lighten($background-light, 10) !important;
+		}
 	}
 
 	td {

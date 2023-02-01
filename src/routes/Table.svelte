@@ -226,7 +226,7 @@
 	td:not(:last-child) {
 		border-right: 1px solid lighten($background, 2.5);
 	}
-	:global(tr:nth-of-type(odd) > td) {
+	:global(tr:nth-of-type(odd)) {
 		background: lighten($background, 5);
 	}
 
