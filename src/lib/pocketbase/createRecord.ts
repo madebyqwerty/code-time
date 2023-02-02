@@ -64,7 +64,7 @@ export async function updateRecord(
 	await pb.collection('records').update(id, data, { $autoCancel: false });
 }
 
-export async function deleteTag(id: string): Promise<void> {
+export async function deleteRecord(id: string): Promise<void> {
 	await pb
 		.collection('records')
 		.delete(id)

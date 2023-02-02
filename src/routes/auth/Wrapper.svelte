@@ -1,6 +1,10 @@
+<script lang="ts">
+	export let type:number = 0;
+</script>
+
 <section class="section-default">
 	<span>
-		<a class="text-base green green-hover" href="/">cd ~/</a>
+		{#if type==1}<a class="text-base green green-hover" href="/register">cd ~/register</a>{:else}<a class="text-base green green-hover" href="/login">cd ~/login</a>{/if}
 		<div class="wrapper">
 			<slot />
 		</div>
