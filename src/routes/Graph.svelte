@@ -1,9 +1,11 @@
 <script lang="ts">
+	import Number from '$lib/components/forms/Number.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
 	import type { RecordsLanguageOptions } from '$lib/pocketbase/types';
 	import { scaleLinear } from 'd3-scale';
 	import { onMount } from 'svelte';
 	import Bar from './Bar.svelte';
+	import Chart from './Chart.svelte';
 
 	// Funkce změní dny tak aby začínali na ponděli místo neděle jako v pojebaným USA
 	function odAmerifikovatZkurvenejAmerickejStandard(num: number) {
@@ -57,6 +59,8 @@
 		6: 0
 	};
 
+	let totalDataLanguages: Record<string, number> = {};
+
 	const totalLanguages: Record<string, number> = {};
 
 	let langsTotal = 0;
@@ -80,6 +84,8 @@
 				dataLanguages[date][lang] ||= 0;
 				dataLanguages[date][lang] += 1;
 				dataLanguagesTotal[date] += 1;
+				totalDataLanguages[lang] ||= 0;
+				totalDataLanguages[lang] += 1;
 				totalLanguages[lang] ||= 0;
 				totalLanguages[lang] += 1;
 				langsTotal++;
@@ -94,6 +100,9 @@
 			.range([0, height - 16 - 42]);
 		mounted = true;
 	});
+
+	let totalDataLanguagesTotal = totalDataLanguages;
+	let totalLangsTotal = langsTotal;
 </script>
 
 <section>
@@ -113,6 +122,10 @@
 			{/each}
 		{/if}
 	</div>
+
+	{#key totalDataLanguagesTotal}
+		<Chart dataLanguages={totalDataLanguagesTotal} dataLanguagesTotal={totalLangsTotal} />
+	{/key}
 </section>
 
 <style lang="scss">
@@ -139,5 +152,6 @@
 		padding-bottom: 0.8rem;
 		width: 100%;
 		height: 196px;
+		margin-bottom: 2.4rem;
 	}
 </style>
