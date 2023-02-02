@@ -13,10 +13,11 @@ function createFilter(arr: Array<string | number> | null, type: string, mode: '&
 	let result = '';
 
 	if (arr && arr.length > 0) {
-		result += '&&';
+		result += ' && (';
 		arr.forEach((str, i) => {
 			result += `${type} ~ "${str}" ${i + 1 !== arr.length ? mode : ''}`;
 		});
+		result += ')';
 	}
 
 	return result;
@@ -24,7 +25,7 @@ function createFilter(arr: Array<string | number> | null, type: string, mode: '&
 
 function convertDateToPocketbaseFormat(date: Date | null) {
 	if (date) {
-		return date.toISOString().replace('T', ' ').replace('Z', '').split('.')[0];
+		return date.toISOString().replace('T', ' ').replace('Z', '');
 	}
 	return null;
 }
@@ -71,6 +72,7 @@ export const load = (async ({ depends, url }) => {
 		}
 	}
 
+	console.log(filter);
 	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
 		filter: filter,
 		expand: 'tags',
