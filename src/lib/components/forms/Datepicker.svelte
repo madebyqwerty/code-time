@@ -22,10 +22,9 @@
 	class="flatpickr-create flatpickr-input"
 	id="datepicker"
 	type="text"
-	placeholder="Vyber rozmezí"
+	placeholder="Vyber datum"
 	data-id="range"
-	readonly={true}
-/>
+	readonly={true} />
 
 <style lang="scss">
 	input {

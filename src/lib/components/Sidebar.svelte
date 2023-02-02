@@ -12,6 +12,14 @@
 	const close = () => {
 		open = false;
 	};
+
+	$: {
+		if (open) {
+			document.querySelector('body')!.style.overflow = 'hidden';
+		} else {
+			document.querySelector('body')!.style.overflow = 'auto';
+		}
+	}
 </script>
 
 {#if open}
