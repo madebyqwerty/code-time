@@ -5,6 +5,7 @@
 	import { getTagFromID } from '$lib/utils/getTagFromID';
 	import TableTag from '$lib/components/TableTag.svelte';
 	import { getTextColor } from '$lib/utils/getTextColor';
+	
 	export let record: Records;
 	export let i: number;
 
@@ -27,7 +28,7 @@
 	<td class="text-sm white tags">
 		{#each record.tags as tagID}
 			{@const tag = getTagFromID(tagID)}
-			<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color}
+			<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color} description={tag.description}
 				>{tag.name}</TableTag>
 		{/each}
 	</td>
