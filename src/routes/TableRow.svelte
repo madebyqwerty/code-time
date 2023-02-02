@@ -73,6 +73,8 @@
 
 	.languages {
 		vertical-align: top;
+		display: flex;
+		flex-wrap: wrap;
 	}
 	.tags {
 		vertical-align: top;
