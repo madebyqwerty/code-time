@@ -47,7 +47,7 @@
 			}} />
 	</div>
 
-	{#each $tagStore as tag (tag.id)}
+	{#each $tagStore as tag}
 		<div class="tag">
 			<div class="tag-text">
 				<Checkbox
