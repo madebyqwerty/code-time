@@ -4,7 +4,7 @@
 
 <section class="section-default">
 	<span>
-		{#if type==1}<a class="text-base green green-hover" href="/register">cd ~/register</a>{:else}<a class="text-base green green-hover" href="/login">cd ~/login</a>{/if}
+		{#if type==1}<a class="text-base green green-hover" href="/auth/register">cd ~/register</a>{:else}<a class="text-base green green-hover" href="/auth/login">cd ~/login</a>{/if}
 		<div class="wrapper">
 			<slot />
 		</div>
