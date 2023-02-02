@@ -5,12 +5,10 @@
 	import Table from './Table.svelte';
 	import { currentUser } from '$lib/pocketbase';
 	import ManagerMenu from './manager/ManagerMenu.svelte';
-
-	let selectedTags = [];
 </script>
 
 <section class="home-page">
-	<Sidenav bind:selectedTags />
+	<Sidenav />
 	<section class="content">
 		{#if $currentUser.is_manager}
 			<ManagerMenu />
@@ -18,7 +16,7 @@
 		{#key $recordsStore}
 			<Graph />
 		{/key}
-		<Table bind:selectedTags />
+		<Table />
 	</section>
 </section>
 
