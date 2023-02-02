@@ -13,8 +13,7 @@
 	{options}
 	{placeholder}
 	noMatchingOptionsMsg="Žádná další možnost"
-	bind:selected
->
+	bind:selected>
 	<LanguageSlot let:option {option} slot="selected" />
 	<LanguageSlot let:option {option} slot="option" />
 </MultiSelect>
@@ -24,6 +23,7 @@
 		@include scrollbars(10px, $green-primary, lighten($background, 5));
 		background: lighten($background, 5);
 		border-radius: 0px;
+		z-index: 150 !important;
 	}
 	:global(div.multiselect > ul.selected > li) {
 		background: lighten($background, 10);

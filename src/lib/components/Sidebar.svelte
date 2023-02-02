@@ -43,7 +43,7 @@
 		left: 0px;
 		display: grid;
 		place-items: start;
-		z-index: 10 !important;
+		z-index: 1 !important;
 	}
 
 	.overlay {
@@ -55,11 +55,11 @@
 
 	aside {
 		@include scrollbars(10px, $green-primary, $background);
-		min-height: 100vh;
+		height: 100vh;
 		width: 42%;
 		background: $background;
 		padding: 4rem;
-		overflow-y: scroll;
+		overflow-y: scroll !important;
 	}
 
 	iconify-icon {

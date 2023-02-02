@@ -58,17 +58,29 @@
 		{/if}
 
 		<div class="wrapper">
+			<div class="diffuculty">
+				<div class="label-wrapper"><Label>Obtížnost</Label></div>
+				<Range bind:value={inputData.difficulty} />
+			</div>
+			<div class="multiselect-wrapper">
+				<Label>Programovací jazyky</Label>
+				<Multiselect
+					placeholder="Vybrat jazyk"
+					bind:selected={inputData.languages}
+					options={Object.values(languageNames)} />
+			</div>
+			<div class="multiselect-wrapper">
+				<Label>Štítky</Label>
+				<Multiselect
+					placeholder="Vybrat štítky"
+					bind:selected={inputData.tags}
+					options={$tagStore.map((tag) => tag.name)} />
+			</div>
 			<div class="description">
 				<Textarea
 					bind:value={inputData.description}
 					placeholder="Naučil jsem se používat print() v Pythonu"
-					label="Popis"
-				/>
-			</div>
-
-			<div class="diffuculty">
-				<div class="label-wrapper"><Label>Obtížnost</Label></div>
-				<Range bind:value={inputData.difficulty} name="obtiznost" />
+					label="Popis" />
 			</div>
 
 			<div class="datetime">
@@ -81,22 +93,6 @@
 				</div>
 			</div>
 
-			<div class="multiselect-wrapper">
-				<Label>Programovací jazyky</Label>
-				<Multiselect
-					placeholder="Vybrat jazyk"
-					bind:selected={inputData.languages}
-					options={Object.values(languageNames)}
-				/>
-			</div>
-			<div class="multiselect-wrapper">
-				<Label>Štítky</Label>
-				<Multiselect
-					placeholder="Vybrat štítky"
-					bind:selected={inputData.tags}
-					options={$tagStore.map((tag) => tag.name)}
-				/>
-			</div>
 			<Button on:click={createRecordWrapper}>Přidat záznam</Button>
 		</div>
 	{:else}
@@ -113,7 +109,7 @@
 		margin-bottom: 0.8rem;
 		display: flex;
 		flex-direction: column;
-		gap: 3.2rem;
+		gap: 2.4rem;
 	}
 
 	.label-wrapper {
