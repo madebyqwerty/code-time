@@ -1,15 +1,25 @@
 <script lang="ts">
 	import { languageColors, languageNames } from '$lib/utils/languages';
 	import type { Records } from '$lib/pocketbase/recordsStore';
-	import { tagStore } from '$lib/pocketbase/tagStore';
 	import RecordSidebar from './RecordSidebar.svelte';
 	import { getTagFromID } from '$lib/utils/getTagFromID';
+	import TableTag from '$lib/components/TableTag.svelte';
 	export let record: Records;
 	export let i: number;
 
 	let open = false;
 
 	const openSidebar = () => (open = true);
+
+	function getTextColor(color: string) {
+		const r = parseInt(color.substring(1, 3), 16);
+		const g = parseInt(color.substring(3, 5), 16);
+		const b = parseInt(color.substring(5, 7), 16);
+
+		const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+		console.log(yiq);
+		return yiq >= 128 ? '#0e1015' : '#fff';
+	}
 </script>
 
 <tr style="--animation-order:{(i + 1) * 200}ms" class="row" on:click={openSidebar}>
@@ -18,17 +28,18 @@
 	<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
 	<td class="text-sm white">
 		{#each record.language as language}
-			<span class="language" style="background: {languageColors[language]};"
-				>{languageNames[language]}</span>
+			<TableTag
+				--textColor={getTextColor(languageColors[language])}
+				--backgroundColor={languageColors[language]}>{languageNames[language]}</TableTag>
 		{/each}
 	</td>
 	<td class="text-sm white">
-		{#each record.tags as tag, i}
-			{#if $tagStore}
-				<span>
-					{getTagFromID(tag).name}
-				</span>
-			{/if}
+		{#each record.tags as tagID}
+			{@const tag = getTagFromID(tagID)}
+			<span>
+				<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color}
+					>{tag.name}</TableTag>
+			</span>
 		{/each}
 	</td>
 </tr>

@@ -24,25 +24,17 @@
 	setBg();
 
 	async function handleAdd() {
-		await createTag(addTagInput, color).catch((e) => {
-			console.log({ e });
-			toast.push(e.message, { duration: 4000 });
-		}); /* 
-			if (output == 'shortname') {
-				toast.push('Název tagu musí být delší než 2 znaky', { duration: 4000 });
-			} else if (output == 'longname') {
-				toast.push('Název tagu musí být kratší než 30 znaků', { duration: 4000 });
-			} else if (output == 'wrongcolor') {
-				toast.push('Špatný formát barvy', { duration: 4000 });
-			} else if (output == 'clone') {
-				toast.push('Jiný tag má již stejný název', { duration: 4000 });
-			} else {
+		await createTag(addTagInput, color)
+			.then(async () => {
 				openCreateTag = false;
 				addTagInput = '';
 				setBg();
 				await invalidate('home');
-			}
-		} catch (e) {} */
+			})
+			.catch((e) => {
+				console.log({ e });
+				toast.push(e.message, { duration: 4000 });
+			});
 	}
 </script>
 

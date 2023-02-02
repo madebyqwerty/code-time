@@ -237,19 +237,6 @@
 		color: white;
 	}
 
-	.number {
-		font-size: 2.5rem;
-		font-family: 'Silkscreen';
-		text-align: center;
-	}
-
-	.language {
-		padding: 0.3rem 0.5rem;
-		font-size: 1.7rem;
-		line-height: 200%;
-		margin-right: 1rem;
-	}
-
 	header {
 		display: flex;
 		justify-content: space-between;
