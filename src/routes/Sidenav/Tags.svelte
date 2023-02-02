@@ -17,6 +17,7 @@
 	let editedTag = {
 		name: '',
 		color: '00ff00',
+		description:"",
 		id: ''
 	};
 
@@ -62,6 +63,7 @@
 						editedTag = {
 							name: tag.name,
 							color: tag.color,
+							description:tag.description,
 							id: tag.id
 						};
 					}}
