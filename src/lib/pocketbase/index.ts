@@ -23,5 +23,10 @@ pb.authStore.onChange(async () => {
 });
 
 export async function login(email: string, password: string) {
-	await pb.collection('users').authWithPassword(email, password, { $autoCancel: false });
+	await pb
+		.collection('users')
+		.authWithPassword(email, password, { $autoCancel: false })
+		.catch(() => {
+			throw new Error('Něco se pokazilo, ujistěte se že máte správně e-mail a správné heslo');
+		});
 }

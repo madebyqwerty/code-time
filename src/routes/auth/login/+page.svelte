@@ -4,14 +4,19 @@
 	import Button from '$lib/components/Button.svelte';
 	import Input from '$lib/components/forms/Input.svelte';
 	import { goto } from '$app/navigation';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	let email: string,
 		password: string = '';
 
 	async function handleLogin() {
-		login(email, password);
-
-		await goto('/');
+		login(email, password)
+			.then(async () => {
+				await goto('/');
+			})
+			.catch((e: Error) => {
+				toast.push(e.message);
+			});
 	}
 </script>
 

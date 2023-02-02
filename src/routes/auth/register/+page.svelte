@@ -4,10 +4,11 @@
 	import Input from '$lib/components/forms/Input.svelte';
 	import Wrapper from '../Wrapper.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
-	let email: string,
-		password: string,
-		repeatPassword: string,
+	let email = '',
+		password = '',
+		repeatPassword = '',
 		name: string,
 		error: { password: boolean; repeatPassword: boolean; correctEmail: boolean } = {
 			password: false,
@@ -15,24 +16,29 @@
 			correctEmail: false
 		};
 
+	$: error.repeatPassword = password !== repeatPassword;
+	$: error.correctEmail = email !== '' ? !/\S+@\S+\.\S+/.test(email) : false;
+	$: error.password = password !== '' ? password.length < 12 || password.length > 72 : false;
+
 	async function register(type: 'managers' | 'users') {
-		error.repeatPassword = password !== repeatPassword;
-
-		error.correctEmail = !/\S+@\S+\.\S+/.test(email);
-
-		error.password = password.length < 12 || password.length > 72;
-
 		if (!error.password && !error.repeatPassword && !error.correctEmail) {
-			await pb.collection('users').create({
-				email,
-				password,
-				passwordConfirm: repeatPassword,
-				name,
-				is_manager: type === 'managers',
-				$autoCancel: false
-			});
-			await login(email, password);
-			goto('/');
+			await pb
+				.collection('users')
+				.create({
+					email,
+					password,
+					passwordConfirm: repeatPassword,
+					name,
+					is_manager: type === 'managers',
+					$autoCancel: false
+				})
+				.then(async () => {
+					await login(email, password);
+					goto('/');
+				})
+				.catch((e: Error) => {
+					toast.push('Něco se pokazilo, zkuste změnit e-mail');
+				});
 		}
 	}
 </script>

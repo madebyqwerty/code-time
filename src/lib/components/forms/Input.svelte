@@ -40,8 +40,7 @@
 			{name}
 			{placeholder}
 			{maxlength}
-			class="text-base {error ? 'error' : ''}"
-		/>
+			class="text-base {error ? 'error' : ''}" />
 
 		{#if showPasswordSwitch}
 			<button type="button" on:click={switchType} class="icon">
@@ -87,6 +86,7 @@
 	}
 	p {
 		margin-top: 0.5rem;
+		height: 2.4rem;
 	}
 	.error {
 		color: $red-primary;
