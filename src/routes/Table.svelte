@@ -52,7 +52,6 @@
 	let selected: keyof SortingFunctions = 'newest';
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected]();
-	$: console.log($tagStore);
 </script>
 
 <section>

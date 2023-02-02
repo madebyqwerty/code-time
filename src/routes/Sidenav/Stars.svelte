@@ -17,7 +17,6 @@
 			url.searchParams.set('stars', JSON.stringify(stars.filter((star) => star !== starCount)));
 		}
 
-		console.log('stars');
 		await goto(url);
 	};
 </script>
@@ -30,8 +29,7 @@
 				active={stars.includes(starsArr.indexOf(star))}
 				--bg="#fff"
 				on:check={(e) => handleStarsChange(starIndex, e.detail)}
-			><div class="star">{star}</div></Checkbox>
-			
+				><div class="star">{star}</div></Checkbox>
 		</div>
 	{/each}
 </section>
