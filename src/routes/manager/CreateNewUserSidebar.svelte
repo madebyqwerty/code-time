@@ -34,21 +34,18 @@
 		bind:value={newUserName}
 		type="text"
 		label="Jméno nového uživatele"
-		placeholder="Martin Novák"
-	/>
+		placeholder="Martin Novák" />
 	<Input
 		bind:value={newUserEmail}
 		type="email"
 		label="E-mail nového uživatele"
-		placeholder="martin.novak@email.cz"
-	/>
+		placeholder="martin.novak@email.cz" />
 	<Input
 		bind:value={newUserPassword}
 		type="password"
 		showPasswordSwitch={true}
 		label="Heslo pro nového uživatele"
-		placeholder="******"
-	/>
+		placeholder="************" />
 	<p>
 		Vytvořením uživatele, vytvoříte běžný účet, jehož přihlašovací údaje potom můžete dát svému
 		programátorovi, aby si mohl sám přidávat záznamy.
