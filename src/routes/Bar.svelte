@@ -34,6 +34,8 @@
 </script>
 
 <div
+	on:mouseover
+	on:mouseleave
 	class="bar"
 	style="--background-color:linear-gradient({gradient});--top-color:{topColor}"
 	use:tooltip={{
