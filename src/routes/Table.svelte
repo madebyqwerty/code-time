@@ -239,8 +239,15 @@
 	td:not(:last-child) {
 		border-right: 1px solid lighten($background, 2.5);
 	}
-	:global(tr:nth-of-type(odd)) {
+	:global(tr:nth-of-type(odd) > td::before) {
 		background: lighten($background, 5);
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: -1;
 	}
 
 	th {

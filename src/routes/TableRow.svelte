@@ -4,14 +4,17 @@
 	import { tagStore } from '$lib/pocketbase/tagStore';
 	import RecordSidebar from './RecordSidebar.svelte';
 	import { getTagFromID } from '$lib/utils/getTagFromID';
+	import TableTag from '$lib/components/TableTag.svelte';
+	import {openRecord} from "$lib/utils/SidebarStores.ts";
 	export let record: Records;
 	export let i: number;
 
-	let open = false;
 
-	const openSidebar = () => (open = true);
 
-	const closeSidebar = () => (open = false);
+	const openSidebar = () => {openRecord.set(true);};
+
+	const closeSidebar = () => {openRecord.set(false);activePopup.set("")};
+	$:console.log($openRecord)
 </script>
 
 <tr style="--animation-order:{(i + 1) * 200}ms" class="row" on:click={openSidebar}>
@@ -26,16 +29,18 @@
 	</td>
 	<td class="text-sm white">
 		{#each record.tags as tag, i}
-			{#if $tagStore}
-				<span>
-					{getTagFromID(tag).name}
-				</span>
-			{/if}
+			<TableTag
+				name={getTagFromID(tag).name}
+				color={getTagFromID(tag).color}
+				id={tag}
+				description={getTagFromID(tag).description}>
+				{getTagFromID(tag).name}
+			</TableTag>
 		{/each}
 	</td>
 </tr>
 
-<RecordSidebar {record} bind:open />
+<RecordSidebar {record} bind:open={$openRecord} />
 
 <style lang="scss">
 	@keyframes appear {
@@ -65,7 +70,7 @@
 	}
 
 	td:not(:last-child) {
-		border-right: 1px solid lighten($background, 15);
+		border-right: 1px solid lighten($background, 2.5);
 	}
 
 	.number {

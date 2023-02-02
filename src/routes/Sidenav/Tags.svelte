@@ -6,19 +6,12 @@
 	import { page } from '$app/stores';
 	import CreateTag from './CreateTag.svelte';
 	import EditTag from './EditTag.svelte';
+	import { openCreateTag, openEditTag, selectedTags, editedTag} from "$lib/utils/SidebarStores.ts"
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
-	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
+	$: selectedTags.set(tagsSearchParam ? JSON.parse(tagsSearchParam) : []);
 	$: $tagStore.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
 
-	let openCreateTag = false;
-	let openEditTag = false;
-
-	let editedTag = {
-		name: '',
-		color: '00ff00',
-		id: ''
-	};
 
 	async function handleTagChange(id: string, checked: boolean) {
 		if (checked) {
@@ -41,9 +34,9 @@
 		<h3>Štítky</h3>
 		<CreateButton
 			type={2}
-			bind:open={openCreateTag}
+			bind:open={$openCreateTag}
 			on:click={() => {
-				openCreateTag = !openCreateTag;
+				openCreateTag.set(!$openCreateTag);
 			}} />
 	</div>
 
@@ -51,19 +44,19 @@
 		<div class="tag">
 			<div class="tag-text">
 				<Checkbox
-					active={selectedTags.includes(tag.id)}
+					active={$selectedTags.includes(tag.id)}
 					--bg={tag.color}
 					on:check={(e) => handleTagChange(tag.id, e.detail)}>{tag.name}</Checkbox>
 			</div>
 			<div class="tag-icons">
 				<button
 					on:click={() => {
-						openEditTag = true;
-						editedTag = {
+						openEditTag.set(true);
+						editedTag.set({
 							name: tag.name,
 							color: tag.color,
 							id: tag.id
-						};
+						});
 					}}
 					class="tag-icon"
 					><div class="dot" />
@@ -75,8 +68,8 @@
 	{/each}
 </section>
 
-<CreateTag bind:openCreateTag />
-<EditTag bind:openEditTag bind:editedTag />
+<CreateTag bind:openCreateTag={$openCreateTag} />
+<EditTag bind:openEditTag={$openEditTag} bind:editedTag={$editedTag} />
 
 <style lang="scss">
 	h3 {
