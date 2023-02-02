@@ -20,6 +20,7 @@
 		url.searchParams.set('user_id', JSON.stringify(id));
 		await goto(url.toString());
 		await invalidate('home');
+		console.log('here kurwa');
 	}
 
 	let createMenuOpen = false;
@@ -42,8 +43,7 @@
 				content:
 					'Používáte manažerský účet, což znamená že nemůžete přidávat záznamy sám sobě, ale jen programátorům které jste přidal',
 				position: 'bottom'
-			}}
-		>
+			}}>
 			<iconify-icon icon="pixelarticons:open" />
 		</span>
 	</p>

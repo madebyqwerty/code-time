@@ -14,6 +14,7 @@
 		pb.collection('users').delete(id, { $$autoCancel: false });
 		await goto(url);
 		await invalidate('home');
+		console.log('here kurwa');
 		open = false;
 	}
 </script>

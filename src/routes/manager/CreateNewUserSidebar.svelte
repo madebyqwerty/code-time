@@ -40,6 +40,7 @@
 				});
 			open = false;
 			await invalidate('home');
+			console.log('here kurwa');
 			newUserEmail = '';
 			newUserName = '';
 			newUserPassword = '';

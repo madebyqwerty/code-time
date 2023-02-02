@@ -72,7 +72,7 @@ export const load = (async ({ depends, url }) => {
 		}
 	}
 
-	console.log(filter);
+
 	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
 		filter: filter,
 		expand: 'tags',

@@ -33,6 +33,7 @@
 
 		await goto($page.url);
 		await invalidate('home');
+		console.log('here kurwa');
 	}
 </script>
 

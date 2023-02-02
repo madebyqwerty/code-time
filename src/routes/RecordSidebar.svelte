@@ -23,12 +23,11 @@
 		await deleteRecord(record.id)
 			.then(async () => {
 				await invalidate('home');
+				console.log('here kurwa');
 				open = false;
 			})
 			.catch((e: Error) => toast.push(e.message));
 	};
-
-	console.log(record);
 </script>
 
 <Sidebar bind:open title="Záznam ze dne {record.date.toLocaleDateString('cs')}">

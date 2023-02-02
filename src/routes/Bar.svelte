@@ -15,7 +15,7 @@
 
 	percentage = percentage.sort((a, b) => b[1] - a[1]);
 
-	console.log(percentage);
+
 
 	let totalPercentage = 0;
 	let gradient = '';
@@ -31,7 +31,6 @@
 		}
 	});
 
-	console.log(gradient);
 </script>
 
 <div

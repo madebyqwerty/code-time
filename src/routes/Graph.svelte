@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Number from '$lib/components/forms/Number.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
-	import type { RecordsLanguageOptions } from '$lib/pocketbase/types';
 	import { scaleLinear } from 'd3-scale';
 	import { onMount } from 'svelte';
 	import Bar from './Bar.svelte';
