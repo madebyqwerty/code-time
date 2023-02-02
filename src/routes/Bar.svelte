@@ -13,14 +13,14 @@
     ${daysCount} záznam${daysCount !== 1 ? ([2, 3, 4].includes(daysCount) ? 'y' : 'ů') : ''}
     `,
 		position: 'right'
-	}}
-/>
+	}} />
 
 <style lang="scss">
 	.bar {
 		width: 100%;
 		background-color: $green-primary;
 		animation: grow 0.75s forwards;
+		animation-delay: 100ms;
 	}
 
 	@keyframes grow {
