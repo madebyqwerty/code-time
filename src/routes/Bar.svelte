@@ -23,8 +23,8 @@
 
 	percentage.forEach(([name, count], i) => {
 		gradient += `${languageColors[name as RecordsLanguageOptions]} ${
-			i !== 0 ? (totalPercentage + percentage.at(i - 1)[1]).toFixed(1) : count.toFixed(1)
-		}%${percentage.length !== i + 1 ? ',' : ''}`;
+			i !== 0 ? `${percentage.at(i - 1)[1]}%` : ''
+		} ${totalPercentage + count}%${percentage.length !== i + 1 ? ',' : ''}`;
 		totalPercentage += count;
 		if (i === 0) {
 			topColor = languageColors[name as RecordsLanguageOptions];
