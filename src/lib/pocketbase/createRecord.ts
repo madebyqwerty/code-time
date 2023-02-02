@@ -63,3 +63,12 @@ export async function updateRecord(
 
 	await pb.collection('records').update(id, data, { $autoCancel: false });
 }
+
+export async function deleteTag(id: string): Promise<void> {
+	await pb
+		.collection('records')
+		.delete(id)
+		.catch(() => {
+			throw new Error('Něco se pokazilo zkuste to znovu');
+		});
+}

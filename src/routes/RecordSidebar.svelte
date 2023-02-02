@@ -8,6 +8,9 @@
 	import { languageColors, languageNames } from '$lib/utils/languages';
 	import UpdateRecord from './UpdateRecord.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import { deleteRecord } from '$lib/pocketbase/createRecord.ts';
+	import { invalidate } from '$app/navigation';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let record: Records;
 	export let open = false;
@@ -15,6 +18,15 @@
 	let updateOpen = false;
 
 	const openUpdateSidebar = () => (updateOpen = true);
+
+	const handleDelete = async () => {
+		await deleteRecord(record.id)
+			.then(async () => {
+				await invalidate('home');
+				open = false;
+			})
+			.catch((e: Error) => toast.push(e.message));
+	};
 
 	console.log(record);
 </script>
@@ -58,7 +70,11 @@
 			{record.description}
 		</p>
 	</div>
-	<Button on:click={openUpdateSidebar}>Upravit záznam</Button>
+	<div class="space-between">
+		<Button on:click={openUpdateSidebar}>Upravit záznam</Button>
+		<Button type="close" on:click={handleDelete}
+			><iconify-icon icon="pixelarticons:trash" class="down" inline={true} width={20} /></Button>
+	</div>
 </Sidebar>
 
 {#key updateOpen}
@@ -66,6 +82,11 @@
 {/key}
 
 <style lang="scss">
+	.space-between {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+	}
 	.table {
 		display: grid;
 		grid-template-columns: max-content 1fr;

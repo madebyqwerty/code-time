@@ -3,7 +3,7 @@
 	import Textarea from '$lib/components/forms/Textarea.svelte';
 	import Range from '$lib/components/forms/Range.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { updateRecord } from '$lib/pocketbase/createRecord';
+	import { updateRecord,deleteRecord } from '$lib/pocketbase/createRecord';
 	import Multiselect from '$lib/components/forms/Multiselect.svelte';
 	import { languageIDs, languageNames } from '$lib/utils/languages';
 	import { tagStore } from '$lib/pocketbase/tagStore';
@@ -16,6 +16,7 @@
 	import { onMount } from 'svelte';
 	import { getTagFromID } from '$lib/utils/getTagFromID';
 	import type { RecordsLanguageOptions } from '$lib/pocketbase/types';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let open = false;
 	export let record: Records;
@@ -38,6 +39,15 @@
 
 		open = false;
 		invalidate('home');
+	}
+
+	const handleDelete = async ()=>{
+		await deleteRecord(record.id)
+			.then(async () => {
+				await invalidate('home');
+				open = false;
+			})
+			.catch((e: Error) => toast.push(e.message));
 	}
 </script>
 
@@ -77,12 +87,20 @@
 				<Number label="Délka tréninku" id="training" step={5} bind:value={record.length} />
 			</div>
 		</div>
-
-		<Button on:click={updateRecordWrapper}>Upravit záznam</Button>
+		<div class="space-between">
+			<Button on:click={updateRecordWrapper}>Upravit záznam</Button>
+			<Button type="close" on:click={handleDelete}
+				><iconify-icon icon="pixelarticons:trash" class="down" inline={true} width={20} /></Button>
+		</div>
 	</div>
 </Sidebar>
 
 <style lang="scss">
+	.space-between {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+	}
 	.wrapper {
 		margin-bottom: 0.8rem;
 		display: flex;
