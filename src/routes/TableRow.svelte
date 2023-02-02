@@ -10,8 +10,6 @@
 	let open = false;
 
 	const openSidebar = () => (open = true);
-
-	const closeSidebar = () => (open = false);
 </script>
 
 <tr style="--animation-order:{(i + 1) * 200}ms" class="row" on:click={openSidebar}>
@@ -62,10 +60,6 @@
 	td {
 		padding: 1.2rem;
 		position: relative;
-	}
-
-	td:not(:last-child) {
-		border-right: 1px solid lighten($background, 15);
 	}
 
 	.number {

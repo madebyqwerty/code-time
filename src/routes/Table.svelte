@@ -163,10 +163,9 @@
 				<th><h4>Tagy</h4></th>
 			</tr>
 		</thead>
-
 		<tbody>
 			{#key sortedData}
-				{#each sortedData as record, i (record.id)}
+				{#each sortedData as record, i}
 					<TableRow {record} {i} />
 				{/each}
 			{/key}
@@ -224,21 +223,6 @@
 		}
 	}
 
-	tr.row {
-		animation: appear 1s forwards;
-		animation-delay: var(--animation-order);
-		transform: translate(0, 20%);
-		opacity: 0;
-	}
-
-	td {
-		padding: 1.2rem;
-		position: relative;
-	}
-
-	td:not(:last-child) {
-		border-right: 1px solid lighten($background, 2.5);
-	}
 	:global(tr:nth-of-type(odd)) {
 		background: lighten($background, 5);
 	}
