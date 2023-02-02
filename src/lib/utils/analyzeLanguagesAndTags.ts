@@ -22,8 +22,7 @@ export function analyzeLanguagesAndTags(records: RecordsResponse[]) {
 
 	languageStore.set(
 		Object.keys(resultLanguages).sort(
-			(a: string, b: string) =>
-				resultLanguages[b as RecordsLanguageOptions] - resultLanguages[a as RecordsLanguageOptions]
+			(a: string, b: string) => {return a>b}
 		) as RecordsLanguageOptions[]
 	);
 }

@@ -3,7 +3,7 @@
 	import Textarea from '$lib/components/forms/Textarea.svelte';
 	import Range from '$lib/components/forms/Range.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { updateRecord,deleteRecord } from '$lib/pocketbase/createRecord';
+	import { updateRecord, deleteRecord } from '$lib/pocketbase/createRecord';
 	import Multiselect from '$lib/components/forms/Multiselect.svelte';
 	import { languageIDs, languageNames } from '$lib/utils/languages';
 	import { tagStore } from '$lib/pocketbase/tagStore';
@@ -41,14 +41,15 @@
 		invalidate('home');
 	}
 
-	const handleDelete = async ()=>{
+	const handleDelete = async () => {
 		await deleteRecord(record.id)
 			.then(async () => {
 				await invalidate('home');
+				console.log('here kurwa');
 				open = false;
 			})
 			.catch((e: Error) => toast.push(e.message));
-	}
+	};
 </script>
 
 <Sidebar bind:open title="Upravit záznam">
