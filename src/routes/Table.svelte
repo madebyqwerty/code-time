@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { languageColors, languageNames } from '$lib/utils/languages';
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
-	import { tagStore } from '$lib/pocketbase/tagStore.ts';
+	import { tagStore } from '$lib/pocketbase/tagStore';
 	import Button from '$lib/components/Button.svelte';
 	import type { Records } from '$lib/pocketbase/recordsStore';
 	import TableRow from './TableRow.svelte';
