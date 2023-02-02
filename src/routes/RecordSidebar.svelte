@@ -3,6 +3,9 @@
 	import type { Records } from '$lib/pocketbase/recordsStore';
 	import Label from '$lib/components/forms/Label.svelte';
 	import { getTagFromID } from '$lib/utils/getTagFromID';
+	import TableTag from '$lib/components/TableTag.svelte';
+	import { getTextColor } from '$lib/utils/getTextColor';
+	import { languageColors, languageNames } from '$lib/utils/languages';
 
 	export let record: Records;
 	export let open = false;
@@ -22,15 +25,19 @@
 			<span>Jazyky</span>
 			<div>
 				{#each record.language as language}
-					{language}
+					<TableTag
+						--textColor={getTextColor(languageColors[language])}
+						--backgroundColor={languageColors[language]}>{languageNames[language]}</TableTag>
 				{/each}
 			</div>
 		</div>
 		<div class="row">
 			<span>Tagy</span>
 			<div>
-				{#each record.tags as tag}
-					{getTagFromID(tag).name}
+				{#each record.tags as tagID}
+					{@const tag = getTagFromID(tagID)}
+					<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color}
+						>{tag.name}</TableTag>
 				{/each}
 			</div>
 		</div>
@@ -57,6 +64,10 @@
 		& > span {
 			@include text-lg;
 			padding-right: 2.4rem;
+		}
+		& > div {
+			display: flex;
+			flex-wrap: wrap;
 		}
 	}
 

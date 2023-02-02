@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { languageColors, languageNames } from '$lib/utils/languages';
 	import type { Records } from '$lib/pocketbase/recordsStore';
-	import { tagStore } from '$lib/pocketbase/tagStore';
 	import RecordSidebar from './RecordSidebar.svelte';
 	import { getTagFromID } from '$lib/utils/getTagFromID';
+	import TableTag from '$lib/components/TableTag.svelte';
+	import { getTextColor } from '$lib/utils/getTextColor';
 	export let record: Records;
 	export let i: number;
 
@@ -16,19 +17,18 @@
 	<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 	<td class="text-sm white text-center">{record.length}</td>
 	<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
-	<td class="text-sm white">
+	<td class="text-sm white languages">
 		{#each record.language as language}
-			<span class="language" style="background: {languageColors[language]};"
-				>{languageNames[language]}</span>
+			<TableTag
+				--textColor={getTextColor(languageColors[language])}
+				--backgroundColor={languageColors[language]}>{languageNames[language]}</TableTag>
 		{/each}
 	</td>
-	<td class="text-sm white">
-		{#each record.tags as tag, i}
-			{#if $tagStore}
-				<span>
-					{getTagFromID(tag).name}
-				</span>
-			{/if}
+	<td class="text-sm white tags">
+		{#each record.tags as tagID}
+			{@const tag = getTagFromID(tagID)}
+			<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color}
+				>{tag.name}</TableTag>
 		{/each}
 	</td>
 </tr>
@@ -59,19 +59,15 @@
 
 	td {
 		padding: 1.2rem;
-		position: relative;
+		vertical-align: top;
 	}
 
-	.number {
-		font-size: 2.5rem;
-		font-family: 'Silkscreen';
-		text-align: center;
+	.languages {
+		vertical-align: top;
+		display: flex;
+		flex-wrap: wrap;
 	}
-
-	.language {
-		padding: 0.3rem 0.5rem;
-		font-size: 1.7rem;
-		line-height: 200%;
-		margin-right: 1rem;
+	.tags {
+		padding-top: 20px;
 	}
 </style>
