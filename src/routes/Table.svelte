@@ -11,7 +11,7 @@
 	let open = false;
 	let sortedData = $recordsStore;
 
-	function lighten(c, n) {
+	function lighten(c: string, n: number): string {
 		c = c.slice(1);
 		let r = parseInt(c.substring(0, 2), 16);
 		let g = parseInt(c.substring(2, 4), 16);
@@ -49,6 +49,7 @@
 		shortest: () => sortedData.sort((a, b) => a.length - b.length),
 		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
+
 	let selected: keyof SortingFunctions = 'newest';
 	$: sortedData = $recordsStore;
 	$: sortedData = sortingFunctions[selected]();

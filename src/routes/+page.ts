@@ -8,6 +8,7 @@ import { getDateFromString } from '$lib/utils/getDateFromString';
 import { populateUserStore, userStore } from '$lib/pocketbase/userStore';
 import { get } from 'svelte/store';
 import { populateTagStore } from '$lib/pocketbase/tagStore';
+
 function createFilter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
 	let result = '';
 
