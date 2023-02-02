@@ -1,4 +1,8 @@
 export function getTextColor(color: string) {
+	if (!color) {
+		return '#FF0000';
+	}
+
 	const r = parseInt(color.substring(1, 3), 16);
 	const g = parseInt(color.substring(3, 5), 16);
 	const b = parseInt(color.substring(5, 7), 16);

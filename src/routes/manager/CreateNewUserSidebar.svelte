@@ -5,6 +5,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import { currentUser, pb } from '$lib/pocketbase';
 	import { page } from '$app/stores';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let open: boolean;
 	let newUserName = '';
@@ -16,23 +17,27 @@
 		correctEmail: false
 	};
 
+	$: error.correctEmail = newUserEmail !== '' ? !/\S+@\S+\.\S+/.test(newUserEmail) : false;
+	$: error.password =
+		newUserPassword !== '' ? newUserPassword.length < 12 || newUserPassword.length > 72 : false;
+	$: error.correctName = newUserName !== '' ? newUserName.length < 4 : false;
+
 	async function createNewUser() {
-		error.correctEmail = !/\S+@\S+\.\S+/.test(newUserEmail);
-
-		error.password = newUserPassword.length < 12 || newUserPassword.length > 72;
-
-		error.correctName = newUserName.length < 4;
-
 		if (!error.password && !error.correctEmail && !error.correctName) {
-			await pb.collection('users').create({
-				email: newUserEmail,
-				password: newUserPassword,
-				passwordConfirm: newUserPassword,
-				name: newUserName,
-				is_manager: false,
-				manager: $currentUser.id,
-				emailVisibility: true
-			});
+			await pb
+				.collection('users')
+				.create({
+					email: newUserEmail,
+					password: newUserPassword,
+					passwordConfirm: newUserPassword,
+					name: newUserName,
+					is_manager: false,
+					manager: $currentUser.id,
+					emailVisibility: true
+				})
+				.catch(() => {
+					toast.push('Něco se pokazilo, zkuste změnit email');
+				});
 			open = false;
 			await invalidate('home');
 			newUserEmail = '';

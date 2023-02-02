@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let label: string;
-	export let value: string;
+	export let value: string | undefined;
 	export let placeholder: string;
 	export let name: string = placeholder;
 	export let helperText: string = '';

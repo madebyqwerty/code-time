@@ -25,16 +25,18 @@
 				--backgroundColor={languageColors[language]}>{languageNames[language]}</TableTag>
 		{/each}
 	</td>
-	<td class="text-sm white tags">
-		{#each record.tags as tagID}
-			{@const tag = getTagFromID(tagID)}
-			{#if tag}
-				<TableTag
-					--textColor={getTextColor(tag.color)}
-					--backgroundColor={tag.color}
-					description={tag.description}>{tag.name}</TableTag>
-			{/if}
-		{/each}
+	<td class="text-sm white">
+		<div class="tags">
+			{#each record.tags as tagID}
+				{@const tag = getTagFromID(tagID)}
+				{#if tag}
+					<TableTag
+						--textColor={getTextColor(tag.color)}
+						--backgroundColor={tag.color}
+						description={tag.description}>{tag.name}</TableTag>
+				{/if}
+			{/each}
+		</div>
 	</td>
 </tr>
 
@@ -50,8 +52,8 @@
 			opacity: 100;
 		}
 	}
-	.silkscreen{
-		font-family:"Silkscreen", cursive;
+	.silkscreen {
+		font-family: 'Silkscreen', cursive;
 	}
 	tr.row {
 		animation: appear 1s forwards;
@@ -71,10 +73,12 @@
 
 	.languages {
 		vertical-align: top;
-		
+		display: flex;
+		flex-wrap: wrap;
 	}
-	.tags{
+	.tags {
 		vertical-align: top;
-
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>

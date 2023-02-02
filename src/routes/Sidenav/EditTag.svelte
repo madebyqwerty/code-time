@@ -6,6 +6,7 @@
 	import { updateTag, deleteTag } from '$lib/pocketbase/createTag';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { invalidate } from '$app/navigation';
+	import Textarea from '$lib/components/forms/Textarea.svelte';
 
 	export let openEditTag = false;
 
@@ -50,10 +51,8 @@
 			maxlength={29}
 			placeholder="např. tourdeapp"
 			label="Název štítku" />
-		<Input
-			type="text"
+		<Textarea
 			bind:value={editedTag.description}
-			maxlength={29}
 			placeholder="např. Programování na soutěž Tour de App"
 			label="Popis štítku" />
 		<ColorPicker bind:value={editedTag.color} />
