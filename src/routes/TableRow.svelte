@@ -17,7 +17,7 @@
 <tr style="--animation-order:{(i + 1) * 200}ms" class="row" on:click={openSidebar}>
 	<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 	<td class="text-sm white text-center">{record.length}</td>
-	<td class="text-sm number white">{'*'.repeat(record.rating)}</td>
+	<td class="text-sm number white silkscreen">{'*'.repeat(record.rating)}</td>
 	<td class="text-sm white languages">
 		{#each record.language as language}
 			<TableTag
@@ -52,7 +52,9 @@
 			opacity: 100;
 		}
 	}
-
+	.silkscreen {
+		font-family: 'Silkscreen', cursive;
+	}
 	tr.row {
 		animation: appear 1s forwards;
 		animation-delay: var(--animation-order);
@@ -65,14 +67,12 @@
 	}
 
 	td {
-		padding: 1.2rem;
+		padding: 1.6rem 1.2rem;
 		vertical-align: top;
 	}
 
 	.languages {
 		vertical-align: top;
-		display: flex;
-		flex-wrap: wrap;
 	}
 	.tags {
 		vertical-align: top;
