@@ -24,7 +24,7 @@
 		animation: grow 0.75s forwards;
 		animation-delay: 100ms;
 		position: relative;
-		transition:250ms ease;
+		transition: 250ms ease;
 	}
 	.before {
 		width: 100%;
@@ -36,7 +36,7 @@
 		animation: dis 0.5s forwards;
 		animation-delay: 0.25s;
 	}
-	.bar:before{
+	.bar:before {
 		content: '';
 		position: absolute;
 		top: -0px;
@@ -45,10 +45,10 @@
 		height: 0px;
 		transform-origin: top;
 		background-color: lightgrey;
-		transition:250ms ease;
+		transition: 250ms ease;
 	}
-	.bar:after{
-content: '';
+	.bar:after {
+		content: '';
 		position: absolute;
 		top: -4px;
 		right: -0px;
@@ -56,12 +56,12 @@ content: '';
 		height: 100%;
 		transform-origin: top;
 		background-color: lightgrey;
-		transition:250ms ease;
+		transition: 250ms ease;
 	}
 	.bar:hover {
 		margin-inline-start: 10px;
 		margin-inline-end: 20px;
-		transform:translate(-2%,2%);
+		transform: translate(-2%, 2%);
 	}
 	.bar:hover:before {
 		content: '';
@@ -73,7 +73,6 @@ content: '';
 		transform: skewX(-45deg);
 		transform-origin: top;
 		background-color: lightgrey;
-
 	}
 	.bar:hover:after {
 		content: '';
@@ -85,7 +84,6 @@ content: '';
 		transform: skewY(-45deg);
 		transform-origin: top;
 		background-color: lightgrey;
-
 	}
 	@keyframes dis {
 		from {
