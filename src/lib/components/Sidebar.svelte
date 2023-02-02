@@ -20,12 +20,10 @@
 			class="overlay"
 			transition:fade={{ duration: 500, easing: cubicOut }}
 			on:click={close}
-			on:keydown={close}
-		/>
+			on:keydown={close} />
 		<aside
 			bind:clientWidth={width}
-			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 0.5, easing: cubicOut }}
-		>
+			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 0.5, easing: cubicOut }}>
 			<Button on:click={close} type="close">
 				<iconify-icon icon="carbon:close-outline" inline={true} class="icon" />
 				Zavřít
@@ -66,5 +64,9 @@
 
 	iconify-icon {
 		scale: 150%;
+	}
+
+	h1 {
+		margin-bottom: 1.6rem;
 	}
 </style>
