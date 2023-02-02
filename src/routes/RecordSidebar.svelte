@@ -6,9 +6,17 @@
 	import TableTag from '$lib/components/TableTag.svelte';
 	import { getTextColor } from '$lib/utils/getTextColor';
 	import { languageColors, languageNames } from '$lib/utils/languages';
+	import UpdateRecord from './UpdateRecord.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	export let record: Records;
 	export let open = false;
+
+	let updateOpen = false;
+
+	const openUpdateSidebar = () => (updateOpen = true);
+
+	console.log(record);
 </script>
 
 <Sidebar bind:open title="Záznam ze dne {record.date.toLocaleDateString('cs')}">
@@ -50,7 +58,12 @@
 			{record.description}
 		</p>
 	</div>
+	<Button on:click={openUpdateSidebar}>Upravit záznam</Button>
 </Sidebar>
+
+{#key updateOpen}
+	<UpdateRecord bind:open={updateOpen} {record} />
+{/key}
 
 <style lang="scss">
 	.table {
@@ -81,5 +94,9 @@
 
 	.content {
 		margin-top: 2.4rem;
+	}
+
+	p {
+		margin-bottom: 2rem;
 	}
 </style>

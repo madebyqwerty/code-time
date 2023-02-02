@@ -25,16 +25,18 @@
 				--backgroundColor={languageColors[language]}>{languageNames[language]}</TableTag>
 		{/each}
 	</td>
-	<td class="text-sm white tags">
-		{#each record.tags as tagID}
-			{@const tag = getTagFromID(tagID)}
-			{#if tag}
-				<TableTag
-					--textColor={getTextColor(tag.color)}
-					--backgroundColor={tag.color}
-					description={tag.description}>{tag.name}</TableTag>
-			{/if}
-		{/each}
+	<td class="text-sm white">
+		<div class="tags">
+			{#each record.tags as tagID}
+				{@const tag = getTagFromID(tagID)}
+				{#if tag}
+					<TableTag
+						--textColor={getTextColor(tag.color)}
+						--backgroundColor={tag.color}
+						description={tag.description}>{tag.name}</TableTag>
+				{/if}
+			{/each}
+		</div>
 	</td>
 </tr>
 
@@ -73,6 +75,8 @@
 		flex-wrap: wrap;
 	}
 	.tags {
-		padding-top: 20px;
+		vertical-align: top;
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>
