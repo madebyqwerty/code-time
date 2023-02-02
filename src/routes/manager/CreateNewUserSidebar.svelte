@@ -49,6 +49,7 @@
 		label="Jméno nového uživatele"
 		placeholder="Martin Novák"
 		error={error.correctName ? 'Jméno musí mít minimálně 4 znaky' : ''} />
+
 	<Input
 		bind:value={newUserEmail}
 		type="email"
