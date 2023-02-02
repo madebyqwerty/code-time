@@ -2,10 +2,6 @@
 	import Checkbox from './Checkbox.svelte';
 	import CreateButton from '../CreateButton.svelte';
 	import { tagStore } from '$lib/pocketbase/tagStore';
-	import {
-		unfilteredTagStore,
-		populateUnfilteredTagStore
-	} from '$lib/pocketbase/unfilteredTagStore';
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import SidebarLeft from '$lib/components/SidebarLeft.svelte';
@@ -17,16 +13,12 @@
 
 	$: tagsSearchParam = $page.url.searchParams.get('tags');
 	$: selectedTags = tagsSearchParam ? JSON.parse(tagsSearchParam) : [];
-	$: console.log($unfilteredTagStore);
-	$: populateUnfilteredTagStore(addTagInput);
-	$: $tagStore.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-	$: $unfilteredTagStore.items.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-	$: console.log(editedTag);
+	$: $tagStore.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+
 	let openTags = false;
 	let editTag = false;
 	let addTagInput: string = '';
 	let color: string;
-	export let selectedTags=[];
 	let editedTag = {
 		name: '',
 		color: '00ff00',
@@ -154,34 +146,32 @@
 		<ColorPicker bind:value={color} />
 		<Button on:click={handleAdd}>Přidat štítek</Button>
 	</div>
-	{#if $unfilteredTagStore}
-		{#each $unfilteredTagStore.items as tag (tag.id)}
-			<div class="tag">
-				<div class="tag-text">
-					<Checkbox
-						active={selectedTags.includes(tag.id)}
-						--bg={tag.color}
-						on:check={(e) => handleTagChange(tag.id, e.detail)}>{tag.name}</Checkbox>
-				</div>
-				<div class="tag-icons">
-					<button
-						on:click={() => {
-							editTag = !editTag;
-							editedTag = {
-								name: tag.name,
-								color: tag.color,
-								id: tag.id
-							};
-						}}
-						class="tag-icon"
-						><div class="dot" />
-						<div class="dot" />
-						<div class="dot" />
-					</button>
-				</div>
+	{#each $tagStore as tag (tag.id)}
+		<div class="tag">
+			<div class="tag-text">
+				<Checkbox
+					active={selectedTags.includes(tag.id)}
+					--bg={tag.color}
+					on:check={(e) => handleTagChange(tag.id, e.detail)}>{tag.name}</Checkbox>
 			</div>
-		{/each}
-	{/if}
+			<div class="tag-icons">
+				<button
+					on:click={() => {
+						editTag = !editTag;
+						editedTag = {
+							name: tag.name,
+							color: tag.color,
+							id: tag.id
+						};
+					}}
+					class="tag-icon"
+					><div class="dot" />
+					<div class="dot" />
+					<div class="dot" />
+				</button>
+			</div>
+		</div>
+	{/each}
 </SidebarLeft>
 <SidebarLeft bind:open={editTag} title="UPRAVIT ŠTÍTEK">
 	<div class="form">
@@ -208,11 +198,11 @@
 		flex-direction: row;
 	}
 
-	.dot{
-		height:4px;
-		width:4px;
-		background:white;
-		border-radius:5px;
+	.dot {
+		height: 4px;
+		width: 4px;
+		background: white;
+		border-radius: 5px;
 	}
 	.tag {
 		padding: 0.4rem;
@@ -232,14 +222,14 @@
 
 		&-icon {
 			height: 2rem;
-			width:2rem;
+			width: 2rem;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
 			opacity: 0;
-			padding-right:.2rem;
-			transition:100ms ease;
+			padding-right: 0.2rem;
+			transition: 100ms ease;
 		}
 
 		&:hover &-icon {

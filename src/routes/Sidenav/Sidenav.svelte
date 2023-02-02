@@ -4,8 +4,6 @@
 	import Tags from './Tags.svelte';
 	import Stars from './Stars.svelte';
 	import UserMenu from './UserMenu.svelte';
-
-	export let selectedTags;
 </script>
 
 <nav>
@@ -13,7 +11,7 @@
 	<UserMenu />
 	<Stars />
 	<Datepicker />
-	<Tags bind:selectedTags/>
+	<Tags />
 	<Languages />
 </nav>
 

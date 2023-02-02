@@ -3,15 +3,13 @@
 	import CreateButton from './CreateButton.svelte';
 	import CreateRecord from './CreateRecord.svelte';
 	import { recordsStore } from '$lib/pocketbase/recordsStore';
-	import { tagStore } from '$lib/pocketbase/tagStore.ts';
+	import { tagStore } from '$lib/pocketbase/tagStore';
 	import Button from '$lib/components/Button.svelte';
 	import type { Records } from '$lib/pocketbase/recordsStore';
 	import TableTag from '$lib/components/TableTag.svelte';
 
 	let open = false;
 	let sortedData = $recordsStore;
-	export let selectedTags;
-	$: console.log(selectedTags);
 
 	function lighten(c, n) {
 		c = c.slice(1);
@@ -182,26 +180,13 @@
 						<td class="text-sm white">
 							{#each record.tags as tag, i}
 								{#if $tagStore}
-									{#if selectedTags.includes(tag)}
-										<TableTag
-											--color={lighten('#ffffff', 0)}
-											--backgroundColor={lighten(
-												$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
-												-80
-											)}
-											--borderColor={lighten(
-												$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
-												0
-											)}>{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}</TableTag>
-									{:else}
-										<TableTag
-											--color={lighten('#ffffff', 0)}
-											--backgroundColor={lighten('#181c24', 0)}
-											--borderColor={lighten(
-												$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
-												0
-											)}>{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}</TableTag>
-									{/if}
+									<TableTag
+										--color={lighten('#ffffff', 0)}
+										--backgroundColor={lighten('#181c24', 0)}
+										--borderColor={lighten(
+											$tagStore.filter((taglmao) => taglmao.id == tag)[0].color,
+											0
+										)}>{$tagStore.filter((taglmao) => taglmao.id == tag)[0].name}</TableTag>
 								{/if}
 							{/each}
 						</td>
