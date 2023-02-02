@@ -14,7 +14,6 @@ pb.authStore.onChange(async () => {
 	if (pb.authStore.model !== null) {
 		currentUser.set(pb.authStore.model!);
 		isLoggedIn.set(true);
-		console.log('login');
 		await invalidate('home');
 	} else {
 		await goto('/');

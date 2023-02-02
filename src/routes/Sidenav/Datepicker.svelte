@@ -18,7 +18,6 @@
 			url.searchParams.set('to', dates[1].toISOString());
 
 			await goto(url.toString());
-			console.log('dates');
 			await invalidate('home');
 		}
 	}
@@ -45,8 +44,7 @@
 		type="text"
 		placeholder="Vyber rozmezí"
 		data-id="range"
-		readonly={true}
-	/>
+		readonly={true} />
 </section>
 
 <style lang="scss">

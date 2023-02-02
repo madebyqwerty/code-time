@@ -12,7 +12,6 @@
 	const dispatch = createEventDispatcher();
 
 	const close = () => {
-		console.log('closing');
 		open = false;
 	};
 </script>
@@ -21,8 +20,7 @@
 	<span>
 		<aside
 			bind:clientWidth={width}
-			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 1, easing: cubicOut }}
-		>
+			transition:fly={{ duration: 500, x: -width, y: 0, opacity: 1, easing: cubicOut }}>
 			<Button on:click={close} type="close2">&#60; Zavřít</Button>
 			<h3>{title}</h3>
 			<slot />
@@ -46,6 +44,7 @@
 	}
 
 	aside {
+		@include scrollbars;
 		z-index: 20;
 		height: 100vh;
 		width: 400px;

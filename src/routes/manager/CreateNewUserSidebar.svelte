@@ -10,22 +10,35 @@
 	let newUserName = '';
 	let newUserPassword = '';
 	let newUserEmail = '';
+	let error: { password: boolean; correctName: boolean; correctEmail: boolean } = {
+		password: false,
+		correctName: false,
+		correctEmail: false
+	};
 
 	async function createNewUser() {
-		await pb.collection('users').create({
-			email: newUserEmail,
-			password: newUserPassword,
-			passwordConfirm: newUserPassword,
-			name: newUserName,
-			is_manager: false,
-			manager: $currentUser.id,
-			emailVisibility: true
-		});
-		open = false;
-		await invalidate('home');
-		newUserEmail = '';
-		newUserName = '';
-		newUserPassword = '';
+		error.correctEmail = !/\S+@\S+\.\S+/.test(newUserEmail);
+
+		error.password = newUserPassword.length < 12 || newUserPassword.length > 72;
+
+		error.correctName = newUserName.length < 4;
+
+		if (!error.password && !error.correctEmail && !error.correctName) {
+			await pb.collection('users').create({
+				email: newUserEmail,
+				password: newUserPassword,
+				passwordConfirm: newUserPassword,
+				name: newUserName,
+				is_manager: false,
+				manager: $currentUser.id,
+				emailVisibility: true
+			});
+			open = false;
+			await invalidate('home');
+			newUserEmail = '';
+			newUserName = '';
+			newUserPassword = '';
+		}
 	}
 </script>
 
@@ -35,20 +48,21 @@
 		type="text"
 		label="Jméno nového uživatele"
 		placeholder="Martin Novák"
-	/>
+		error={error.correctName ? 'Jméno musí mít minimálně 4 znaky' : ''} />
+
 	<Input
 		bind:value={newUserEmail}
 		type="email"
 		label="E-mail nového uživatele"
 		placeholder="martin.novak@email.cz"
-	/>
+		error={error.correctEmail ? 'Neplatný E-mail' : ''} />
 	<Input
 		bind:value={newUserPassword}
 		type="password"
 		showPasswordSwitch={true}
 		label="Heslo pro nového uživatele"
 		placeholder="******"
-	/>
+		error={error.password ? 'Heslo musí mít 12-72 znaků' : ''} />
 	<p>
 		Vytvořením uživatele, vytvoříte běžný účet, jehož přihlašovací údaje potom můžete dát svému
 		programátorovi, aby si mohl sám přidávat záznamy.

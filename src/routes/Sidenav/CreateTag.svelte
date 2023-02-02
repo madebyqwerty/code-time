@@ -11,6 +11,7 @@
 
 	let addTagInput = '';
 	let color = '';
+	let description = '';
 
 	const setBg = () => {
 		const randomColor =
@@ -24,7 +25,7 @@
 	setBg();
 
 	async function handleAdd() {
-		await createTag(addTagInput, color)
+		await createTag(addTagInput, color, description)
 			.then(async () => {
 				openCreateTag = false;
 				addTagInput = '';
@@ -32,7 +33,6 @@
 				await invalidate('home');
 			})
 			.catch((e) => {
-				console.log({ e });
 				toast.push(e.message, { duration: 4000 });
 			});
 	}
@@ -44,8 +44,14 @@
 			type="text"
 			bind:value={addTagInput}
 			maxlength={29}
-			placeholder="Jméno štítku"
+			placeholder="např. tourdeapp"
 			label="Název štítku" />
+		<Input
+			type="text"
+			bind:value={description}
+			maxlength={29}
+			placeholder="např. Programování na soutěž Tour de App"
+			label="Popis štítku" />
 		<ColorPicker bind:value={color} />
 		<Button on:click={handleAdd}>Přidat štítek</Button>
 	</div>

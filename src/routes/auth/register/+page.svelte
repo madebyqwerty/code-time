@@ -10,10 +10,16 @@
 		password = '',
 		repeatPassword = '',
 		name: string,
-		error: { password: boolean; repeatPassword: boolean; correctEmail: boolean } = {
+		error: {
+			password: boolean;
+			repeatPassword: boolean;
+			correctEmail: boolean;
+			correctName: boolean;
+		} = {
 			password: false,
 			repeatPassword: false,
-			correctEmail: false
+			correctEmail: false,
+			correctName: false
 		};
 
 	$: error.repeatPassword = password !== repeatPassword;
@@ -47,7 +53,13 @@
 	<h1 class="width-max white">REGISTRACE</h1>
 	<a class="text-base grey grey-hover" href="/auth/login">Přejít na přihlášení</a>
 	<form class="wrapper" on:submit|preventDefault={() => {}}>
-		<Input type="text" bind:value={name} placeholder="Martin Novák" label="Jméno" required />
+		<Input
+			type="text"
+			bind:value={name}
+			placeholder="Martin Novák"
+			label="Jméno"
+			error={error.correctName ? 'Jméno musí mít minimálně 4 znaky' : ''}
+			required />
 		<Input
 			type="text"
 			bind:value={email}
