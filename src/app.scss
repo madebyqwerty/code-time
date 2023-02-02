@@ -112,9 +112,30 @@ body {
 	gap: 1rem;
 }
 
-@media only screen and (max-width:1500px) {
-html{
-	overflow:scroll
+@media only screen and (max-width: 1500px) {
+	html {
+		overflow: scroll;
+	}
 }
-	
+
+div.multiselect > ul.options {
+	@include scrollbars(10px, $green-primary, lighten($background, 5));
+	background: lighten($background, 5);
+	border-radius: 0px;
+	z-index: 150 !important;
+}
+div.multiselect > ul.selected > li {
+	background: lighten($background, 10);
+}
+
+div.multiselect {
+	border: 1px solid $green-primary;
+	background-color: transparent;
+	padding: 0.8rem;
+	color: $green-lightest;
+	border-radius: 0;
+}
+
+div.multiselect input::placeholder {
+	color: $green-lightest;
 }
