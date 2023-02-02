@@ -19,7 +19,6 @@
 
 			await goto(url.toString());
 			await invalidate('home');
-			console.log('here kurwa');
 		}
 	}
 

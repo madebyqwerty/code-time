@@ -20,7 +20,6 @@
 		url.searchParams.set('user_id', JSON.stringify(id));
 		await goto(url.toString());
 		await invalidate('home');
-		console.log('here kurwa');
 	}
 
 	let createMenuOpen = false;

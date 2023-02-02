@@ -32,7 +32,6 @@
 				addTagInput = '';
 				setBg();
 				await invalidate('home');
-				console.log('here kurwa');
 			})
 			.catch((e) => {
 				toast.push(e.message, { duration: 4000 });

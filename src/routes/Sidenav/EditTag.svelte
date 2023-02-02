@@ -28,7 +28,6 @@
 					id: ''
 				};
 				await invalidate('home');
-				console.log('here kurwa');
 			})
 			.catch((e: Error) => {
 				toast.push(e.message, { duration: 4000 });
@@ -38,7 +37,7 @@
 		await deleteTag(editedTag.id)
 			.then(async () => {
 				await invalidate('home');
-				console.log('here kurwa');
+
 				openEditTag = false;
 			})
 			.catch((e: Error) => toast.push(e.message));

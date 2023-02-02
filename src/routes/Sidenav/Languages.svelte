@@ -19,7 +19,6 @@
 
 		await goto($page.url.toString());
 		await invalidate('home');
-		console.log('here kurwa');
 	}
 </script>
 

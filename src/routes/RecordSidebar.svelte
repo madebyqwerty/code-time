@@ -23,7 +23,7 @@
 		await deleteRecord(record.id)
 			.then(async () => {
 				await invalidate('home');
-				console.log('here kurwa');
+
 				open = false;
 			})
 			.catch((e: Error) => toast.push(e.message));
