@@ -3,7 +3,7 @@
 	import Input from '$lib/components/forms/Input.svelte';
 	import ColorPicker from './ColorPicker.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { updateTag } from '$lib/pocketbase/createTag';
+	import { updateTag, deleteTag } from '$lib/pocketbase/createTag';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { invalidate } from '$app/navigation';
 
@@ -32,7 +32,14 @@
 				toast.push(e.message, { duration: 4000 });
 			});
 	}
-	async function handleDelete() {}
+	async function handleDelete() {
+		await deleteTag(editedTag.id)
+			.then(async () => {
+				await invalidate('home');
+				openEditTag = false;
+			})
+			.catch((e: Error) => toast.push(e.message));
+	}
 </script>
 
 <SidebarLeft bind:open={openEditTag} title="UPRAVIT ŠTÍTEK">
@@ -52,7 +59,7 @@
 		<ColorPicker bind:value={editedTag.color} />
 		<div class="space-between">
 			<Button on:click={handleEdit}>Upravit štítek</Button><Button
-				type="delete"
+				type="close"
 				on:click={handleDelete}
 				><iconify-icon icon="pixelarticons:trash" class="down" inline={true} width={20} /></Button>
 		</div>
@@ -60,9 +67,9 @@
 </SidebarLeft>
 
 <style>
-	.space-between{
-		display:flex;
-		flex-direction:row;
-		gap:2rem;
+	.space-between {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
 	}
 </style>

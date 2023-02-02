@@ -36,7 +36,7 @@ function isValidHexColor(color: string): boolean {
  * @returns {Promise<string>} ID vytvořeného tagu
  */
 
-export async function createTag(name: string, color: string, description:string): Promise<string> {
+export async function createTag(name: string, color: string, description: string): Promise<string> {
 	if (name.length < 2) {
 		throw new Error('Název tagu musí být delší než 2 znaky');
 	}
@@ -70,7 +70,12 @@ export async function createTag(name: string, color: string, description:string)
 	return tag.id;
 }
 
-export async function updateTag(name: string, color: string, description:string, id: string): Promise<void> {
+export async function updateTag(
+	name: string,
+	color: string,
+	description: string,
+	id: string
+): Promise<void> {
 	if (name.length < 2) {
 		throw new Error('Název tagu musí být delší než 2 znaky');
 	}
@@ -89,6 +94,15 @@ export async function updateTag(name: string, color: string, description:string,
 	});
 
 	if (pokus.totalItems === 0 || pokus.items[0].id === id) {
-		await pb.collection('tags').update(id, { name, color });
+		await pb.collection('tags').update(id, { name, color, description });
 	}
+}
+
+export async function deleteTag(id: string): Promise<void> {
+	await pb
+		.collection('tags')
+		.delete(id)
+		.catch(() => {
+			throw new Error('Něco se pokazilo zkuste to znovu');
+		});
 }

@@ -36,8 +36,10 @@
 			<div>
 				{#each record.tags as tagID}
 					{@const tag = getTagFromID(tagID)}
-					<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color}
-						>{tag.name}</TableTag>
+					{#if tag}
+						<TableTag --textColor={getTextColor(tag.color)} --backgroundColor={tag.color}
+							>{tag.name}</TableTag>
+					{/if}
 				{/each}
 			</div>
 		</div>
