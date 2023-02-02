@@ -61,7 +61,7 @@
 		type="password"
 		showPasswordSwitch={true}
 		label="Heslo pro nového uživatele"
-		placeholder="******"
+		placeholder="************"
 		error={error.password ? 'Heslo musí mít 12-72 znaků' : ''} />
 	<p>
 		Vytvořením uživatele, vytvoříte běžný účet, jehož přihlašovací údaje potom můžete dát svému
