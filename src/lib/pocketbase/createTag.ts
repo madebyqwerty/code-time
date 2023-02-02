@@ -1,4 +1,29 @@
 import { pb } from '.';
+import type { TagsResponse } from './types';
+
+function isValidHexColor(color: string): boolean {
+	return (
+		color.toLowerCase().split('')[0] == '#' &&
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'].includes(
+			color.toLowerCase().split('')[1]
+		) &&
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'].includes(
+			color.toLowerCase().split('')[2]
+		) &&
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'].includes(
+			color.toLowerCase().split('')[3]
+		) &&
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'].includes(
+			color.toLowerCase().split('')[4]
+		) &&
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'].includes(
+			color.toLowerCase().split('')[5]
+		) &&
+		['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'].includes(
+			color.toLowerCase().split('')[6]
+		)
+	);
+}
 
 /**
  * Tahle funkce vytváří nový tag
@@ -12,66 +37,58 @@ import { pb } from '.';
  */
 
 export async function createTag(name: string, color: string): Promise<string> {
-	if(name.length>2){
-		if(name.length<30){
-			if(color.toLowerCase().split("")[0]=="#" && ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[1]) && ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[2]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[3]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[4]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[5]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[6])){
-				const pokus = await pb.collection('tags').getList<TagsResponse>(1, 1000,{
-					filter: `name="${name}" && user="${pb.authStore.model?.id}"`,
-					$autoCancel: false
-				});
-				console.log(pokus)
-				if(pokus.items.length==0){
-					const tag = await pb.collection('tags').create(
-						{
-							name,
-							color,
-							description:"",
-							user: pb.authStore.model?.id
-						},
-						{ $autoCancel: false }
-					);
-					console.log(tag.id)
-					return tag.id
-				}
-				return "clone"
-			}
-			return "wrongcolor"
-		}
-		return "longname"
-		
-		
+	if (name.length < 2) {
+		throw new Error('Název tagu musí být delší než 2 znaky');
 	}
-	return "shortname"
-	
-	
+
+	if (name.length > 30) {
+		throw new Error('Název tagu musí být kratší než 30 znaků');
+	}
+
+	if (!isValidHexColor(color)) {
+		throw new Error('Špatný formát barvy, formát barvy musí být v HEX formátu');
+	}
+
+	const pokus = await pb.collection('tags').getList<TagsResponse>(1, 1000, {
+		filter: `name="${name}" && user="${pb.authStore.model?.id}"`,
+		$autoCancel: false
+	});
+
+	if (!(pokus.totalItems === 0)) {
+		throw new Error('Tag s tímto názvem již existuje');
+	}
+
+	const tag = await pb.collection('tags').create(
+		{
+			name,
+			color,
+			description: '',
+			user: pb.authStore.model?.id
+		},
+		{ $autoCancel: false }
+	);
+	return tag.id;
 }
 
-export async function updateTag(name: string, color: string, id: string): Promise<string> {
-	if(name.length>2){
-		if(name.length<30){
-			if(color.toLowerCase().split("")[0]=="#" && ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[1]) && ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[2]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[3]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[4]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[5]) &&["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"].includes(color.toLowerCase().split("")[6])){
-				const pokus = await pb.collection('tags').getList<TagsResponse>(1, 1000,{
-					filter: `name="${name}" && user="${pb.authStore.model?.id}"`,
-					$autoCancel: false
-				});
-				console.log(pokus)
-
-				if(pokus.items.length==0){
-					await pb.collection('tags').update(id,{name,color});
-					return 1;
-				} else if(pokus.items[0].id==id){
-					await pb.collection('tags').update(id,{name,color});
-					return 1;
-				}
-				return "clone"
-			}
-			return "wrongcolor"
-		}
-		return "longname"
-		
-		
+export async function updateTag(name: string, color: string, id: string): Promise<void> {
+	if (name.length < 2) {
+		throw new Error('Název tagu musí být delší než 2 znaky');
 	}
-	return "shortname"
-	
-	
+
+	if (name.length > 30) {
+		throw new Error('Název tagu musí být kratší než 30 znaků');
+	}
+
+	if (!isValidHexColor(color)) {
+		throw new Error('Špatný formát barvy, formát barvy musí být v HEX formátu');
+	}
+
+	const pokus = await pb.collection('tags').getList<TagsResponse>(1, 1000, {
+		filter: `name="${name}" && user="${pb.authStore.model?.id}"`,
+		$autoCancel: false
+	});
+
+	if (pokus.totalItems === 0 || pokus.items[0].id === id) {
+		await pb.collection('tags').update(id, { name, color });
+	}
 }

@@ -24,8 +24,10 @@
 	setBg();
 
 	async function handleAdd() {
-		try {
-			let output = await createTag(addTagInput, color);
+		await createTag(addTagInput, color).catch((e) => {
+			console.log({ e });
+			toast.push(e.message, { duration: 4000 });
+		}); /* 
 			if (output == 'shortname') {
 				toast.push('Název tagu musí být delší než 2 znaky', { duration: 4000 });
 			} else if (output == 'longname') {
@@ -40,7 +42,7 @@
 				setBg();
 				await invalidate('home');
 			}
-		} catch (e) {}
+		} catch (e) {} */
 	}
 </script>
 

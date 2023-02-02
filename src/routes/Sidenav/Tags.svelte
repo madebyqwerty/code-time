@@ -4,12 +4,6 @@
 	import { tagStore } from '$lib/pocketbase/tagStore';
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import SidebarLeft from '$lib/components/SidebarLeft.svelte';
-	import Input from '$lib/components/forms/Input.svelte';
-	import Button from '$lib/components/Button.svelte';
-	import { createTag, updateTag } from '$lib/pocketbase/createTag';
-	import ColorPicker from './ColorPicker.svelte';
-	import { toast } from '@zerodevx/svelte-toast';
 	import CreateTag from './CreateTag.svelte';
 	import EditTag from './EditTag.svelte';
 

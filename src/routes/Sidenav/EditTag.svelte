@@ -16,18 +16,8 @@
 	};
 
 	async function handleEdit() {
-		try {
-			let output = await updateTag(editedTag.name, editedTag.color, editedTag.id);
-			console.log(output);
-			if (output == 'shortname') {
-				toast.push('Název tagu musí být delší než 2 znaky', { duration: 4000 });
-			} else if (output == 'longname') {
-				toast.push('Název tagu musí být kratší než 30 znaků', { duration: 4000 });
-			} else if (output == 'wrongcolor') {
-				toast.push('Špatný formát barvy', { duration: 4000 });
-			} else if (output == 'clone') {
-				toast.push('Jiný tag má již stejný název', { duration: 4000 });
-			} else {
+		await updateTag(editedTag.name, editedTag.color, editedTag.id)
+			.then(async () => {
 				openEditTag = false;
 				editedTag = {
 					name: '',
@@ -35,8 +25,10 @@
 					id: ''
 				};
 				await invalidate('home');
-			}
-		} catch (e) {}
+			})
+			.catch((e: Error) => {
+				toast.push(e.message, { duration: 4000 });
+			});
 	}
 </script>
 
