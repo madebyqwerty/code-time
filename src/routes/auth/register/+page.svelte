@@ -9,7 +9,7 @@
 	let email = '',
 		password = '',
 		repeatPassword = '',
-		name: string,
+		name = '',
 		error: {
 			password: boolean;
 			repeatPassword: boolean;
@@ -25,6 +25,7 @@
 	$: error.repeatPassword = password !== repeatPassword;
 	$: error.correctEmail = email !== '' ? !/\S+@\S+\.\S+/.test(email) : false;
 	$: error.password = password !== '' ? password.length < 12 || password.length > 72 : false;
+	$: error.correctName = name !== '' ? name.length < 3 : false;
 
 	async function register(type: 'managers' | 'users') {
 		if (!error.password && !error.repeatPassword && !error.correctEmail) {
@@ -58,7 +59,7 @@
 			bind:value={name}
 			placeholder="Martin Novák"
 			label="Jméno"
-			error={error.correctName ? 'Jméno musí mít minimálně 4 znaky' : ''}
+			error={error.correctName ? 'Jméno musí mít minimálně 3 znaky' : ''}
 			required />
 		<Input
 			type="text"
