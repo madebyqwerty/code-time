@@ -18,17 +18,15 @@
 <Wrapper>
 	<h1 class="width-max white">LOGIN</h1>
 	<a class="text-base grey grey-hover" href="/auth/register"
-		>Ještě nemáte účet? Zde si ho vytvořte</a
-	>
+		>Ještě nemáte účet? Kliknutím zde si ho vytvořte</a>
 	<form on:submit|preventDefault={handleLogin}>
 		<Input type="text" bind:value={email} placeholder="jmeno@priklad.cz" label="E-mail" />
 		<Input
 			type="password"
 			bind:value={password}
-			placeholder="*****"
+			placeholder="************"
 			showPasswordSwitch={true}
-			label="Heslo"
-		/>
+			label="Heslo" />
 		<Button>Přihlásit se</Button>
 	</form>
 </Wrapper>
