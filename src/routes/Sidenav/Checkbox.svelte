@@ -20,16 +20,33 @@
 	}
 </script>
 
-<input type="checkbox" bind:checked />
 
+<label>
+	<input type="checkbox" bind:checked />
+	<slot />
+</label>
 <style lang="scss">
 	input {
 		appearance: none  !important;
-		width: 1.4rem  !important;
-		height: 1.4rem  !important;
+		width: 1.5rem  !important;
+		height: 1.5rem  !important;
 		border: 2px solid var(--bg) !important;
 		&:checked {
 			background: var(--bg)  !important;
 		}
+	}
+	label{
+		cursor:pointer;
+		-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	align-items: center;
+	gap:.8rem;
 	}
 </style>

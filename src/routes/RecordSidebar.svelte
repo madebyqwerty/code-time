@@ -2,6 +2,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import type { Records } from '$lib/pocketbase/recordsStore';
 	import Label from '$lib/components/forms/Label.svelte';
+	import { getTagFromID } from '$lib/utils/getTagFromID';
 
 	export let record: Records;
 	export let open = false;
@@ -27,9 +28,11 @@
 		</div>
 		<div class="row">
 			<span>Tagy</span>
-			{#each record.tags as tag}
-				{tag}
-			{/each}
+			<div>
+				{#each record.tags as tag}
+					{getTagFromID(tag).name}
+				{/each}
+			</div>
 		</div>
 	</div>
 	<div class="content">

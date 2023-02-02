@@ -30,8 +30,8 @@
 				active={stars.includes(starsArr.indexOf(star))}
 				--bg="#fff"
 				on:check={(e) => handleStarsChange(starIndex, e.detail)}
-			/>
-			<div class="star">{star}</div>
+			><div class="star">{star}</div></Checkbox>
+			
 		</div>
 	{/each}
 </section>

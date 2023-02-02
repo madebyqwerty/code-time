@@ -122,7 +122,7 @@
 				<div class="caret" class:top style="margin-right: .2rem;" />
 			</div>
 		</button>
-		<input type="text" bind:value />
+		<input type="text" placeholder="např. #4681a5" bind:value />
 	</div>
 
 	{#if ddActive}

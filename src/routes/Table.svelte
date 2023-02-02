@@ -10,6 +10,29 @@
 
 	let open = false;
 	let sortedData = $recordsStore;
+	export let selectedTags;
+	$: console.log(selectedTags);
+
+	function lighten(c, n) {
+		c = c.slice(1);
+		let r = parseInt(c.substring(0, 2), 16);
+		let g = parseInt(c.substring(2, 4), 16);
+		let b = parseInt(c.substring(4, 6), 16);
+
+		r = Math.round(r * (1 + n / 100));
+		g = Math.round(g * (1 + n / 100));
+		b = Math.round(b * (1 + n / 100));
+
+		r = Math.max(0, Math.min(255, r));
+		g = Math.max(0, Math.min(255, g));
+		b = Math.max(0, Math.min(255, b));
+
+		let shadeR = r.toString(16).padStart(2, '0');
+		let shadeG = g.toString(16).padStart(2, '0');
+		let shadeB = b.toString(16).padStart(2, '0');
+
+		return '#' + shadeR + shadeG + shadeB;
+	}
 
 	interface SortingFunctions {
 		newest: () => Records[];
@@ -26,8 +49,7 @@
 		hardest: () => sortedData.sort((a, b) => b.rating - a.rating),
 		easiest: () => sortedData.sort((a, b) => a.rating - b.rating),
 		shortest: () => sortedData.sort((a, b) => a.length - b.length),
-		longest: () => sortedData.sort((a, b) => b.length - a.length),
-		shuffle: () => sortedData.sort((a, b) => b.date.getTime() - a.date.getTime())
+		longest: () => sortedData.sort((a, b) => b.length - a.length)
 	};
 
 	let selected: keyof SortingFunctions = 'newest';
