@@ -11,7 +11,7 @@
 
 	let addTagInput = '';
 	let color = '';
-	let description= "";
+	let description = '';
 
 	const setBg = () => {
 		const randomColor =
@@ -33,7 +33,6 @@
 				await invalidate('home');
 			})
 			.catch((e) => {
-				console.log({ e });
 				toast.push(e.message, { duration: 4000 });
 			});
 	}
@@ -47,7 +46,7 @@
 			maxlength={29}
 			placeholder="např. tourdeapp"
 			label="Název štítku" />
-			<Input
+		<Input
 			type="text"
 			bind:value={description}
 			maxlength={29}

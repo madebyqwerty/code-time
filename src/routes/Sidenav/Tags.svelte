@@ -17,7 +17,7 @@
 	let editedTag = {
 		name: '',
 		color: '00ff00',
-		description:"",
+		description: '',
 		id: ''
 	};
 
@@ -32,7 +32,6 @@
 		}
 
 		await goto($page.url);
-		console.log('tags 1');
 		await invalidate('home');
 	}
 </script>
@@ -63,7 +62,7 @@
 						editedTag = {
 							name: tag.name,
 							color: tag.color,
-							description:tag.description,
+							description: tag.description,
 							id: tag.id
 						};
 					}}

@@ -6,7 +6,5 @@ export const tagStore = writable<TagsResponse[]>([]);
 
 export async function populateTagStore() {
 	const tags = await pb.collection('tags').getFullList<TagsResponse>(1000);
-
-	console.log('tags', tags);
 	tagStore.set(tags);
 }
