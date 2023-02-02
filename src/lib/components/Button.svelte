@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let type: 'primary' | 'secondary' | "close" |'close2' = 'primary';
+	export let type: 'primary' | 'secondary' | "close" |'close2' | "delete" = 'primary';
 </script>
 
 <button class="{type} text-base" on:click>
@@ -87,6 +87,19 @@
 			none,
 			white,
 			white
+		);
+	}
+	.delete {
+		@include button-default(
+			none,
+			$red-dark,
+			$red-dark,
+			none,
+			$red-dark,
+			$red-dark,
+			none,
+			$red-dark,
+			$red-dark
 		);
 	}
 </style>

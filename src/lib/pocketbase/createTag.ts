@@ -36,7 +36,7 @@ function isValidHexColor(color: string): boolean {
  * @returns {Promise<string>} ID vytvořeného tagu
  */
 
-export async function createTag(name: string, color: string): Promise<string> {
+export async function createTag(name: string, color: string, description:string): Promise<string> {
 	if (name.length < 2) {
 		throw new Error('Název tagu musí být delší než 2 znaky');
 	}
@@ -62,7 +62,7 @@ export async function createTag(name: string, color: string): Promise<string> {
 		{
 			name,
 			color,
-			description: '',
+			description,
 			user: pb.authStore.model?.id
 		},
 		{ $autoCancel: false }
@@ -70,7 +70,7 @@ export async function createTag(name: string, color: string): Promise<string> {
 	return tag.id;
 }
 
-export async function updateTag(name: string, color: string, id: string): Promise<void> {
+export async function updateTag(name: string, color: string, description:string, id: string): Promise<void> {
 	if (name.length < 2) {
 		throw new Error('Název tagu musí být delší než 2 znaky');
 	}

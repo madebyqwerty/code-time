@@ -46,6 +46,7 @@
 	}
 
 	aside {
+		@include scrollbars;
 		z-index: 20;
 		height: 100vh;
 		width: 400px;

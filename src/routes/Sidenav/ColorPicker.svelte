@@ -204,7 +204,8 @@
 		background:lighten(#161929, 5);
 		height: 35px;
 		border-radius: 0.4rem;
-		padding:0 .5rem
+		padding:0 .5rem;
+		width:100%;
 	}
 
 	.color-block {
