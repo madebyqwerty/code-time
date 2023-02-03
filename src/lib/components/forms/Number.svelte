@@ -9,8 +9,10 @@
 	export let value: number;
 </script>
 
-<Label forValue={id}>{label}</Label>
-<input type="number" {id} {step} {min} {max} bind:value />
+<span>
+	<Label forValue={id}>{label}</Label>
+	<input type="number" {id} {step} {min} {max} bind:value on:change />
+</span>
 
 <style lang="scss">
 	input {

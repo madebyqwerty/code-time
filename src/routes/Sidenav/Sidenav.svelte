@@ -4,12 +4,14 @@
 	import Tags from './Tags.svelte';
 	import Stars from './Stars.svelte';
 	import UserMenu from './UserMenu.svelte';
+	import Length from './Length.svelte';
 </script>
 
 <nav>
 	<h2>CodeTime</h2>
 	<UserMenu />
 	<Stars />
+	<Length />
 	<Datepicker />
 	<Tags />
 	<Languages />

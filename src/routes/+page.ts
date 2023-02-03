@@ -57,9 +57,12 @@ export const load = (async ({ depends, url }) => {
 		createFilter(langs, 'language') +
 		createFilter(stars, 'rating', '||');
 
-	let fromLen;
+	const fromLen = url.searchParams.get('fromLength');
+	const toLen = url.searchParams.get('toLength');
 
-	filter += `&& `;
+	if (fromLen && toLen) {
+		filter += `&& (length >= ${fromLen} && length <= ${toLen})`;
+	}
 
 	if (pb.authStore.model.is_manager) {
 		await populateUserStore();
