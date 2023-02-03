@@ -16,6 +16,7 @@
 		await goto(url);
 		await invalidate('home');
 	}
+	handleNumberChange();
 </script>
 
 <div class="section">
