@@ -1,4 +1,4 @@
-import { goto } from '$app/navigation';
+import { goto, invalidateAll } from '$app/navigation';
 import PocketBase, { Admin, Record } from 'pocketbase';
 import { writable } from 'svelte/store';
 
@@ -22,6 +22,9 @@ export async function login(email: string, password: string) {
 	await pb
 		.collection('users')
 		.authWithPassword(email, password, { $autoCancel: false })
+		.then(() => {
+			invalidateAll();
+		})
 		.catch(() => {
 			throw new Error('Něco se pokazilo, ujistěte se že máte správně e-mail a správné heslo');
 		});
