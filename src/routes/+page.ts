@@ -57,6 +57,10 @@ export const load = (async ({ depends, url }) => {
 		createFilter(langs, 'language') +
 		createFilter(stars, 'rating', '||');
 
+	let fromLen;
+
+	filter += `&& `;
+
 	if (pb.authStore.model.is_manager) {
 		await populateUserStore();
 
