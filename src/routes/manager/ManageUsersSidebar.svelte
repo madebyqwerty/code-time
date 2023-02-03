@@ -14,10 +14,9 @@
 		url.searchParams.set('user_id', JSON.stringify(0));
 
 		pb.collection('users').delete(id, { $$autoCancel: false });
-		await goto(url);
-		await invalidate('home');
-
 		open = false;
+		await goto(url);
+		window.location.reload();
 	}
 
 	function updateUser(id: string, name: string) {
