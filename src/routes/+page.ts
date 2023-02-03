@@ -66,16 +66,16 @@ export const load = (async ({ depends, url }) => {
 		const users = get(userStore);
 
 		if (users.length > 0) {
-			filter += `&& user_id.id = "${users[userID].id}"`;
+			filter += ` && user_id.id = "${users[userID].id}"`;
 		} else {
 			return;
 		}
 	}
 
+	console.log(filter);
 
-	const records = await pb.collection('records').getList<RecordsResponse>(1, 50, {
+	const records = await pb.collection('records').getList<RecordsResponse>(1, 200, {
 		filter: filter,
-		expand: 'tags',
 		$autoCancel: false
 	});
 

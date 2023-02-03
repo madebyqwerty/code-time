@@ -13,21 +13,21 @@ export type IsoDateString = string
 export type RecordIdString = string
 
 // System fields
-export type BaseSystemFields<T = never> = {
+export type BaseSystemFields = {
 	id: RecordIdString
 	created: IsoDateString
 	updated: IsoDateString
 	collectionId: string
 	collectionName: Collections
-	expand?: T
+	expand?: { [key: string]: any }
 }
 
-export type AuthSystemFields<T = never> = {
+export type AuthSystemFields = {
 	email: string
 	emailVisibility: boolean
 	username: string
 	verified: boolean
-} & BaseSystemFields<T>
+} & BaseSystemFields
 
 // Record types for each collection
 
@@ -41,10 +41,10 @@ export enum RecordsLanguageOptions {
 	"ruby" = "ruby",
 	"perl" = "perl",
 	"swift" = "swift",
-	"go" = "go",
+	"golang" = "golang",
 	"kotlin" = "kotlin",
 	"scala" = "scala",
-	"r" = "r",
+	"rlang" = "rlang",
 	"bash" = "bash",
 	"rust" = "rust",
 	"objectivec" = "objectivec",
@@ -53,7 +53,7 @@ export enum RecordsLanguageOptions {
 	"vue" = "vue",
 	"ember" = "ember",
 	"svelte" = "svelte",
-	"c" = "c",
+	"clang" = "clang",
 	"cobol" = "cobol",
 	"fortran" = "fortran",
 	"lisp" = "lisp",
@@ -76,7 +76,7 @@ export type RecordsRecord = {
 	language: RecordsLanguageOptions[]
 	rating: number
 	description?: string
-	tags?: RecordIdString[]
+	tags?: RecordIdString
 }
 
 export type TagsRecord = {
@@ -88,12 +88,13 @@ export type TagsRecord = {
 
 export type UsersRecord = {
 	name?: string
-	avatar?: string
+	manager?: RecordIdString
+	is_manager?: boolean
 }
 
 // Response types include system fields and match responses from the PocketBase API
-export type RecordsResponse<Texpand = unknown> = RecordsRecord & BaseSystemFields<Texpand>
-export type TagsResponse<Texpand = unknown> = TagsRecord & BaseSystemFields<Texpand>
+export type RecordsResponse = RecordsRecord & BaseSystemFields
+export type TagsResponse = TagsRecord & BaseSystemFields
 export type UsersResponse = UsersRecord & AuthSystemFields
 
 export type CollectionRecords = {
