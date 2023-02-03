@@ -8,7 +8,7 @@
 	import { languageColors, languageNames } from '$lib/utils/languages';
 	import UpdateRecord from './UpdateRecord.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { deleteRecord } from '$lib/pocketbase/createRecord.ts';
+	import { deleteRecord } from '$lib/pocketbase/createRecord';
 	import { invalidate } from '$app/navigation';
 	import { toast } from '@zerodevx/svelte-toast';
 
