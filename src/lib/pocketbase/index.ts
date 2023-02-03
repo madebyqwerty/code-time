@@ -24,7 +24,6 @@ export async function login(email: string, password: string) {
 		.authWithPassword(email, password, { $autoCancel: false })
 		.then(() => {
 			invalidateAll();
-			window.location.reload();
 		})
 		.catch(() => {
 			throw new Error('Něco se pokazilo, ujistěte se že máte správně e-mail a správné heslo');
