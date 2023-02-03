@@ -62,6 +62,8 @@ export const load = (async ({ depends, url }) => {
 
 	if (fromLen && toLen) {
 		filter += `&& (length >= ${fromLen} && length <= ${toLen})`;
+	} else{
+		filter+=`&& (length >= 0 && length <= 60)`
 	}
 
 	if (pb.authStore.model.is_manager) {
