@@ -95,7 +95,11 @@
 					<Datepicker bind:value={inputData.date} />
 				</div>
 				<div class="time">
-					<Number label="Délka tréninku" id="training" step={5} bind:value={inputData.length} />
+					<Number
+						label="Délka tréninku v minutách"
+						id="training"
+						step={5}
+						bind:value={inputData.length} />
 				</div>
 			</div>
 

@@ -4,6 +4,8 @@
 	import { pb } from '$lib/pocketbase';
 	import { userStore } from '$lib/pocketbase/userStore';
 	import { page } from '$app/stores';
+	import { tooltip } from '@svelte-plugins/tooltips';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let open: boolean;
 
@@ -17,19 +19,52 @@
 
 		open = false;
 	}
+
+	function updateUser(id: string, name: string) {
+		console.log('udpated', id, 'with', name);
+
+		if ($userStore.filter((user) => user.id === id)[0].name === name) {
+			toast.push('Nic jste nezměnili');
+			return;
+		}
+
+		pb.collection('users')
+			.update(id, { name })
+			.then(async () => {
+				open = false;
+				await invalidate('home');
+			})
+			.catch(() => {
+				toast.push('Něco se pokazilo zkuste to znovu');
+			});
+	}
+
+	let newInfo = $userStore.map((user) => {
+		return { name: user.name!, email: user.email, id: user.id };
+	});
 </script>
 
 <Sidebar bind:open title="Spravovat uživatele">
 	<div class="user-wrapper">
-		{#each $userStore as user}
+		{#each newInfo as user}
 			<div class="user">
 				<span>
-					<strong>{user.name}</strong> <br />
-					{user.email}
+					<strong>
+						<input bind:value={user.name} placeholder="Nové jméno" type="text" class="name" />
+					</strong><br />
+					<span
+						use:tooltip={{
+							content: 'Z bezpečtnostních důvodů email nejde změnit'
+						}}>{user.email}</span>
 				</span>
-				<button on:click={() => deleteUser(user.id)}>
-					<iconify-icon icon="pixelarticons:trash" width={20} />
-				</button>
+				<div class="button-wrapper">
+					<button on:click={() => updateUser(user.id, user.name)} class="edit">
+						<iconify-icon icon="pixelarticons:edit" width={20} />
+					</button>
+					<button on:click={() => deleteUser(user.id)} class="delete">
+						<iconify-icon icon="pixelarticons:trash" width={20} />
+					</button>
+				</div>
 			</div>
 		{/each}
 	</div>
@@ -45,19 +80,42 @@
 		& > span {
 			padding: 0.8rem 1.6rem;
 		}
-		& > button {
-			padding: 0.8rem;
-			background-color: $red-darkest;
-			height: 100px;
+		& > .button-wrapper {
+			display: flex;
+			gap: 0px;
+			& > button {
+				padding: 0.8rem;
+				height: 100px;
 
-			&:hover {
-				background-color: $red-darker;
-				& > iconify-icon {
-					color: $red-lightest;
+				&.delete {
+					background-color: $red-darkest;
+					& > iconify-icon {
+						color: $red-light;
+					}
 				}
-			}
-			& > iconify-icon {
-				color: $red-light;
+
+				&.edit {
+					background-color: $blue-darkest;
+					& > iconify-icon {
+						color: $blue-light;
+					}
+				}
+
+				&:hover {
+					&.delete {
+						background-color: $red-darker;
+						& > iconify-icon {
+							color: $red-lightest;
+						}
+					}
+
+					&.edit {
+						background-color: $blue-darker;
+						& > iconify-icon {
+							color: $blue-lightest;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -66,5 +124,14 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.6rem;
+	}
+	input {
+		background: $background-light;
+		border-bottom: 1px solid $green-primary;
+		margin-bottom: 1.2rem;
+	}
+
+	input.name {
+		@include text-lg;
 	}
 </style>

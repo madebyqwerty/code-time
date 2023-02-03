@@ -1,4 +1,4 @@
-import { goto, invalidate } from '$app/navigation';
+import { goto } from '$app/navigation';
 import PocketBase, { Admin, Record } from 'pocketbase';
 import { writable } from 'svelte/store';
 
@@ -12,7 +12,6 @@ pb.authStore.onChange(async () => {
 	if (pb.authStore.model !== null) {
 		currentUser.set(pb.authStore.model!);
 		isLoggedIn.set(true);
-		await invalidate('home');
 	} else {
 		await goto('/');
 		isLoggedIn.set(false);

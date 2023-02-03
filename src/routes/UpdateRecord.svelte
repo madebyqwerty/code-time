@@ -24,7 +24,7 @@
 	let languages = record.language.map(
 		(lang) => languageNames[lang]
 	) as unknown as RecordsLanguageOptions[];
-	let tags = record.tags.map((tag) => getTagFromID(tag).name);
+	let tags = record.tags.map((tag) => getTagFromID(tag)?.name);
 
 	function updateRecordWrapper() {
 		updateRecord(
