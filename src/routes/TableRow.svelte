@@ -14,7 +14,7 @@
 	const openSidebar = () => (open = true);
 </script>
 
-<tr style="--animation-order:{(i) * 200}ms" class="row" on:click={openSidebar}>
+<tr style="--animation-order:{(i+.65) * 200}ms" class="row" on:click={openSidebar}>
 	<td class="text-sm white">{record.date.toLocaleDateString('cs')}</td>
 	<td class="text-sm white text-center">{record.length}</td>
 	<td class="text-sm number white silkscreen">{'*'.repeat(record.rating)}</td>
