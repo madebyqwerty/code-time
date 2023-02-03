@@ -44,6 +44,7 @@
 			newUserEmail = '';
 			newUserName = '';
 			newUserPassword = '';
+			window.location.reload();
 		}
 	}
 </script>

@@ -30,6 +30,8 @@
 			.then(async () => {
 				openCreateTag = false;
 				addTagInput = '';
+				description = '';
+				color = '';
 				setBg();
 				await invalidate('home');
 			})
