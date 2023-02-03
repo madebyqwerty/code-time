@@ -15,11 +15,9 @@
 
 	percentage = percentage.sort((a, b) => b[1] - a[1]);
 
-
-
 	let totalPercentage = 0;
 	let gradient = '';
-	let topColor;
+	let topColor: string;
 
 	percentage.forEach(([name, count], i) => {
 		gradient += `${languageColors[name as RecordsLanguageOptions]} ${
@@ -30,12 +28,9 @@
 			topColor = languageColors[name as RecordsLanguageOptions];
 		}
 	});
-
 </script>
 
 <div
-	on:mouseover
-	on:mouseleave
 	class="bar"
 	style="--background-color:linear-gradient({gradient});--top-color:{topColor}"
 	use:tooltip={{
@@ -86,9 +81,7 @@
 			content: '';
 			position: absolute;
 			transform-origin: top;
-			background-color: var(--background-color);
 			transition: 250ms cubic-bezier(0.5, 1, 0.89, 1);
-			transition-delay: 0ms;
 		}
 
 		&::before {
@@ -96,7 +89,7 @@
 			right: 0px;
 			width: 100%;
 			height: 0px;
-			transform: skewX(-45deg);
+			background: var(--top-color);
 		}
 
 		&::after {
@@ -104,7 +97,7 @@
 			right: -0px;
 			width: -0px;
 			height: 100%;
-			transform: skewY(-45deg);
+			background: var(--background-color);
 		}
 	}
 

@@ -37,10 +37,10 @@
 <div class="chart-wrapper">
 	<div class="chart" style="--background:linear-gradient(to right, {gradient})" />
 	<div class="language-wrapper">
-		{#each Object.keys(dataLanguages) as language}
+		{#each percentage as [language, percent]}
 			<div class="language">
 				<div class="square" style="background-color: {languageColors[language]}" />
-				<span>{languageNames[language]}</span>
+				<span>{languageNames[language]} <span class="percent">{percent.toFixed(1)}%</span></span>
 			</div>
 		{/each}
 	</div>
@@ -76,5 +76,9 @@
 		display: flex;
 		align-items: center;
 		gap: 0.4rem;
+	}
+
+	.percent {
+		color: white;
 	}
 </style>

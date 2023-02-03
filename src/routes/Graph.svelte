@@ -81,13 +81,13 @@
 
 			languages.forEach((lang) => {
 				dataLanguages[date][lang] ||= 0;
-				dataLanguages[date][lang] += 1;
-				dataLanguagesTotal[date] += 1;
+				dataLanguages[date][lang] += length;
+				dataLanguagesTotal[date] += length;
 				totalDataLanguages[lang] ||= 0;
-				totalDataLanguages[lang] += 1;
+				totalDataLanguages[lang] += length;
 				totalLanguages[lang] ||= 0;
-				totalLanguages[lang] += 1;
-				langsTotal++;
+				totalLanguages[lang] += length;
+				langsTotal += length;
 			});
 		});
 
