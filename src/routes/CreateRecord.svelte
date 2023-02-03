@@ -15,6 +15,7 @@
 	import Number from '$lib/components/forms/Number.svelte';
 	import Datepicker from '$lib/components/forms/Datepicker.svelte';
 	import { invalidate } from '$app/navigation';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let open = false;
 	let userID: number;
@@ -31,6 +32,11 @@
 	export let inputData = { ...defaultData };
 
 	function createRecordWrapper() {
+		if (inputData.languages.length < 1) {
+			toast.push('Vyberte alespoň jeden jazyk');
+			return;
+		}
+
 		createRecord(
 			inputData.date,
 			inputData.length,
