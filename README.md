@@ -1,16 +1,8 @@
-# Tým QWERTY - Aplikace CodeTime
+![Code Time user interface](https://user-images.githubusercontent.com/56836089/218267408-5c03e18c-42fb-407c-bd12-392fedacb050.png)
 
-- Tomáš Kebrle
-- Václav Parma
-- Daniel Ransdorf
+# Code time
+An application I and two other friends programmed for [TourDeApp](https://tourdeapp.cz) competition.
 
-## SQL Injection
+It is built using [SvelteKit](https://kit.svelte.dev) and [PocketBase](https://pocketbase.io).
 
-Pro backend používáme [Pocketbase](https://pocketbase.io), který má v sobě zabudovaný SQL injection protekci[^1]
-
-## XSS Protekce
-
-Používáme [Svelte](https://svelte.dev), který má v sobě zabudovanou XSS protekci[^2]
-
-[^1]:[https://pocketbase.io/docs/database](https://pocketbase.io/docs/database) Zde je napsátno "allowing you to execute safely various SQL statement (including raw queries)"
-[^2]:[https://svelte.dev/docs#template-syntax-html](https://svelte.dev/docs#template-syntax-html) Zde je napsáno, že svelte sanitizuje všechno co nemá `@html` který nikde nepoužívámé.
+It allows users record their programming sessions, and then sort through them.
