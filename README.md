@@ -5,7 +5,7 @@ An application I and two other friends programmed for [TourDeApp](https://tourde
 
 We built using [SvelteKit](https://kit.svelte.dev) and [PocketBase](https://pocketbase.io).
 
-It allows users record their programming sessions, and then sort through them.
+The app allows users to record their programming sessions, these sessions can then be filtered and sorted. It also allows users to create their own labels and then filter their sessions according to them, and it also has a manager function where the manager has the ability to see the sessions of his team members.
 
 # Česká verze
 
