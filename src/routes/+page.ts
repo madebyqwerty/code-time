@@ -8,6 +8,7 @@ import { getDateFromString } from '$lib/utils/getDateFromString';
 import { populateUserStore, userStore } from '$lib/pocketbase/userStore';
 import { get } from 'svelte/store';
 import { populateTagStore } from '$lib/pocketbase/tagStore';
+import { safePocketbaseCall } from '$lib/fp/taskEitherHelpers';
 
 function createFilter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
 	let result = '';
@@ -62,8 +63,8 @@ export const load = (async ({ depends, url }) => {
 
 	if (fromLen && toLen) {
 		filter += `&& (length >= ${fromLen} && length <= ${toLen})`;
-	} else{
-		filter+=`&& (length >= 0 && length <= 60)`
+	} else {
+		filter += `&& (length >= 0 && length <= 60)`;
 	}
 
 	if (pb.authStore.model.is_manager) {
@@ -83,10 +84,14 @@ export const load = (async ({ depends, url }) => {
 
 	console.log(filter);
 
-	const records = await pb.collection('records').getList<RecordsResponse>(1, 200, {
-		filter: filter,
-		$autoCancel: false
-	});
+	const records = await safePocketbaseCall(
+		pb.collection('records').getList<RecordsResponse>(1, 200, {
+			filter: filter,
+			$autoCancel: false
+		})
+	)();
+
+	console.log(records);
 
 	analyzeLanguagesAndTags(records.items);
 
@@ -95,7 +100,7 @@ export const load = (async ({ depends, url }) => {
 			return {
 				...record,
 				date: new Date(record.date),
-				tags: record.tags ? record.tags : []
+				tags: record.tags ? [record.tags] : ([] as string[])
 			};
 		})
 	);

@@ -42,10 +42,12 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@devexperts/remote-data-ts": "^2.1.1",
 		"@lukeed/uuid": "^2.0.0",
 		"@zerodevx/svelte-toast": "^0.8.2",
 		"d3-scale": "^4.0.2",
 		"flatpickr": "^4.6.13",
+		"fp-ts": "^2.16.1",
 		"iconify-icon": "^1.0.2",
 		"pocketbase": "^0.9.1",
 		"sass": "^1.57.1",
