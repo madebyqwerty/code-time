@@ -10,7 +10,7 @@ export const onLeft =
 	(te: TE.TaskEither<L, R>) =>
 		pipe(
 			te,
-			TE.mapError((err) => f(err))
+			TE.mapError(err => f(err))
 		);
 
 export const onRight =
@@ -18,7 +18,7 @@ export const onRight =
 	(te: TE.TaskEither<L, R>) =>
 		pipe(
 			te,
-			TE.map((data) => {
+			TE.map(data => {
 				f(data);
 				return data;
 			})
@@ -26,9 +26,14 @@ export const onRight =
 
 export const toTaskEither = <T>(promise: Promise<T>) => TE.tryCatch(() => promise, identity);
 
+/**
+ * Wraps a Pocketbase API call in a `TaskEither` and calls SvelteKit's error handler to redirect to the nearest +error page
+ * @param {Promise<T>} apiCall - The Pocketbase API call to wrap.
+ * @returns {Task<T>} A `Task` that resolves to the result of the API call.
+ */
 export const safePocketbaseCall = flow(
 	toTaskEither,
-	TE.getOrElse((err) => {
+	TE.getOrElse(err => {
 		const {
 			data: { code, message }
 		} = err as ClientResponseError;
