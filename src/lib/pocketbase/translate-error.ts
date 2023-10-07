@@ -1,5 +1,6 @@
 const errorTranslations = new Map<string, string>([
-	["The requested resource wasn't found.", 'Nepodařilo se nám najít tento záznam']
+	["The requested resource wasn't found.", 'Nepodařilo se nám najít tento záznam'],
+	['Failed to authenticate.', 'Nepodařilo se příhlasit, zkontrolujte email a heslo']
 ]);
 
 /**

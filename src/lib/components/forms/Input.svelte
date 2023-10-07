@@ -10,6 +10,7 @@
 	export let error = '';
 	export let required = false;
 	export let maxlength: number = 99999;
+	export let disabled: boolean = false;
 
 	let input: HTMLInputElement;
 	let mounted: boolean;
@@ -40,6 +41,7 @@
 			{name}
 			{placeholder}
 			{maxlength}
+			{disabled}
 			class="text-base {error ? 'error' : ''}" />
 
 		{#if showPasswordSwitch}

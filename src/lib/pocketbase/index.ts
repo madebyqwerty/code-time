@@ -17,15 +17,3 @@ pb.authStore.onChange(async () => {
 		isLoggedIn.set(false);
 	}
 });
-
-export async function login(email: string, password: string) {
-	await pb
-		.collection('users')
-		.authWithPassword(email, password, { $autoCancel: false })
-		.then(() => {
-			invalidateAll();
-		})
-		.catch(() => {
-			throw new Error('Něco se pokazilo, ujistěte se že máte správně e-mail a správné heslo');
-		});
-}
